@@ -1,0 +1,10 @@
+<color name="primary" type="material">#FF9843</color>
+<color name="secondary" type="material">#5067EB</color>
+<color name="white-two" type="material">#F0F4FF</color>
+<color name="white-three" type="material">#F3F4F6</color>
+<color name="danger" type="material">#F5002E</color>
+<color name="success" type="material">#00B74A</color>
+<color name="warning" type="material">#FFCB00</color>
+<color name="black" type="material">#333647</color>
+<color name="black-two" type="material">#949CAD</color>
+<color name="black-three" type="material">#C6C7C8</color>
