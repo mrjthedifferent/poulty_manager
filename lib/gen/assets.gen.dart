@@ -1,10 +1,15 @@
+/// GENERATED CODE - DO NOT MODIFY BY HAND
+/// *****************************************************
+///  FlutterGen
+/// *****************************************************
+
 // coverage:ignore-file
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
@@ -197,6 +202,10 @@ class $AssetsImagesGen {
   AssetGenImage get praniSompod =>
       const AssetGenImage('assets/images/prani-sompod.png');
 
+  /// File path: assets/images/profile_image.png
+  AssetGenImage get profileImage =>
+      const AssetGenImage('assets/images/profile_image.png');
+
   /// File path: assets/images/proshikkhon.png
   AssetGenImage get proshikkhon =>
       const AssetGenImage('assets/images/proshikkhon.png');
@@ -237,6 +246,7 @@ class $AssetsImagesGen {
         poultryNews,
         poultryRin,
         praniSompod,
+        profileImage,
         proshikkhon,
         rogPotikar,
         sahajjerJonno,
