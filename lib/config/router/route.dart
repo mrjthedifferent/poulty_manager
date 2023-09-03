@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/app/main_comp.dart';
@@ -42,7 +43,7 @@ final baseRouter = GoRouter(
                 GoRoute(
                   path: 'home',
                   name: AppRouteName.home.name,
-                  builder: (context, state) => Styled.text('Home'),
+                  builder: (context, state) => const HomeFragments(),
                 ),
               ],
             ),

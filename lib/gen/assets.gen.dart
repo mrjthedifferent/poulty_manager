@@ -160,6 +160,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/hen.png
   AssetGenImage get hen => const AssetGenImage('assets/images/hen.png');
 
+  /// File path: assets/images/hen_video.png
+  AssetGenImage get henVideo =>
+      const AssetGenImage('assets/images/hen_video.png');
+
   /// File path: assets/images/inbox.png
   AssetGenImage get inbox => const AssetGenImage('assets/images/inbox.png');
 
@@ -235,6 +239,7 @@ class $AssetsImagesGen {
         farmReporting,
         farmacyList,
         hen,
+        henVideo,
         inbox,
         khabarerMojud,
         khamarGhor,
