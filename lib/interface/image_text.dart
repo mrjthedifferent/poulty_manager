@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:poulty_manager/gen/assets.gen.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 interface class ImageWithText {
@@ -20,6 +21,16 @@ class CreateGridItem implements ImageWithText {
 
   CreateGridItem(
       {required this.image, required this.text, required this.onPressed});
+
+  factory CreateGridItem.init(AssetGenImage img, String text, [Function? fn]) {
+    return CreateGridItem(
+      image: img.image(
+        height: 50,
+      ),
+      text: Styled.text(text).fontSize(10),
+      onPressed: fn,
+    );
+  }
 }
 
 extension GridHelper on List<ImageWithText> {
@@ -67,9 +78,7 @@ extension GridHelper on List<ImageWithText> {
 
   Widget gridItem(ImageWithText item) {
     return InkWell(
-      onTap: () {
-        item.onPressed!();
-      },
+      onTap: item.onPressed as void Function()?,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [

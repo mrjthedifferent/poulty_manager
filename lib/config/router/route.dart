@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poulty_manager/feature/batch/presentation/widgets/batch_home.dart';
 import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -13,6 +14,9 @@ enum AppRouteName {
   report,
   settings,
   allComponents,
+  batch,
+  newBatch,
+  batchList,
 }
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -44,6 +48,13 @@ final baseRouter = GoRouter(
                   path: 'home',
                   name: AppRouteName.home.name,
                   builder: (context, state) => const HomeFragments(),
+                  routes: [
+                    GoRoute(
+                      path: 'batch',
+                      name: AppRouteName.batch.name,
+                      builder: (context, state) => const BatchHome(),
+                    )
+                  ],
                 ),
               ],
             ),

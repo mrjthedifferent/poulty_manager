@@ -35,6 +35,8 @@ extension Layout on Widget {
       var result = AppBar(
         title: Text(onlyTitleText ?? ''),
       );
+
+      if (appBar != null) result = appBar as AppBar;
       return result;
     }
 
