@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:poulty_manager/feature/home/widgets/slider.dart';
-import 'package:poulty_manager/gen/assets.gen.dart';
-import 'package:poulty_manager/interface/image_text.dart';
 import 'package:styled_widget/styled_widget.dart';
+
+import '/feature/home/widgets/slider.dart';
+import '/gen/assets.gen.dart';
+import '/interface/image_text.dart';
 
 class HomeFragments extends StatelessWidget {
   const HomeFragments({Key? key}) : super(key: key);
