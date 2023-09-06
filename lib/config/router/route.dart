@@ -5,6 +5,7 @@ import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/app/main_comp.dart';
+import '../../feature/batch/presentation/widgets/new_batch.dart';
 import 'scafold_nested_nav.dart';
 
 enum AppRouteName {
@@ -53,7 +54,7 @@ final baseRouter = GoRouter(
                       path: 'batch',
                       name: AppRouteName.batch.name,
                       builder: (context, state) => const BatchHome(),
-                    )
+                    ),
                   ],
                 ),
               ],
@@ -90,6 +91,11 @@ final baseRouter = GoRouter(
             ),
           ],
         ),
+        GoRoute(
+          path: 'newBatch',
+          name: AppRouteName.newBatch.name,
+          builder: ((context, state) => const NewBatch()),
+        )
       ],
     ),
   ],

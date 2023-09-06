@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/config/config.dart';
 import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:poulty_manager/gen/assets.gen.dart';
@@ -135,7 +136,9 @@ class BatchHome extends StatelessWidget {
           bottom: 10,
           right: 10,
           child: FloatingActionButton(
-            onPressed: () {},
+            onPressed: () {
+              context.pushNamed(AppRouteName.newBatch.name);
+            },
             child: const Icon(Icons.add),
           ),
         )
