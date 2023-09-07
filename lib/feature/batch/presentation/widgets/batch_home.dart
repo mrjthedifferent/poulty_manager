@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/config/config.dart';
-import 'package:poulty_manager/feature/home/fragment.dart';
-import 'package:poulty_manager/gen/assets.gen.dart';
-import 'package:poulty_manager/interface/image_text.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '/config/config.dart';
 import '/feature/batch/presentation/widgets/two_text_column.dart';
+import '/feature/home/fragment.dart';
+import '/gen/assets.gen.dart';
+import '/interface/image_text.dart';
 
 class BatchHome extends StatelessWidget {
   const BatchHome({super.key});
