@@ -8,11 +8,32 @@ class NewBatch extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (:form, :handleSubmit, :handleReset) = useFormBuilder();
+    final (:form, :handleSubmit, :handleReset, :registerTextField) =
+        useFormBuilder();
     return ListView(
       children: [
         form(
-          [Styled.text("nj")].toColumn(),
+          [
+            registerTextField(
+              'user',
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            registerTextField('pass'),
+            Styled.text('Submit')
+                .padding(all: 4)
+                .decorated(color: Colors.orange)
+                .gestures(onTap: () {
+              handleSubmit((fval) {
+                debugPrint(fval.toString());
+                handleReset();
+              });
+            })
+          ].toColumn().padding(all: 10),
         )
       ],
     );
