@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:styled_widget/styled_widget.dart';
+import 'package:poulty_manager/core/Layout/widget/base_app_bar.dart';
 
 import '/config/theme/color.dart';
 import '/gen/assets.gen.dart';
@@ -23,28 +23,7 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: navigationShell,
-      appBar: AppBar(
-        leading: Assets.images.logo.image().padding(left: 10),
-        leadingWidth: 100,
-        actions: [
-          AppBarActionBatch(
-            onPressed: () {},
-            color: Colors.green,
-            text: '0',
-            icon: Assets.icons.cart,
-          ),
-          AppBarActionBatch(
-            icon: Assets.icons.noti,
-            text: '12',
-          ),
-          Assets.images.profileImage
-              .image(
-                height: 40,
-                width: 40,
-              )
-              .padding(right: 10)
-        ],
-      ),
+      appBar: defaultAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.white,
@@ -87,47 +66,6 @@ class ScaffoldWithNestedNavigation extends StatelessWidget {
         onTap: _goBranch,
         // onDestinationSelected: _goBranch,
       ),
-    );
-  }
-}
-
-class AppBarActionBatch extends StatelessWidget {
-  const AppBarActionBatch({
-    super.key,
-    required this.icon,
-    required this.text,
-    this.color,
-    this.onPressed,
-  });
-
-  final SvgGenImage icon;
-  final String text;
-  final VoidCallback? onPressed;
-  final Color? color;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: onPressed,
-      icon: [
-        icon.svg(color: Colors.white).positioned(bottom: 0, left: 0),
-        Styled.text(
-          text,
-        )
-            .textColor(Colors.white)
-            .textStyle(
-              const TextStyle(fontSize: 10, fontWeight: FontWeight.bold),
-            )
-            .padding(horizontal: 3, vertical: 1)
-            .decorated(
-              color: color ?? Colors.red,
-              borderRadius: BorderRadius.circular(10),
-            )
-            .positioned(
-              top: 0,
-              right: 0,
-            )
-      ].toStack().constrained(height: 40, width: 36),
     );
   }
 }

@@ -13,7 +13,6 @@ class AllComponents extends StatelessWidget {
         .scrollable()
         .safeArea();
 
-    return const Text("ALL COMPONENTS")
-        .wrapScaffold(onlyTitleText: 'All Components');
+    return const Text("ALL COMPONENTS").wrapLayout();
   }
 }
