@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_helper/decorate.dart';
 import 'package:form_helper/types/index.dart';
 
 ({
   FormBuilderFunc form,
   void Function(void Function(Map<String, dynamic>) onSubmit) handleSubmit,
   void Function() handleReset,
-  FieldArg registerTextField
+  FieldArg register
 }) useFormBuilder({
   GlobalKey<FormBuilderState>? fKey,
 }) {
@@ -23,26 +22,33 @@ import 'package:form_helper/types/index.dart';
     formKey.currentState!.reset();
   }
 
-  Widget registerTextField(
-    String name, {
-    String? Function(String?)? validator,
-    InputDecoration? decoration,
-    void Function(String?)? onChanged,
-    dynamic Function(String?)? valueTransformer,
-    bool enabled = true,
-    void Function(String?)? onSaved,
-    void Function()? onReset,
-  }) {
-    return FormBuilderTextField(
-      name: name,
-      decoration: decoration ?? FormDecoration.outline,
-      onChanged: onChanged,
-      validator: validator,
-      valueTransformer: valueTransformer,
-      enabled: enabled,
-      onSaved: onSaved,
-      onReset: onReset,
-    );
+  FormBuilderField register(
+      String name, Widget Function(FormFieldState<dynamic>) builder,
+      {Key? key,
+      void Function(dynamic)? onSaved,
+      dynamic initialValue,
+      AutovalidateMode? autovalidateMode,
+      bool? enabled,
+      String? Function(dynamic)? validator,
+      String? restorationId,
+      dynamic Function(dynamic)? valueTransformer,
+      void Function(dynamic)? onChanged,
+      void Function()? onReset,
+      FocusNode? focusNode}) {
+    return FormBuilderField(
+        key: key,
+        onSaved: onSaved,
+        initialValue: initialValue,
+        autovalidateMode: autovalidateMode,
+        enabled: enabled ?? true,
+        validator: validator,
+        restorationId: restorationId,
+        valueTransformer: valueTransformer,
+        onChanged: onChanged,
+        onReset: onReset,
+        focusNode: focusNode,
+        builder: builder,
+        name: name);
   }
 
   FormBuilder builder(
@@ -72,6 +78,6 @@ import 'package:form_helper/types/index.dart';
     form: builder,
     handleSubmit: handleSubmit,
     handleReset: handleReset,
-    registerTextField: registerTextField
+    register: register
   );
 }

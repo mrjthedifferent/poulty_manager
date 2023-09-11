@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-typedef FieldArg = Widget Function(
-  String name, {
-  String? Function(String?)? validator,
-  InputDecoration? decoration,
-  void Function(String?)? onChanged,
-  dynamic Function(String?)? valueTransformer,
-  bool enabled,
-  void Function(String?)? onSaved,
+typedef FieldArg = FormBuilderField<dynamic> Function(
+  String name,
+  Widget Function(FormFieldState<dynamic>) builder, {
+  Key? key,
+  void Function(dynamic)? onSaved,
+  dynamic initialValue,
+  AutovalidateMode? autovalidateMode,
+  bool? enabled,
+  String? Function(dynamic)? validator,
+  String? restorationId,
+  dynamic Function(dynamic)? valueTransformer,
+  void Function(dynamic)? onChanged,
   void Function()? onReset,
+  FocusNode? focusNode,
 });
 
 typedef FormBuilderFunc = FormBuilder Function(

@@ -2,7 +2,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../gen/assets.gen.dart';
 import 'widget/base_app_bar.dart';
 
 Widget page({required Widget child}) => Styled.builder(
@@ -84,16 +83,6 @@ extension Layout on Widget {
             appBar: appBar ?? defaultAppBar(context),
             floatingActionButtonLocation: floatingActionButtonLocation ??
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.white,
-              disabledElevation: 0.0,
-              elevation: 0.0,
-              clipBehavior: Clip.antiAlias,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              shape: const CircleBorder(),
-              onPressed: () {},
-              child: Assets.icons.floatHome.svg(),
-            ),
             bottomNavigationBar: bottomNavigationBar),
         child: this);
   }
