@@ -18,10 +18,16 @@ class NewBatchForm extends StatelessWidget {
       KSized.h10,
       form(
         <Widget>[
-          FormFields.textField('batchName'),
-          FormFields.dropDown(
-            'batchName',
-            options: ['মুরগি', 'ডিম', 'মাংস'],
+          FormFields.dropDown('fruit',
+              title: "মুরগির নাম *",
+              initialValue: "chicken",
+              options: {
+                'মুরগি': 'chicken',
+                'মুরগা': 'hen',
+              }),
+          FormFields.textField(
+            'name',
+            title: "ডিলারের নাম *",
           ),
         ].toColumn(),
       ),
