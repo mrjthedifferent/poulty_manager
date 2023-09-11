@@ -16,3 +16,22 @@ Widget titleWithBackArrow(String title, String subTitle, {Widget? trailing}) {
     crossAxisAlignment: CrossAxisAlignment.start,
   );
 }
+
+Widget titleWithBackArrowAndAction(
+  String title,
+  String subTitle, {
+  Widget? trailing,
+  required VoidCallback onBack,
+}) {
+  return <Widget>[
+    Styled.icon(Icons.arrow_back).gestures(onTap: onBack),
+    [
+      Styled.text(title).bold(),
+      KSized.h10,
+      Styled.text(subTitle).textColor(Colors.grey.shade500)
+    ].toColumn().expanded(),
+    if (trailing != null) trailing
+  ].toRow(
+    crossAxisAlignment: CrossAxisAlignment.start,
+  );
+}

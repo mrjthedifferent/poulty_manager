@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/feature/batch/presentation/page/new_batch_form.dart';
 import 'package:poulty_manager/feature/batch/presentation/widgets/batch_home.dart';
 import 'package:poulty_manager/feature/home/fragment.dart';
+import 'package:poulty_manager/feature/vaccine/presentation/pages/vaccine_home.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/app/main_comp.dart';
@@ -93,7 +93,7 @@ final baseRouter = GoRouter(
         ),
         GoRoute(
           path: 'template',
-          builder: (context, state) => const NewBatchForm(),
+          builder: (context, state) => const VaccineHomePage(),
         ),
       ],
     ),

@@ -45,6 +45,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/icon-otp.svg
   SvgGenImage get iconOtp => const SvgGenImage('assets/icons/icon-otp.svg');
 
+  /// File path: assets/icons/injection.svg
+  SvgGenImage get injection => const SvgGenImage('assets/icons/injection.svg');
+
   /// File path: assets/icons/lock.svg
   SvgGenImage get lock => const SvgGenImage('assets/icons/lock.svg');
 
@@ -95,6 +98,7 @@ class $AssetsIconsGen {
         floatHome,
         google,
         iconOtp,
+        injection,
         lock,
         mail,
         menuHome,
