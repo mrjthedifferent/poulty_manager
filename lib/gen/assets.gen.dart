@@ -141,6 +141,9 @@ class $AssetsImagesGen {
   AssetGenImage get bikroyOnurodh =>
       const AssetGenImage('assets/images/bikroy-onurodh.png');
 
+  /// File path: assets/images/book.png
+  AssetGenImage get book => const AssetGenImage('assets/images/book.png');
+
   /// File path: assets/images/dealer-list.png
   AssetGenImage get dealerList =>
       const AssetGenImage('assets/images/dealer-list.png');
@@ -148,6 +151,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/doctor-list.png
   AssetGenImage get doctorList =>
       const AssetGenImage('assets/images/doctor-list.png');
+
+  /// File path: assets/images/doctor.png
+  AssetGenImage get doctor => const AssetGenImage('assets/images/doctor.png');
 
   /// File path: assets/images/farm-control.png
   AssetGenImage get farmControl =>
@@ -160,6 +166,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/farmacy-list.png
   AssetGenImage get farmacyList =>
       const AssetGenImage('assets/images/farmacy-list.png');
+
+  /// File path: assets/images/hello.png
+  AssetGenImage get hello => const AssetGenImage('assets/images/hello.png');
 
   /// File path: assets/images/hen.png
   AssetGenImage get hen => const AssetGenImage('assets/images/hen.png');
@@ -194,6 +203,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/play.png
+  AssetGenImage get play => const AssetGenImage('assets/images/play.png');
+
   /// File path: assets/images/poultry-market.png
   AssetGenImage get poultryMarket =>
       const AssetGenImage('assets/images/poultry-market.png');
@@ -218,6 +230,10 @@ class $AssetsImagesGen {
   AssetGenImage get proshikkhon =>
       const AssetGenImage('assets/images/proshikkhon.png');
 
+  /// File path: assets/images/question.png
+  AssetGenImage get question =>
+      const AssetGenImage('assets/images/question.png');
+
   /// File path: assets/images/rog-potikar.png
   AssetGenImage get rogPotikar =>
       const AssetGenImage('assets/images/rog-potikar.png');
@@ -237,11 +253,14 @@ class $AssetsImagesGen {
         bazarBisleshon,
         bikroyOntorvukti,
         bikroyOnurodh,
+        book,
         dealerList,
         doctorList,
+        doctor,
         farmControl,
         farmReporting,
         farmacyList,
+        hello,
         hen,
         henVideo,
         inbox,
@@ -251,12 +270,14 @@ class $AssetsImagesGen {
         kretaList,
         kroyOntorvukti,
         logo,
+        play,
         poultryMarket,
         poultryNews,
         poultryRin,
         praniSompod,
         profileImage,
         proshikkhon,
+        question,
         rogPotikar,
         sahajjerJonno,
         setting

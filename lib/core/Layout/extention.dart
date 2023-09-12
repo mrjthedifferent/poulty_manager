@@ -9,7 +9,7 @@ Widget page({required Widget child}) => Styled.builder(
       return Scaffold(
         appBar: defaultAppBar(context),
         body: Styled.widget(child: ch)
-            .padding(vertical: 30, horizontal: 20)
+            .padding(vertical: 30, horizontal: 10)
             .scrollable()
             .safeArea(),
       );
