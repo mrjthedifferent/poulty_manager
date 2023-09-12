@@ -9,9 +9,9 @@ Widget titleWithBackArrow(String title, String subTitle, {Widget? trailing}) {
     [
       Styled.text(title).bold(),
       KSized.h10,
-      Styled.text(subTitle).textColor(Colors.grey.shade500).fittedBox()
+      Styled.text(subTitle).textColor(Colors.grey.shade500).fittedBox(),
+      (trailing != null) ? trailing : Container(),
     ].toColumn().expanded(),
-    if (trailing != null) trailing
   ].toRow(
     crossAxisAlignment: CrossAxisAlignment.start,
   );

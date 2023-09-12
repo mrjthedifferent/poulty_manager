@@ -5,7 +5,7 @@ import 'package:poulty_manager/gen/assets.gen.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../../../config/constant/constant.dart';
-import '../../../../core/Layout/extention.dart';
+import '../../../../core/Layout/extension.dart';
 
 class DoctorVisitShow extends StatelessWidget {
   const DoctorVisitShow({super.key});

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
-import '/core/Layout/extention.dart';
+import '../../../../core/Layout/extension.dart';
 
 final batchData = <String, String>{
   'ব্যাচের নাম': '020120231212',

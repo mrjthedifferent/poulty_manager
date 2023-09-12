@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/core/Layout/extention.dart';
+import 'package:poulty_manager/core/Layout/extension.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 class MainComponent extends StatelessWidget {

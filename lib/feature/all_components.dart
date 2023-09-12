@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '/core/Layout/extention.dart';
+import '../core/Layout/extension.dart';
 
 class AllComponents extends StatelessWidget {
   const AllComponents({Key? key}) : super(key: key);

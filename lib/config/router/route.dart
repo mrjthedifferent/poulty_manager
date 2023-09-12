@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/feature/doctor_visit/presentation/pages/doctor_visit_list.dart';
+import 'package:poulty_manager/feature/Medicine/presentation/page/madicine_details.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/app/main_comp.dart';
@@ -93,7 +93,7 @@ final baseRouter = GoRouter(
         ),
         GoRoute(
           path: 'template',
-          builder: (context, state) => const DoctorVisitShow(),
+          builder: (context, state) => const MedicineDetails(),
         ),
       ],
     ),

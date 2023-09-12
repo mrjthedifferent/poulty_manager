@@ -4,7 +4,7 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
 import '/feature/vaccine/presentation/style/functions.dart' as style;
-import '../../../../core/Layout/extention.dart';
+import '../../../../core/Layout/extension.dart';
 import '../../../batch/presentation/functions/utils.dart';
 
 class VaccineHomePage extends StatelessWidget {
