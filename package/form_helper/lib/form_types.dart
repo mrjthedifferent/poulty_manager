@@ -8,6 +8,8 @@ class FormFields {
     required String title,
     String? initialValue,
     InputDecoration? decoration,
+    String? hint,
+    int? maxLine,
     FormFieldValidator<String>? validator,
     ValueChanged<String?>? onChanged,
   }) {
@@ -24,7 +26,9 @@ class FormFields {
         FormBuilderTextField(
           name: name,
           initialValue: initialValue,
-          decoration: decoration ?? FormDecoration.outline,
+          maxLines: maxLine,
+          decoration:
+              decoration ?? FormDecoration.outline.copyWith(hintText: hint),
           validator: validator,
           onChanged: onChanged,
         ),
