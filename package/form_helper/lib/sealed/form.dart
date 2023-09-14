@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_helper/Filepicker/singel_file_picker.dart';
+import 'package:form_helper/file_picker_field/single_file_picker.dart';
 import 'package:form_helper/sealed/form_field_template.dart';
 
 import '../decorate.dart';
