@@ -4,7 +4,6 @@ import 'package:form_helper/form_helper.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
-import '/feature/vaccine/presentation/style/functions.dart';
 import '../../../../core/Layout/extension.dart';
 
 class MedicineDetails extends StatelessWidget {
@@ -12,46 +11,75 @@ class MedicineDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final (:form, :handleSubmit, :handleReset, :register) = useFormBuilder();
     return <Widget>[
-      form(
-        <Widget>[
-          register(
-            "date",
-            (field) => PickDate.datePicker(
-              (date) {
-                field.didChange(date);
-              },
-              hint: '১ জানুয়ারি ২০২২',
-              title: 'ভিজিটের তারিখ *',
-            ),
-          ),
-          FormHelperDatePicker(
-            "new_date",
-            title: "ভিজিটের তারিখ *",
-            hint: '১ জানুয়ারি ২০২২',
-          ).toWidget,
-          FormFields.textField(
-            "doctor_number",
-            title: 'ডাক্তারের নাম্বার *',
-            hint: "Enter your phone number",
-          ),
-          FormHelperSingleFilePicker("doctor_report", title: "প্রেসক্রিপশন *")
-              .toWidget,
-        ].toColumn(),
-      ),
-      ElevatedButton(
-        onPressed: () {
-          handleSubmit(
-            (value) => debugPrint(
-              value.toString(),
-            ),
-          );
+      MakeForm(
+        fields: [
+          FormHelperDropDown('mourgi_name',
+              title: "মুরগির নাম *",
+              initialValue: "মুরগির নাম ১",
+              options: {
+                "1": "মুরগির নাম ১",
+                "2": "মুরগির নাম ২",
+                "3": "মুরগির নাম ৩",
+              }),
+        ],
+        onSubmit: (val) {
+          debugPrint(val.toString());
         },
-        style: primaryBtnStyle,
-        child: Styled.text('Save').fontSize(18).textColor(Colors.white),
-      ).width(double.infinity).padding(all: 14),
+        onCancel: () {},
+      )
     ].toColumn().parent(page);
+    // final (:form, :handleSubmit, :handleReset, :register) = useFormBuilder();
+    // return <Widget>[
+    //   form(
+    //     <Widget>[
+    //       register(
+    //         "date",
+    //         (field) => PickDate.datePicker(
+    //           (date) {
+    //             field.didChange(date);
+    //           },
+    //           hint: '১ জানুয়ারি ২০২২',
+    //           title: 'ভিজিটের তারিখ *',
+    //         ),
+    //       ),
+    //       FormHelperDatePicker(
+    //         "new_date",
+    //         title: "ভিজিটের তারিখ *",
+    //         hint: '১ জানুয়ারি ২০২২',
+    //       ).toWidget,
+    //       FormFields.textField(
+    //         "doctor_number",
+    //         title: 'ডাক্তারের নাম্বার *',
+    //         hint: "Enter your phone number",
+    //       ),
+    //       FormHelperSingleFilePicker("doctor_report", title: "প্রেসক্রিপশন *")
+    //           .toWidget,
+    //       FormHelperTextFieldWithSuffixDropdown(
+    //         "weight",
+    //         title: "Hen Weight",
+    //         options: {
+    //           "kg": "Kilogram",
+    //           "gm": "Gram",
+    //           "mg": "Milligram",
+    //         },
+    //         suffixFieldName: "weight_unit",
+    //         suffixHint: "Unit",
+    //       ).toWidget,
+    //     ].toColumn(),
+    //   ),
+    //   ElevatedButton(
+    //     onPressed: () {
+    //       handleSubmit(
+    //         (value) => debugPrint(
+    //           value.toString(),
+    //         ),
+    //       );
+    //     },
+    //     style: primaryBtnStyle,
+    //     child: Styled.text('Save').fontSize(18).textColor(Colors.white),
+    //   ).width(double.infinity).padding(all: 14),
+    // ].toColumn().parent(page);
   }
 }
 

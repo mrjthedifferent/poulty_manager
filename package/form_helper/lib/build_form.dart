@@ -4,7 +4,7 @@ import 'package:form_helper/types/index.dart';
 
 ({
   FormBuilderFunc form,
-  void Function(void Function(Map<String, dynamic>) onSubmit) handleSubmit,
+  bool Function(void Function(Map<String, dynamic>) onSubmit) handleSubmit,
   void Function() handleReset,
   FieldArg register
 }) useFormBuilder({
@@ -12,10 +12,11 @@ import 'package:form_helper/types/index.dart';
 }) {
   final formKey = fKey ?? GlobalKey<FormBuilderState>();
 
-  void handleSubmit(void Function(Map<String, dynamic> formValue) onSubmit) {
+  bool handleSubmit(void Function(Map<String, dynamic> formValue) onSubmit) {
     if (formKey.currentState!.saveAndValidate()) {
       onSubmit(formKey.currentState!.value);
     }
+    return formKey.currentState!.saveAndValidate();
   }
 
   void handleReset() {
