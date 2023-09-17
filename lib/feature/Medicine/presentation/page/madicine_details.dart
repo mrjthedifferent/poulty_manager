@@ -22,6 +22,14 @@ class MedicineDetails extends StatelessWidget {
                 "2": "মুরগির নাম ২",
                 "3": "মুরগির নাম ৩",
               }),
+          FormHelperTimeOfDayRangePicker(
+            "time_range",
+            title: "সময় সীমা *",
+          ),
+          FormHelperRadio("ead", title: "Choose Options", option: {
+            "1": "হ্যাঁ",
+            "2": "না",
+          })
         ],
         onSubmit: (val) {
           debugPrint(val.toString());

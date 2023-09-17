@@ -16,6 +16,17 @@ Widget page({required Widget child}) => Styled.builder(
     },
     child: child);
 
+Widget blankPage({required Widget child}) => Styled.builder(
+    builder: (context, ch) {
+      return Scaffold(
+        body: Styled.widget(child: ch)
+            .padding(vertical: 30, horizontal: 10)
+            .scrollable()
+            .safeArea(),
+      );
+    },
+    child: child);
+
 //  Widget page = ({Widget child}) => Styled.widget(child: child)
 //         .padding(vertical: 30, horizontal: 20)
 //         .constrained(minHeight: MediaQuery.of(context).size.height - (2 * 30))

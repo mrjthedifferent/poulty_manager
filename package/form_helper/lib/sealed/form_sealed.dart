@@ -290,3 +290,67 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
     );
   }
 }
+
+class FormHelperTimeOfDayRangePicker extends FormHelperField {
+  FormHelperTimeOfDayRangePicker(super.name,
+      {required super.title,
+      super.initialValue,
+      super.decoration,
+      super.hint,
+      super.isRequired,
+      super.validator,
+      super.onChanged});
+
+  @override
+  Widget get toWidget => FormFieldTemplate(
+        title: title,
+        child: Row(
+          children: [
+            Expanded(
+              child: FormBuilderDateTimePicker(
+                name: "${name}_start",
+                inputType: InputType.time,
+                decoration: FormDecoration.outline.copyWith(
+                  hintText: "Start Time",
+                ),
+                initialTime: const TimeOfDay(hour: 8, minute: 0),
+              ),
+            ),
+            const SizedBox(width: 10),
+            Expanded(
+              child: FormBuilderDateTimePicker(
+                name: "${name}_end",
+                inputType: InputType.time,
+                decoration: FormDecoration.outline.copyWith(
+                  hintText: "End Time",
+                ),
+                initialTime: const TimeOfDay(hour: 8, minute: 0),
+              ),
+            ),
+          ],
+        ),
+      );
+}
+
+class FormHelperRadio extends FormHelperField {
+  final Map<String, String> option;
+  FormHelperRadio(super.name, {required super.title, required this.option});
+
+  @override
+  Widget get toWidget => FormFieldTemplate(
+        title: title,
+        child: FormBuilderChoiceChip(
+          decoration: const InputDecoration(
+            border: InputBorder.none,
+          ),
+          name: name,
+          spacing: 20,
+          options: option.keys
+              .map((e) => FormBuilderChipOption(
+                    value: e,
+                    child: Text("${option[e]}"),
+                  ))
+              .toList(),
+        ),
+      );
+}

@@ -14,6 +14,9 @@ import 'package:flutter/services.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/app-hen.svg
+  SvgGenImage get appHen => const SvgGenImage('assets/icons/app-hen.svg');
+
   /// File path: assets/icons/app-short-logo.svg
   SvgGenImage get appShortLogo =>
       const SvgGenImage('assets/icons/app-short-logo.svg');
@@ -88,6 +91,7 @@ class $AssetsIconsGen {
 
   /// List of all assets
   List<SvgGenImage> get values => [
+        appHen,
         appShortLogo,
         call,
         cart,
@@ -128,6 +132,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/amar-taka.png
   AssetGenImage get amarTaka =>
       const AssetGenImage('assets/images/amar-taka.png');
+
+  /// File path: assets/images/app-hen.png
+  AssetGenImage get appHen => const AssetGenImage('assets/images/app-hen.png');
 
   /// File path: assets/images/bazar-bisleshon.png
   AssetGenImage get bazarBisleshon =>
@@ -250,6 +257,7 @@ class $AssetsImagesGen {
         affiliatePartner,
         allCalculator,
         amarTaka,
+        appHen,
         bazarBisleshon,
         bikroyOntorvukti,
         bikroyOnurodh,
