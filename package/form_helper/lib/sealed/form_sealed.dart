@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_helper/file_picker_field/single_file_picker.dart';
@@ -32,8 +31,10 @@ sealed class FormHelperField {
 
 class FormHelperTextField extends FormHelperField
     with FormHelperFieldValidatorMixin {
+  final bool noTitleApply;
   final int? maxLine;
   final Widget? suffix;
+  final bool obscureText;
   FormHelperTextField(super.name,
       {required super.title,
       this.suffix,
@@ -41,12 +42,26 @@ class FormHelperTextField extends FormHelperField
       super.decoration,
       super.hint,
       this.maxLine,
+      this.obscureText = false,
+      this.noTitleApply = false,
       super.isRequired,
       super.validator,
       super.onChanged});
 
   @override
   Widget get toWidget {
+    if (noTitleApply) {
+      return FormBuilderTextField(
+        obscureText: obscureText,
+        name: name,
+        initialValue: initialValue,
+        maxLines: maxLine,
+        decoration: decoration ??
+            FormDecoration.outline.copyWith(hintText: hint, suffix: suffix),
+        validator: validate,
+        onChanged: onChanged,
+      );
+    }
     return FormFieldTemplate(
       title: title,
       child: FormBuilderTextField(

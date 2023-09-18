@@ -93,7 +93,7 @@ final baseRouter = GoRouter(
         ),
         GoRoute(
           path: 'template',
-          builder: (context, state) => const SignInPage(),
+          builder: (context, state) => const AccountCompletePage(),
         ),
       ],
     ),
