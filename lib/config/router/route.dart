@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poulty_manager/feature/daily_advice/presentation/pages/daily_advice.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/app/main_comp.dart';
 import '/feature/batch/presentation/widgets/batch_home.dart';
 import '/feature/home/fragment.dart';
-import '../../feature/auth/pages/pages.dart';
 import 'scafold_nested_nav.dart';
 
 enum AppRouteName {
@@ -93,7 +93,7 @@ final baseRouter = GoRouter(
         ),
         GoRoute(
           path: 'template',
-          builder: (context, state) => const AccountCompletePage(),
+          builder: (context, state) => const DailyAdvice(),
         ),
       ],
     ),

@@ -26,7 +26,7 @@ Widget titleWithBackArrowAndAction(
   return <Widget>[
     Styled.icon(Icons.arrow_back).gestures(onTap: onBack),
     [
-      Styled.text(title).bold(),
+      Styled.text(title).bold().fontSize(18),
       KSized.h10,
       Styled.text(subTitle).textColor(Colors.grey.shade500)
     ].toColumn().expanded(),
