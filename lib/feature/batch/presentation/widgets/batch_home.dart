@@ -137,7 +137,7 @@ class BatchHome extends StatelessWidget {
           right: 10,
           child: FloatingActionButton(
             onPressed: () {
-              context.pushNamed(AppRouteName.newBatch.name);
+              context.push("/main/home/new");
             },
             child: const Icon(Icons.add),
           ),
