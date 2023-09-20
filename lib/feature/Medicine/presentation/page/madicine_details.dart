@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:form_helper/form_helper.dart';
+import 'package:poulty_manager/feature/batch/presentation/functions/utils.dart';
+import 'package:poulty_manager/feature/batch/presentation/page/new_batch_show.dart';
+import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
+import 'package:poulty_manager/gen/assets.gen.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
@@ -12,30 +15,36 @@ class MedicineDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return <Widget>[
-      MakeForm(
-        fields: [
-          FormHelperDropDown('mourgi_name',
-              title: "মুরগির নাম *",
-              initialValue: "মুরগির নাম ১",
-              options: {
-                "1": "মুরগির নাম ১",
-                "2": "মুরগির নাম ২",
-                "3": "মুরগির নাম ৩",
-              }),
-          FormHelperTimeOfDayRangePicker(
-            "time_range",
-            title: "সময় সীমা *",
+      titleWithBackArrowAndAction(
+        "রেনেমাইসিন",
+        "  ",
+        trailing: Styled.icon(Icons.edit, size: 26),
+        onBack: () {},
+      ),
+      NewBatchShow.batchItem("ডোজ শুরু হওয়ার তারিখঃ", "২৮/১০/২০২২ (শুক্রবার"),
+      NewBatchShow.batchItem("ডোজ শুরু হওয়ার তারিখঃ", "২৮/১০/২০২২ (শুক্রবার"),
+      NewBatchShow.batchItem("ডোজ চলছেঃ", "২য় দিন"),
+      KSized.h10,
+      [
+        [
+          [
+            Assets.icons.sun.svg(),
+            KSized.w8,
+            Styled.text("সকাল"),
+          ].toRow(),
+          const Spacer(),
+          ElevatedButton(
+            style: primaryBtnStyle,
+            onPressed: () {},
+            child: Styled.text("সম্পন্ন").textColor(Colors.white),
           ),
-          FormHelperRadio("ead", title: "Choose Options", option: {
-            "1": "হ্যাঁ",
-            "2": "না",
-          })
-        ],
-        onSubmit: (val) {
-          debugPrint(val.toString());
-        },
-        onCancel: () {},
-      )
+        ].toRow(),
+        const Divider(),
+        medicineCardText(
+            medicineTime: "৮ঃ৫৫ মিনিট",
+            medicineQuantity: "৮ঃ৫৫ মিনিট",
+            waterQuantity: "৮ঃ৫৫ মিনিট"),
+      ].toColumn().padding(all: 10).card(),
     ].toColumn().parent(page);
     // final (:form, :handleSubmit, :handleReset, :register) = useFormBuilder();
     // return <Widget>[
@@ -88,6 +97,25 @@ class MedicineDetails extends StatelessWidget {
     //     child: Styled.text('Save').fontSize(18).textColor(Colors.white),
     //   ).width(double.infinity).padding(all: 14),
     // ].toColumn().parent(page);
+  }
+
+  Widget medicineCardText(
+      {required String medicineTime,
+      required String medicineQuantity,
+      required String waterQuantity}) {
+    return [
+      cardTextItem("ঔষধের সময়ঃ", "৮ঃ৫৫ মিনিট"),
+      cardTextItem("ঔষধের পরিমানঃ", "১ মিলিগ্রাম"),
+      cardTextItem("পানির পরিমানঃ", "২ লিটার"),
+    ].toColumn();
+  }
+
+  Widget cardTextItem(String title, String value) {
+    return [
+      Styled.text(title).bold().textColor(Colors.grey.shade500),
+      KSized.w12,
+      Styled.text(value).bold(),
+    ].toRow();
   }
 }
 

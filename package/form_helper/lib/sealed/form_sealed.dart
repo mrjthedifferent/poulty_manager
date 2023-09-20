@@ -369,3 +369,26 @@ class FormHelperRadio extends FormHelperField {
         ),
       );
 }
+
+class FormHelperCustomField extends FormHelperField {
+  FormHelperCustomField(super.name,
+      {required super.title,
+      required this.builder,
+      super.decoration,
+      super.hint,
+      super.initialValue,
+      super.validator,
+      super.isRequired,
+      super.onChanged});
+
+  final Widget Function(FormFieldState<dynamic>) builder;
+
+  @override
+  Widget get toWidget => FormBuilderField(
+        builder: builder,
+        name: name,
+        initialValue: initialValue,
+        validator: validator,
+        onChanged: onChanged,
+      );
+}

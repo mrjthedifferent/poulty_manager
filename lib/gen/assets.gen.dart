@@ -86,6 +86,9 @@ class $AssetsIconsGen {
   /// File path: assets/icons/setting.svg
   SvgGenImage get setting => const SvgGenImage('assets/icons/setting.svg');
 
+  /// File path: assets/icons/sun.svg
+  SvgGenImage get sun => const SvgGenImage('assets/icons/sun.svg');
+
   /// File path: assets/icons/user.svg
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
 
@@ -114,6 +117,7 @@ class $AssetsIconsGen {
         play,
         rightMark,
         setting,
+        sun,
         user
       ];
 }
