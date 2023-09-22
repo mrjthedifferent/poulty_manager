@@ -96,5 +96,5 @@ GoRouter appRouter(AppRouterRef ref) {
       ],
       // builder: (context, state) => const DailyAdvicePage(),
     ),
-  ], initialLocation: '/', redirect: (_, __) => '/login');
+  ], initialLocation: '/', redirect: (_, __) => '/auth/login');
 }

@@ -7,7 +7,7 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../feature/batch/presentation/page/batch_home.dart';
 import '../../../feature/home/fragment.dart';
 import '../route.dart';
-import '../scafold_nested_nav.dart';
+import 'scafold_nested_nav.dart';
 
 final _homeNavigatorKey = GlobalKey<NavigatorState>();
 final _marketNavigatorKey = GlobalKey<NavigatorState>();

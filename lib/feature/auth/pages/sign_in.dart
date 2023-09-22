@@ -2,20 +2,38 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_helper/form_helper.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/config/constant/constant.dart';
 import 'package:poulty_manager/config/theme/color.dart';
+import 'package:poulty_manager/feature/auth/data/local/local_user.dart';
+import 'package:poulty_manager/feature/auth/domain/app_user.dart';
 import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/gen/assets.gen.dart';
 import '../../../core/Layout/extension.dart';
+import '../../../core/client/request_client.dart';
 
-class SignInPage extends HookWidget {
+part 'sign_in.g.dart';
+
+@riverpod
+Future<Map<String, dynamic>> fetchTodos(FetchTodosRef ref) async {
+  final client = ref.watch(requestClientProvider);
+  return client.client
+      .get<Map<String, dynamic>>('todos/1')
+      .then((value) => value.data ?? {});
+}
+
+class SignInPage extends HookConsumerWidget {
   const SignInPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final showPassword = useState<bool>(true);
+
+    final todosState = ref.watch(fetchTodosProvider);
+
     return <Widget>[
       const Spacer(
         flex: 1,
@@ -33,6 +51,11 @@ class SignInPage extends HookWidget {
           ),
       KSized.h10,
       KSized.h10,
+      todosState.when(
+        data: (data) => Text(data.toString()),
+        error: (e, s) => Text("$e"),
+        loading: () => const CircularProgressIndicator(),
+      ),
 
       FormHelperTextField(
         "email",
@@ -92,7 +115,27 @@ class SignInPage extends HookWidget {
       KSized.h10,
       ElevatedButton(
         style: primaryBtnStyle,
-        onPressed: () {},
+        onPressed: () {
+          ref.read(localUserRepositoryProvider).saveUser(AppUser.fromMap({
+                "user": {
+                  "name": "Mahfuz",
+                  "email": "kmm",
+                  "phone": "8801975700089",
+                  "address": null,
+                  "role": 0,
+                  "refer_code": "9afca8",
+                  "refer_by": null,
+                  "union_id": null,
+                  "profession": null,
+                  "about": null,
+                  "updated_at": "2023-09-17T21:35:19.000000Z",
+                  "created_at": "2023-09-17T21:35:19.000000Z",
+                  "id": 65,
+                  "image_url": "/storage/user"
+                },
+                "token": "1|AP5X4tMQaAEowjACddHO71t2E7hk5Qp6Ei4XK6yX"
+              }));
+        },
         child: Styled.text("অ্যাকাউন্টে প্রবেশ করুন")
             .fontSize(14)
             .textColor(Colors.white),

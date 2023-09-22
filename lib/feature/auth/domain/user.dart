@@ -6,7 +6,7 @@ class User {
   String phone;
   String? address;
   int role;
-  String referCode;
+  String? referCode;
   String? referBy;
   int? unionId;
   String? profession;
@@ -20,7 +20,7 @@ class User {
     required this.phone,
     this.address,
     required this.role,
-    required this.referCode,
+    this.referCode,
     this.referBy,
     this.unionId,
     this.profession,
@@ -88,7 +88,7 @@ class User {
       phone: map['phone'] as String,
       address: map['address'] != null ? map['address'] as String : null,
       role: map['role'] as int,
-      referCode: map['referCode'] as String,
+      referCode: map['referCode'] as String?,
       referBy: map['referBy'] != null ? map['referBy'] as String : null,
       unionId: map['unionId'] != null ? map['unionId'] as int : null,
       profession:
