@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'app/index.dart';
+import 'app/pre_process.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final container = await preProcess();
+
   runApp(
-    const App(),
+    UncontrolledProviderScope(
+      container: container,
+      child: const App(),
+    ),
   );
 }

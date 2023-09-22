@@ -4,7 +4,7 @@ import 'package:poulty_manager/feature/batch/presentation/page/new_batch_form.da
 import 'package:poulty_manager/feature/batch/presentation/page/new_batch_show.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '../../../feature/batch/presentation/widgets/batch_home.dart';
+import '../../../feature/batch/presentation/page/batch_home.dart';
 import '../../../feature/home/fragment.dart';
 import '../route.dart';
 import '../scafold_nested_nav.dart';
