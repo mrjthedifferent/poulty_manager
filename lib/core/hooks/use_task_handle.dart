@@ -1,6 +1,7 @@
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fpdart/fpdart.dart';
-import 'package:poulty_manager/core/client/state/request_state.dart';
+
+import '/core/client/state/request_state.dart';
 
 enum TaskStatus { loading, error, data }
 

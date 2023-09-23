@@ -1,3 +1,4 @@
 {
-    "dart.sdkPath": "/usr/local/Caskroom/flutter/3.0.5/flutter/bin"
+  "dart.sdkPath": "/usr/local/Caskroom/flutter/3.0.5/flutter/bin",
+  "cSpell.words": ["rxdart"]
 }

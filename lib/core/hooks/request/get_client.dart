@@ -32,7 +32,6 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
               hasFile ? "multipart/form-data" : 'application/json';
 
           return client.request<T>(url, data: data);
-          // client..options.method = reqoption.method;
         },
         (error, stackTrace) => error.toString(),
       );
@@ -41,16 +40,19 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
 
 ({
   RequestStatus<T> status,
-  void Function(String, {Object? data, bool hasFile, String? method}) trigger
+  void Function(String,
+      {Object? data,
+      bool hasFile,
+      String? method,
+      void Function(T data)? onSuccess}) trigger
 }) useRequestHandler<T>(RequestHandlerFunc<T> takMaker) {
   final result = useState<RequestStatus<T>>(const InitialRequestStatus());
 
-  final runTask = useCallback((
-    String url, {
-    Object? data,
-    String? method,
-    bool hasFile = false,
-  }) {
+  final runTask = useCallback((String url,
+      {Object? data,
+      String? method,
+      bool hasFile = false,
+      void Function(T data)? onSuccess}) {
     result.value = const LoadingRequestStatus();
     takMaker(
       url,
@@ -63,6 +65,7 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
           result.value = ErrorRequestStatus(error.toString());
         },
         (data) {
+          onSuccess?.call(data.data as T);
           result.value = SuccessRequestStatus(data.data as T);
         },
       );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poulty_manager/core/Layout/extension.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/feature/home/widgets/slider.dart';
@@ -28,6 +29,8 @@ class HomeFragments extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      primary: false,
+      shrinkWrap: true,
       children: [
         Assets.images.henVideo.image(),
         const SizedBox(
@@ -92,6 +95,6 @@ class HomeFragments extends StatelessWidget {
           shrinkWrap: true,
         ),
       ],
-    );
+    ).parent(page);
   }
 }

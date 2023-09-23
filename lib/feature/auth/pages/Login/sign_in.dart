@@ -11,8 +11,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/gen/assets.gen.dart';
-import '../../../core/Layout/extension.dart';
-import '../../../core/client/request_client.dart';
+import '../../../../core/Layout/extension.dart';
+import '../../../../core/client/request_client.dart';
 
 part 'sign_in.g.dart';
 
@@ -124,8 +124,6 @@ class SignInPage extends HookConsumerWidget {
             "title": "foo",
             "body": "bar",
             "userId": 1,
-          }, onSuccess: (data) {
-            debugPrint(data);
           });
         },
         child: Styled.text("অ্যাকাউন্টে প্রবেশ করুন")
