@@ -5,8 +5,7 @@ import 'package:form_helper/form_helper.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/config/constant/constant.dart';
 import 'package:poulty_manager/config/theme/color.dart';
-import 'package:poulty_manager/feature/auth/data/local/local_user.dart';
-import 'package:poulty_manager/feature/auth/domain/app_user.dart';
+import 'package:poulty_manager/core/hooks/request/get_client.dart';
 import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:styled_widget/styled_widget.dart';
@@ -32,7 +31,7 @@ class SignInPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final showPassword = useState<bool>(true);
 
-    final todosState = ref.watch(fetchTodosProvider);
+    final handleLogin = useRequestHandler(ref.watch(requestHandlerProvider));
 
     return <Widget>[
       const Spacer(
@@ -41,8 +40,18 @@ class SignInPage extends HookConsumerWidget {
       Assets.images.appHen.image(),
       KSized.h10,
       Styled.text("সাইন ইন").textColor(Colors.grey.shade500),
-      KSized.h10,
 
+      handleLogin.status.when(
+        initial: () => const Center(child: Text("initial")),
+        loading: () => const Center(child: Text("loading")),
+        error: (error) => Center(child: Text(error)),
+        success: (data) => Center(
+          child: Text(
+            data.toString(),
+          ),
+        ),
+      ),
+      KSized.h10,
       Styled.text("আপনার অ্যাকাউন্টে প্রবেশ করতে নিচের প্রয়োজনীয় তথ্যগুলো দিন।")
           .textColor(Colors.grey.shade500)
           .alignment(Alignment.center)
@@ -51,11 +60,6 @@ class SignInPage extends HookConsumerWidget {
           ),
       KSized.h10,
       KSized.h10,
-      todosState.when(
-        data: (data) => Text(data.toString()),
-        error: (e, s) => Text("$e"),
-        loading: () => const CircularProgressIndicator(),
-      ),
 
       FormHelperTextField(
         "email",
@@ -116,25 +120,11 @@ class SignInPage extends HookConsumerWidget {
       ElevatedButton(
         style: primaryBtnStyle,
         onPressed: () {
-          ref.read(localUserRepositoryProvider).saveUser(AppUser.fromMap({
-                "user": {
-                  "name": "Mahfuz",
-                  "email": "kmm",
-                  "phone": "8801975700089",
-                  "address": null,
-                  "role": 0,
-                  "refer_code": "9afca8",
-                  "refer_by": null,
-                  "union_id": null,
-                  "profession": null,
-                  "about": null,
-                  "updated_at": "2023-09-17T21:35:19.000000Z",
-                  "created_at": "2023-09-17T21:35:19.000000Z",
-                  "id": 65,
-                  "image_url": "/storage/user"
-                },
-                "token": "1|AP5X4tMQaAEowjACddHO71t2E7hk5Qp6Ei4XK6yX"
-              }));
+          handleLogin.trigger("/posts", method: "POST", data: {
+            "title": "foo",
+            "body": "bar",
+            "userId": 1,
+          });
         },
         child: Styled.text("অ্যাকাউন্টে প্রবেশ করুন")
             .fontSize(14)

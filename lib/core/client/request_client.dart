@@ -43,6 +43,28 @@ class AddBearerTokenInterceptor extends Interceptor {
 
     handler.next(options);
   }
+
+  // @override
+  // onResponse(Response response, ResponseInterceptorHandler handler) {
+  //   final responseData = response.data;
+
+  //   if (responseData
+  //       case {
+  //         'success': bool success,
+  //         'message': String message,
+  //         'data': dynamic data,
+  //       }) {
+  //     if (success) {
+  //       response.data = data;
+  //     } else {
+  //       throw Exception(message);
+  //     }
+  //   } else {
+  //     throw Exception("Invalid response");
+  //   }
+
+  //   handler.next(response); // continue
+  // }
 }
 
 @Riverpod(keepAlive: true)
