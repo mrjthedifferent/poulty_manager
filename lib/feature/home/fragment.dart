@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/core/Layout/extension.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '/core/Layout/extension.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/home/widgets/slider.dart';
 import '/gen/assets.gen.dart';
 import '/interface/image_text.dart';
-import '../../config/router/route.dart';
 
 final secondGrid = <CreateGridItem>[
   CreateGridItem.init(Assets.images.bikroyOnurodh, 'বিক্রয় অনুরোধ'),
@@ -47,7 +46,7 @@ class HomeFragments extends ConsumerWidget {
             ),
             text: Styled.text('ব্যাচ লিস্ট'),
             onPressed: () {
-              context.pushNamed(AppRouteName.batch.name);
+              context.push('/batch');
             },
           ),
           CreateGridItem(

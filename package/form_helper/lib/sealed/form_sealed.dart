@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_helper/file_picker_field/file_picker.dart';
 import 'package:form_helper/file_picker_field/single_file_picker.dart';
 import 'package:form_helper/sealed/form_field_template.dart';
 
@@ -233,6 +234,26 @@ class FormHelperSingleFilePicker extends FormHelperField {
         onChanged: onChanged,
         previewImages: true,
         allowMultiple: false,
+      ),
+    );
+  }
+}
+
+class FormHelperMultiFilePicker extends FormHelperField {
+  FormHelperMultiFilePicker(super.name, {required super.title});
+
+  @override
+  Widget get toWidget {
+    return FormFieldTemplate(
+      title: title,
+      child: FormBuilderFilePicker(
+        name: name,
+        decoration:
+            decoration ?? FormDecoration.outline.copyWith(hintText: hint),
+        onChanged: onChanged,
+        previewImages: true,
+        maxFiles: 5,
+        allowMultiple: true,
       ),
     );
   }

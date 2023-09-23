@@ -54,6 +54,8 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
       bool hasFile = false,
       void Function(T data)? onSuccess}) {
     result.value = const LoadingRequestStatus();
+    // if it has file, then iterate over the data and check if it has file or not and then add it to the form data
+
     takMaker(
       url,
       data: data,

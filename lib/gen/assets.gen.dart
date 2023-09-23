@@ -214,6 +214,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.png
   AssetGenImage get logo => const AssetGenImage('assets/images/logo.png');
 
+  /// File path: assets/images/no_khamar.png
+  AssetGenImage get noKhamar =>
+      const AssetGenImage('assets/images/no_khamar.png');
+
   /// File path: assets/images/play.png
   AssetGenImage get play => const AssetGenImage('assets/images/play.png');
 
@@ -282,6 +286,7 @@ class $AssetsImagesGen {
         kretaList,
         kroyOntorvukti,
         logo,
+        noKhamar,
         play,
         poultryMarket,
         poultryNews,

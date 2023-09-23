@@ -3,6 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/config/router/router_refresh_stream.dart';
 import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:poulty_manager/feature/auth/pages/registation/account_complete_form.dart';
+import 'package:poulty_manager/feature/firm/ui/page/add_firm_page.dart';
+import 'package:poulty_manager/feature/firm/ui/page/firm_home.dart';
 import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -43,11 +45,11 @@ GoRouter appRouter(AppRouterRef ref) {
       final isLoggedIn = authRepository.currentUser != null;
       final path = state.uri.path;
       if (isLoggedIn) {
-        return '/';
-      } else {
         if (path.contains("auth")) {
-          return null;
+          return '/';
         }
+        return null;
+      } else {
         return '/auth/login';
       }
     },
@@ -58,7 +60,7 @@ GoRouter appRouter(AppRouterRef ref) {
       GoRoute(
         path: '/',
 
-        builder: (context, state) => const HomeFragments(),
+        builder: (context, state) => const FirmHomePage(),
         routes: [
           // Authentication Routes
 
@@ -106,6 +108,18 @@ GoRouter appRouter(AppRouterRef ref) {
             ],
           ),
           // Batch Routes
+
+          GoRoute(
+            path: 'firm',
+            builder: (context, state) => const AddNewFirmPage(),
+            routes: [
+              GoRoute(
+                path: ':id',
+                builder: (context, state) => const HomeFragments(),
+              ),
+            ],
+          ),
+
           GoRoute(
             path: 'batch',
             builder: (context, state) => const BatchHome(),

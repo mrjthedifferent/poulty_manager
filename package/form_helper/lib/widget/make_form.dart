@@ -20,12 +20,6 @@ class MakeForm extends StatelessWidget {
       Column(
         children: [
           ...fields.map((field) => field.toWidget).toList(),
-          FormBuilderDateRangePicker(
-            name: "time_range",
-            firstDate: DateTime(2020),
-            lastDate: DateTime(2025),
-            currentDate: DateTime.now(),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
