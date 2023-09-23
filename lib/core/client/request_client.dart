@@ -7,7 +7,7 @@ import '/feature/auth/data/local/local_user.dart';
 part 'request_client.g.dart';
 
 // ignore: constant_identifier_names
-const BASE_URL = "https://jsonplaceholder.typicode.com/";
+const BASE_URL = "https://poultrymanagerbd.com/api/v1";
 
 class ApiRequestClient {
   late Dio _dio;
@@ -44,27 +44,27 @@ class AddBearerTokenInterceptor extends Interceptor {
     handler.next(options);
   }
 
-  // @override
-  // onResponse(Response response, ResponseInterceptorHandler handler) {
-  //   final responseData = response.data;
+  @override
+  onResponse(Response response, ResponseInterceptorHandler handler) {
+    final responseData = response.data;
 
-  //   if (responseData
-  //       case {
-  //         'success': bool success,
-  //         'message': String message,
-  //         'data': dynamic data,
-  //       }) {
-  //     if (success) {
-  //       response.data = data;
-  //     } else {
-  //       throw Exception(message);
-  //     }
-  //   } else {
-  //     throw Exception("Invalid response");
-  //   }
+    if (responseData
+        case {
+          'success': bool success,
+          'message': String message,
+          'data': dynamic data,
+        }) {
+      if (success) {
+        response.data = data;
+      } else {
+        throw Exception(message);
+      }
+    } else {
+      throw Exception("Invalid response");
+    }
 
-  //   handler.next(response); // continue
-  // }
+    handler.next(response); // continue
+  }
 }
 
 @Riverpod(keepAlive: true)

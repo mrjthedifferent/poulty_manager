@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/core/Layout/extension.dart';
+import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/feature/home/widgets/slider.dart';
@@ -23,11 +25,11 @@ final secondGrid = <CreateGridItem>[
   CreateGridItem.init(Assets.images.kormiList, 'কর্মী লিস্ট'),
 ];
 
-class HomeFragments extends StatelessWidget {
+class HomeFragments extends ConsumerWidget {
   const HomeFragments({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListView(
       primary: false,
       shrinkWrap: true,
@@ -94,6 +96,12 @@ class HomeFragments extends StatelessWidget {
           primary: false,
           shrinkWrap: true,
         ),
+        ElevatedButton(
+          onPressed: () {
+            ref.read(authRepositoryProvider).signOut();
+          },
+          child: const Text("Log out"),
+        )
       ],
     ).parent(page);
   }

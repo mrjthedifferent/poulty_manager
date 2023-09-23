@@ -9,6 +9,7 @@ import '/feature/auth/pages/pages.dart';
 import '/feature/daily_advice/presentation/pages/daily_advice.dart';
 import '/feature/doctor_visit/presentation/pages/pages.dart';
 import '/feature/vaccine/presentation/pages/pages.dart';
+import '../../feature/auth/pages/Login/sign_in.dart';
 import '../../feature/batch/presentation/page/page.dart';
 
 part 'route.g.dart';

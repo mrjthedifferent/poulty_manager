@@ -1,38 +1,28 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:form_helper/form_helper.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/config/constant/constant.dart';
-import 'package:poulty_manager/config/theme/color.dart';
-import 'package:poulty_manager/core/hooks/request/get_client.dart';
-import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:styled_widget/styled_widget.dart';
 
-import '/gen/assets.gen.dart';
-import '../../../core/Layout/extension.dart';
-import '../../../core/client/request_client.dart';
+import '../../../../config/constant/constant.dart';
+import '../../../../config/theme/color.dart';
+import '../../../../gen/assets.gen.dart';
+import '../../../vaccine/presentation/style/functions.dart';
 
-part 'sign_in.g.dart';
-
-@riverpod
-Future<Map<String, dynamic>> fetchTodos(FetchTodosRef ref) async {
-  final client = ref.watch(requestClientProvider);
-  return client.client
-      .get<Map<String, dynamic>>('todos/1')
-      .then((value) => value.data ?? {});
-}
-
-class SignInPage extends HookConsumerWidget {
-  const SignInPage({super.key});
+class SignInInitial extends HookConsumerWidget {
+  const SignInInitial({
+    super.key,
+    required this.onSignIn,
+  });
+  final void Function(Map<String, dynamic> data) onSignIn;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final showPassword = useState<bool>(true);
-
-    final handleLogin = useRequestHandler(ref.watch(requestHandlerProvider));
-
+    final phoneController = useTextEditingController();
+    final passwordController = useTextEditingController();
     return <Widget>[
       const Spacer(
         flex: 1,
@@ -41,16 +31,6 @@ class SignInPage extends HookConsumerWidget {
       KSized.h10,
       Styled.text("সাইন ইন").textColor(Colors.grey.shade500),
 
-      handleLogin.status.when(
-        initial: () => const Center(child: Text("initial")),
-        loading: () => const Center(child: Text("loading")),
-        error: (error) => Center(child: Text(error)),
-        success: (data) => Center(
-          child: Text(
-            data.toString(),
-          ),
-        ),
-      ),
       KSized.h10,
       Styled.text("আপনার অ্যাকাউন্টে প্রবেশ করতে নিচের প্রয়োজনীয় তথ্যগুলো দিন।")
           .textColor(Colors.grey.shade500)
@@ -63,6 +43,7 @@ class SignInPage extends HookConsumerWidget {
 
       FormHelperTextField(
         "email",
+        controller: phoneController,
         title: "ইমেইল",
         noTitleApply: true,
         decoration: InputDecoration(
@@ -83,6 +64,7 @@ class SignInPage extends HookConsumerWidget {
       KSized.h10,
       FormHelperTextField(
         "password",
+        controller: passwordController,
         title: "password",
         noTitleApply: true,
         maxLine: 1,
@@ -120,13 +102,23 @@ class SignInPage extends HookConsumerWidget {
       ElevatedButton(
         style: primaryBtnStyle,
         onPressed: () {
-          handleLogin.trigger("/posts", method: "POST", data: {
-            "title": "foo",
-            "body": "bar",
-            "userId": 1,
-          }, onSuccess: (data) {
-            debugPrint(data);
-          });
+          if (passwordController.text.isEmpty ||
+              phoneController.text.isEmpty ||
+              passwordController.text.length < 6 ||
+              phoneController.text.length < 11) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Invalid phone or password'),
+                backgroundColor: Colors.red,
+              ),
+            );
+            return;
+          } else {
+            onSignIn({
+              "phone": phoneController.text,
+              "password": passwordController.text,
+            });
+          }
         },
         child: Styled.text("অ্যাকাউন্টে প্রবেশ করুন")
             .fontSize(14)
@@ -188,11 +180,6 @@ class SignInPage extends HookConsumerWidget {
       const Spacer(
         flex: 2,
       ),
-    ]
-        .toColumn()
-        .constrained(
-          height: MediaQuery.of(context).size.height,
-        )
-        .parent(blankPage);
+    ].toColumn();
   }
 }

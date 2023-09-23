@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:poulty_manager/core/widget/error_widget.dart';
 
 import '/core/client/state/request_state.dart';
-import '../error_widget.dart';
 
 class RequestHandleWidget<T> extends StatelessWidget {
   const RequestHandleWidget(
@@ -15,11 +15,23 @@ class RequestHandleWidget<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return value.when(
-      initial: initial,
-      success: (data) => success(data),
-      error: (e) => Center(child: ErrorMessageWidget(e)),
-      loading: () => const Center(child: CircularProgressIndicator()),
+    return Scaffold(
+      body: value.when(
+        initial: initial,
+        success: (data) => success(data),
+        // when error occurs show an alert dialog with the error message and show the initial widget
+        error: (e) {
+          // show toast snackbar
+
+          return ErrorMessageWidget(
+            errorMessage: e,
+            resetWidget: initial,
+          );
+        },
+        loading: () => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
     );
   }
 }

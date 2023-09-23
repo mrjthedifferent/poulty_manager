@@ -32,12 +32,16 @@ sealed class FormHelperField {
 class FormHelperTextField extends FormHelperField
     with FormHelperFieldValidatorMixin {
   final bool noTitleApply;
+  // add a controller
+
+  final TextEditingController? controller;
   final int? maxLine;
   final Widget? suffix;
   final bool obscureText;
   FormHelperTextField(super.name,
       {required super.title,
       this.suffix,
+      this.controller,
       super.initialValue,
       super.decoration,
       super.hint,
@@ -55,6 +59,7 @@ class FormHelperTextField extends FormHelperField
         obscureText: obscureText,
         name: name,
         initialValue: initialValue,
+        controller: controller,
         maxLines: maxLine,
         decoration: decoration ??
             FormDecoration.outline.copyWith(hintText: hint, suffix: suffix),
@@ -68,6 +73,7 @@ class FormHelperTextField extends FormHelperField
         name: name,
         initialValue: initialValue,
         maxLines: maxLine,
+        controller: controller,
 
         // validator is required
 
