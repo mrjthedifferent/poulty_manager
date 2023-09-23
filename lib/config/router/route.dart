@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/config/router/router_refresh_stream.dart';
 import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
+import 'package:poulty_manager/feature/auth/pages/registation/account_complete_form.dart';
 import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -9,7 +11,6 @@ import '/feature/auth/pages/pages.dart';
 import '/feature/daily_advice/presentation/pages/daily_advice.dart';
 import '/feature/doctor_visit/presentation/pages/pages.dart';
 import '/feature/vaccine/presentation/pages/pages.dart';
-import '../../feature/auth/pages/Login/sign_in.dart';
 import '../../feature/batch/presentation/page/page.dart';
 
 part 'route.g.dart';
@@ -24,6 +25,12 @@ enum AppRouteName {
   batch,
   newBatch,
   batchList,
+
+  // Auth
+  login,
+  register,
+  otp,
+  accountComplete,
 }
 
 @Riverpod(keepAlive: true)
@@ -31,6 +38,7 @@ GoRouter appRouter(AppRouterRef ref) {
   final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
     initialLocation: '/',
+    debugLogDiagnostics: true,
     redirect: (context, state) {
       final isLoggedIn = authRepository.currentUser != null;
       final path = state.uri.path;
@@ -49,29 +57,51 @@ GoRouter appRouter(AppRouterRef ref) {
     routes: [
       GoRoute(
         path: '/',
+
         builder: (context, state) => const HomeFragments(),
         routes: [
           // Authentication Routes
 
           GoRoute(
             path: 'auth',
-            redirect: (_, __) => '/auth/login',
+            builder: (context, state) => Container(),
             routes: [
               GoRoute(
+                name: AppRouteName.login.name,
                 path: 'login',
                 builder: (context, state) => const SignInPage(),
               ),
               GoRoute(
                 path: 'register',
+                name: AppRouteName.register.name,
                 builder: (context, state) => const RegistrationPhonePage(),
               ),
               GoRoute(
                 path: 'otp',
-                builder: (context, state) => const OTPEnterScreen(),
+                name: AppRouteName.otp.name,
+                builder: (context, state) {
+                  final uri = state.uri;
+                  final phone = uri.queryParameters['phone'] ?? "no phone";
+                  final otp = uri.queryParameters['otp'] ?? "no otp";
+                  debugPrint("Phone:$phone OTP:$otp, path:${state.fullPath}");
+                  return OTPEnterScreen(
+                    phone: phone,
+                    otp: otp,
+                  );
+                },
               ),
               GoRoute(
+                name: AppRouteName.accountComplete.name,
                 path: 'account-complete',
-                builder: (context, state) => const AccountCompletePage(),
+                builder: (context, state) {
+                  final uri = state.uri;
+                  final phone = uri.queryParameters['phone'] ?? "no phone";
+                  final otp = uri.queryParameters['otp'] ?? "no otp";
+                  return AccountCompleteForm(
+                    phone: phone,
+                    otp: otp,
+                  );
+                },
               ),
             ],
           ),

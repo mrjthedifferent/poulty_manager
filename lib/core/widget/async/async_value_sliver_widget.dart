@@ -18,7 +18,12 @@ class AsyncValueSliverWidget<T> extends StatelessWidget {
       loading: () => const SliverToBoxAdapter(
           child: Center(child: CircularProgressIndicator())),
       error: (e, st) => SliverToBoxAdapter(
-        child: Center(child: ErrorMessageWidget(e.toString())),
+        child: Center(
+          child: ErrorMessageWidget(
+            errorMessage: e.toString(),
+            resetWidget: () => const SizedBox(),
+          ),
+        ),
       ),
     );
   }

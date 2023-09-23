@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:poulty_manager/core/widget/error_widget.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import '/core/widget/error_widget.dart';
 
 class AsyncValueWidget<T> extends StatelessWidget {
   const AsyncValueWidget({super.key, required this.value, required this.data});
@@ -11,7 +12,12 @@ class AsyncValueWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return value.when(
       data: data,
-      error: (e, st) => Center(child: ErrorMessageWidget(e.toString())),
+      error: (e, st) => Center(
+        child: ErrorMessageWidget(
+          errorMessage: e.toString(),
+          resetWidget: () => const SizedBox(),
+        ),
+      ),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }

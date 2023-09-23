@@ -355,7 +355,9 @@ class FormHelperTimeOfDayRangePicker extends FormHelperField {
 
 class FormHelperRadio extends FormHelperField {
   final Map<String, String> option;
-  FormHelperRadio(super.name, {required super.title, required this.option});
+
+  FormHelperRadio(super.name,
+      {required super.title, required this.option, super.onChanged});
 
   @override
   Widget get toWidget => FormFieldTemplate(
@@ -365,6 +367,7 @@ class FormHelperRadio extends FormHelperField {
             border: InputBorder.none,
           ),
           name: name,
+          onChanged: onChanged,
           spacing: 20,
           options: option.keys
               .map((e) => FormBuilderChipOption(

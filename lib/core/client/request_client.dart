@@ -7,7 +7,7 @@ import '/feature/auth/data/local/local_user.dart';
 part 'request_client.g.dart';
 
 // ignore: constant_identifier_names
-const BASE_URL = "https://poultrymanagerbd.com/api/v1";
+const BASE_URL = "https://poultrymanagerbd.com/api";
 
 class ApiRequestClient {
   late Dio _dio;
@@ -64,6 +64,15 @@ class AddBearerTokenInterceptor extends Interceptor {
     }
 
     handler.next(response); // continue
+  }
+
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final newErr = err.response?.data['error'] ?? err.response?.data['message'];
+
+    final msg = newErr is String ? newErr : newErr.toString();
+
+    handler.next(err.copyWith(message: msg));
   }
 }
 

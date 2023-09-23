@@ -1,5 +1,8 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -9,11 +12,18 @@ import '../../../core/Layout/extension.dart';
 import '../../../gen/assets.gen.dart';
 import '../../vaccine/presentation/style/functions.dart';
 
-class OTPEnterScreen extends StatelessWidget {
-  const OTPEnterScreen({super.key});
+class OTPEnterScreen extends HookConsumerWidget {
+  const OTPEnterScreen({
+    Key? key,
+    required this.phone,
+    required this.otp,
+  }) : super(key: key);
+
+  final String phone;
+  final String otp;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return <Widget>[
       const Spacer(
         flex: 1,
@@ -22,7 +32,7 @@ class OTPEnterScreen extends StatelessWidget {
       KSized.h10,
       KSized.h10,
       KSized.h10,
-      Styled.text("আপনার দেওয়া মোবাইল নাম্বারে একটি কোড গিয়েছে ")
+      Styled.text("আপনার দেওয়া মোবাইল নাম্বারে একটি কোড গিয়েছে $otp")
           .textAlignment(TextAlign.center)
           .fontSize(18)
           .bold()
@@ -42,6 +52,22 @@ class OTPEnterScreen extends StatelessWidget {
       PinCodeTextField(
         appContext: context,
         length: 4,
+        onCompleted: (value) {
+          if (otp == value) {
+            context.go(
+              Uri(
+                path: '/auth/account-complete',
+                queryParameters: {'phone': phone, 'otp': otp},
+              ).toString(),
+            );
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("OTP ভুল হয়েছে"),
+              ),
+            );
+          }
+        },
         pinTheme: PinTheme(
           shape: PinCodeFieldShape.box,
           borderRadius: BorderRadius.circular(5),

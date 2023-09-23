@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 
 import '/core/hooks/request/get_client.dart';
 import '/core/widget/async/request_handle.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/Login/initial.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -18,7 +18,7 @@ class SignInPage extends HookConsumerWidget {
       initial: () => SignInInitial(onSignIn: (data) {
         debugPrint(data.toString());
         handleLogin.trigger(
-          '/auth/login',
+          '/v1/auth/login',
           method: 'POST',
           data: {
             'phone': "88${data['phone']}",

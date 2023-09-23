@@ -10,11 +10,21 @@ import 'package:styled_widget/styled_widget.dart';
 import '../../../config/theme/color.dart';
 
 class AccountCompletePage extends HookWidget {
-  const AccountCompletePage({super.key});
+  const AccountCompletePage({super.key, required this.onRegister});
+
+  final void Function(Map<String, dynamic>) onRegister;
 
   @override
   Widget build(BuildContext context) {
     final isChecked = useState(false);
+    // make controller for name, password,confirm_password, ref_id, and person_type state
+    final nameController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final conformController = useTextEditingController();
+    final refIdController = useTextEditingController();
+
+    final userType = useState<String?>(null);
+
     return <Widget>[
       const Spacer(
         flex: 1,
@@ -32,6 +42,7 @@ class AccountCompletePage extends HookWidget {
       FormHelperTextField(
         "name",
         title: "name",
+        controller: nameController,
         noTitleApply: true,
         decoration: defaultFormDecoration.copyWith(
           hintText: "আপনার পুরো নাম",
@@ -42,6 +53,7 @@ class AccountCompletePage extends HookWidget {
       FormHelperTextField(
         "password",
         title: "pass",
+        controller: passwordController,
         noTitleApply: true,
         decoration: defaultFormDecoration.copyWith(
           hintText: "পাসওয়ার্ড",
@@ -49,9 +61,22 @@ class AccountCompletePage extends HookWidget {
         ),
       ).toWidget,
       KSized.h12,
+      KSized.h12,
+      FormHelperTextField(
+        "conform_password",
+        title: "pass",
+        controller: conformController,
+        noTitleApply: true,
+        decoration: defaultFormDecoration.copyWith(
+          hintText: "conform পাসওয়ার্ড",
+          prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
+        ),
+      ).toWidget,
+      KSized.h12,
       FormHelperTextField(
         "ref_id",
         title: "ref_id",
+        controller: refIdController,
         noTitleApply: true,
         decoration: defaultFormDecoration.copyWith(
           hintText: "রেফারেল আইডি (যদি থাকে)",
@@ -60,8 +85,9 @@ class AccountCompletePage extends HookWidget {
       ).toWidget,
       KSized.h12,
       FormHelperRadio(
-        "f_person",
+        "role",
         title: "আপনি একজন?",
+        onChanged: (value) => userType.value = value,
         option: {"1": "খামারি", "0": "ক্রেতা", "2": "টিম মেম্বার"},
       ).toWidget.padding(
             left: 10,
@@ -93,7 +119,44 @@ class AccountCompletePage extends HookWidget {
       KSized.h12,
       KSized.h12,
       ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          //if any controller or value is empty , password and confirm password is not match and isCheck is false then return
+          if (nameController.text.isEmpty ||
+              passwordController.text.isEmpty ||
+              refIdController.text.isEmpty ||
+              userType.value == null ||
+              !isChecked.value) {
+            // show snakebar
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("সব তথ্য দিন"),
+              ),
+            );
+            return;
+          } else {
+            if (passwordController.text != conformController.text) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text("পাসওয়ার্ড মিলছে না"),
+                ),
+              );
+              return;
+            } else {
+              onRegister(
+                {
+                  "name": nameController.text,
+                  "password": passwordController.text,
+                  "password_confirmation": conformController.text,
+                  "ref_id": refIdController.text,
+                  "role": userType.value,
+                  "email": "test@${nameController.text}.com"
+                },
+              );
+            }
+          }
+
+          // call onRegister function
+        },
         style: primaryBtnStyle,
         child: Styled.text("অ্যাকাউন্টে তৈরি করুন").textColor(Colors.white),
       ).width(double.infinity).padding(
