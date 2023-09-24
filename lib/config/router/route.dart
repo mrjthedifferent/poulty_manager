@@ -119,22 +119,37 @@ GoRouter appRouter(AppRouterRef ref) {
             routes: [
               GoRoute(
                 path: ':id',
-                builder: (context, state) => const HomeFragments(),
-              ),
-            ],
-          ),
-
-          GoRoute(
-            path: 'batch',
-            builder: (context, state) => const BatchHome(),
-            routes: [
-              GoRoute(
-                path: 'new',
-                builder: (context, state) => const NewBatchForm(),
-              ),
-              GoRoute(
-                path: 'show',
-                builder: (context, state) => const NewBatchShow(),
+                builder: (context, state) {
+                  final id = state.pathParameters['id'] ?? "0";
+                  debugPrint("Firm ID: $id");
+                  return HomeFragments(
+                    id: id,
+                  );
+                },
+                routes: [
+                  GoRoute(
+                    path: 'batch',
+                    builder: (context, state) {
+                      return BatchHome(
+                        firmId: state.pathParameters['id'] ?? "0",
+                      );
+                    },
+                    routes: [
+                      GoRoute(
+                        path: 'new',
+                        builder: (context, state) {
+                          return NewBatchForm(
+                            firmId: state.pathParameters['id'] ?? "0",
+                          );
+                        },
+                      ),
+                      GoRoute(
+                        path: 'show',
+                        builder: (context, state) => const NewBatchShow(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

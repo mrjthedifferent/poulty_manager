@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:poulty_manager/core/client/request_client.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '/core/client/request_client.dart';
 import '/feature/firm/domain/models/firm_model.dart';
 
 part 'repo.g.dart';

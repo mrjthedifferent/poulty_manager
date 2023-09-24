@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/core/Layout/widget/base_app_bar.dart';
@@ -10,7 +11,11 @@ import '/gen/assets.gen.dart';
 import '/interface/image_text.dart';
 
 class BatchHome extends StatelessWidget {
-  const BatchHome({super.key});
+  const BatchHome({
+    Key? key,
+    required this.firmId,
+  }) : super(key: key);
+  final String firmId;
 
   @override
   Widget build(BuildContext context) {

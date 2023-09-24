@@ -34,7 +34,7 @@ class SelectFirmWidget extends ConsumerWidget {
             subtitle: Text(firm.address ?? "no address"),
             onTap: () {
               ref.read(firmRepositoryProvider).setCurrentSelectedFirm(firm);
-              context.go('/firm/${firm.id}');
+              context.push('/firm/${firm.id}');
             },
           );
         },

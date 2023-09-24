@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -25,7 +26,11 @@ final secondGrid = <CreateGridItem>[
 ];
 
 class HomeFragments extends ConsumerWidget {
-  const HomeFragments({Key? key}) : super(key: key);
+  final String id;
+  const HomeFragments({
+    super.key,
+    required this.id,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -46,7 +51,7 @@ class HomeFragments extends ConsumerWidget {
             ),
             text: Styled.text('ব্যাচ লিস্ট'),
             onPressed: () {
-              context.push('/batch');
+              context.push('/firm/$id/batch');
             },
           ),
           CreateGridItem(
