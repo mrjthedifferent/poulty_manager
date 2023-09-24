@@ -185,6 +185,10 @@ class SignInInitial extends HookConsumerWidget {
       const Spacer(
         flex: 2,
       ),
-    ].toColumn();
+    ]
+        .toColumn()
+        .height(MediaQuery.of(context).size.height)
+        .padding(all: 20)
+        .scrollable();
   }
 }

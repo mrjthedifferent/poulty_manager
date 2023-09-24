@@ -330,6 +330,12 @@ class _$_FirmModel implements _FirmModel {
   @pragma('vm:prefer-inline')
   _$$_FirmModelCopyWith<_$_FirmModel> get copyWith =>
       __$$_FirmModelCopyWithImpl<_$_FirmModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toMap() {
+    // TODO: implement toMap
+    throw UnimplementedError();
+  }
 }
 
 abstract class _FirmModel implements FirmModel {

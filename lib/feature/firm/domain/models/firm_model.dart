@@ -21,6 +21,11 @@ class FirmModel with _$FirmModel {
     String? about,
   }) = _FirmModel;
 
-  factory FirmModel.fromMap(Map<String, dynamic> json) =>
-      _$FirmModelFromJson(json);
+  factory FirmModel.fromMap(Map<String, dynamic> json) {
+    return _$FirmModelFromJson(json);
+  }
+
+  Map<String, dynamic> toMap() {
+    return _$FirmModelToJson(this);
+  }
 }

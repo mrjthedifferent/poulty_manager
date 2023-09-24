@@ -15,20 +15,22 @@ class SignInPage extends HookConsumerWidget {
 
     return RequestHandleWidget(
       value: handleLogin.status,
-      initial: () => SignInInitial(onSignIn: (data) {
-        debugPrint(data.toString());
-        handleLogin.trigger(
-          '/v1/auth/login',
-          method: 'POST',
-          data: {
-            'phone': "88${data['phone']}",
-            'password': data['password'],
-          },
-          onSuccess: (data) {
-            ref.read(authRepositoryProvider).saveUser(data);
-          },
-        );
-      }),
+      initial: () => SignInInitial(
+        onSignIn: (data) {
+          debugPrint(data.toString());
+          handleLogin.trigger(
+            '/v1/auth/login',
+            method: 'POST',
+            data: {
+              'phone': "88${data['phone']}",
+              'password': data['password'],
+            },
+            onSuccess: (data) {
+              ref.read(authRepositoryProvider).saveUser(data);
+            },
+          );
+        },
+      ),
       success: (data) {
         return Center(
           child: Text('Success:$data'),

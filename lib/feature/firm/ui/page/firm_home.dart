@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/firm/ui/widget/no_firm.dart';
-import 'package:poulty_manager/feature/firm/ui/widget/select_firm.dart';
 
+import '/feature/firm/ui/widget/no_firm.dart';
+import '/feature/firm/ui/widget/select_firm.dart';
 import '../../../../core/widget/async/async_value_widget.dart';
 import '../controller/controller.dart';
 

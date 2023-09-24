@@ -5,7 +5,7 @@ import '../../domain/models/firm_model.dart';
 
 part 'controller.g.dart';
 
-@Riverpod(keepAlive: true)
+@riverpod
 Future<List<FirmModel>> fetchAllFirm(FetchAllFirmRef ref) async {
   final repository = ref.watch(firmRepositoryProvider);
   final firms = await repository.fetchAllFirm();

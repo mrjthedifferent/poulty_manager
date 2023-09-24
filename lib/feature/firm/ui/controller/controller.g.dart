@@ -6,11 +6,12 @@ part of 'controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllFirmHash() => r'8e135035b952bde71a0ad1cb9bfb2957f7d7f71c';
+String _$fetchAllFirmHash() => r'ca038286e3c0812bae64c13523174a2b2a04ddf7';
 
 /// See also [fetchAllFirm].
 @ProviderFor(fetchAllFirm)
-final fetchAllFirmProvider = FutureProvider<List<FirmModel>>.internal(
+final fetchAllFirmProvider =
+    AutoDisposeFutureProvider<List<FirmModel>>.internal(
   fetchAllFirm,
   name: r'fetchAllFirmProvider',
   debugGetCreateSourceHash:
@@ -19,6 +20,6 @@ final fetchAllFirmProvider = FutureProvider<List<FirmModel>>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef FetchAllFirmRef = FutureProviderRef<List<FirmModel>>;
+typedef FetchAllFirmRef = AutoDisposeFutureProviderRef<List<FirmModel>>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

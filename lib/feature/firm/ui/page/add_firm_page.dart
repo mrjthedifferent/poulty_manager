@@ -3,6 +3,7 @@ import 'package:file_picker/file_picker.dart' show PlatformFile;
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/feature/firm/ui/controller/controller.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/core/Layout/extension.dart';
@@ -65,6 +66,7 @@ class AddNewFirmPage extends HookConsumerWidget {
           method: 'POST',
           hasFile: true,
           onSuccess: (data) {
+            ref.invalidate(fetchAllFirmProvider);
             context.go('/');
           },
         );

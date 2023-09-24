@@ -50,7 +50,11 @@ GoRouter appRouter(AppRouterRef ref) {
         }
         return null;
       } else {
-        return '/auth/login';
+        if (!path.contains("auth")) {
+          return '/auth/login';
+        }
+
+        return null;
       }
     },
     refreshListenable: GoRouterRefreshStream(

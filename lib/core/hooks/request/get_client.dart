@@ -67,8 +67,8 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
           result.value = ErrorRequestStatus(error.toString());
         },
         (data) {
-          onSuccess?.call(data.data as T);
           result.value = SuccessRequestStatus(data.data as T);
+          onSuccess?.call(data.data as T);
         },
       );
     });
