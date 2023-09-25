@@ -33,6 +33,7 @@ sealed class FormHelperField {
 class FormHelperTextField extends FormHelperField
     with FormHelperFieldValidatorMixin {
   final bool noTitleApply;
+  final TextInputType? keyboardType;
   // add a controller
 
   final TextEditingController? controller;
@@ -47,6 +48,7 @@ class FormHelperTextField extends FormHelperField
       super.decoration,
       super.hint,
       this.maxLine,
+      this.keyboardType,
       this.obscureText = false,
       this.noTitleApply = false,
       super.isRequired,
@@ -60,6 +62,7 @@ class FormHelperTextField extends FormHelperField
         obscureText: obscureText,
         name: name,
         initialValue: initialValue,
+        keyboardType: keyboardType,
         controller: controller,
         maxLines: maxLine,
         decoration: decoration ??
@@ -263,12 +266,15 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
   final Map<String, String> options;
   final String suffixFieldName;
   final String suffixHint;
+  final TextInputType? keyboardType;
+
   FormHelperTextFieldWithSuffixDropdown(
     super.name, {
     required super.title,
     required this.options,
     required this.suffixFieldName,
     required this.suffixHint,
+    this.keyboardType,
     super.initialValue,
   });
 
@@ -284,15 +290,19 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
         child: Row(
           children: [
             Expanded(
-              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 10),
                 child: FormBuilderTextField(
                   name: name,
+                  keyboardType: keyboardType,
                   initialValue: initialValue,
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: hint,
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 6,
+                      vertical: 10,
+                    ),
                   ),
                   onChanged: onChanged,
                 ),
@@ -300,7 +310,6 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
             ),
             const SizedBox(width: 5),
             Expanded(
-              flex: 1,
               child: FormBuilderDropdown(
                 name: suffixFieldName,
                 decoration: decoration ??
@@ -312,7 +321,7 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
                       fillColor: Colors.grey.shade300,
                       contentPadding: const EdgeInsets.symmetric(
                         horizontal: 6,
-                        vertical: 16,
+                        vertical: 10,
                       ),
                     ),
                 onChanged: onChanged,

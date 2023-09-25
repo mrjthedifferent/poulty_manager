@@ -1,13 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:form_helper/form_helper.dart';
-import 'package:poulty_manager/core/Layout/extension.dart';
-import 'package:poulty_manager/feature/batch/presentation/functions/utils.dart';
-import 'package:styled_widget/styled_widget.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/core/client/api_url.dart';
 
-import '../../../../config/constant/constant.dart';
+import '/core/widget/async/async_value_widget.dart';
+import '/feature/shared/components/form_render.dart';
+import '../controller/controller.dart';
 
-class NewBatchForm extends StatelessWidget {
+class NewBatchForm extends ConsumerWidget {
   final String firmId;
   const NewBatchForm({
     Key? key,
@@ -15,27 +15,19 @@ class NewBatchForm extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final (:form, :handleReset, :handleSubmit, :register) = useFormBuilder();
-    return <Widget>[
-      titleWithBackArrow(
-          "নতুন ব্যাচ শুরু করুন", "নতুন ব্যাচ শুরু করতে সকল তথ্য নিচে দিন"),
-      KSized.h10,
-      form(
-        <Widget>[
-          FormFields.dropDown('fruit',
-              title: "মুরগির নাম *",
-              initialValue: "chicken",
-              options: {
-                'মুরগি': 'chicken',
-                'মুরগা': 'hen',
-              }),
-          FormFields.textField(
-            'name',
-            title: "ডিলারের নাম *",
-          ),
-        ].toColumn(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final formSettings = ref.watch(fetchFormSettingsProvider);
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Add Batch"),
       ),
-    ].toColumn().parent(page);
+      body: AsyncValueWidget(
+        value: formSettings,
+        data: (data) => RenderFormAndUpdate(
+          formSettings: data,
+          requestUrl: ApiEndpoints.poultryBatches,
+        ),
+      ),
+    );
   }
 }
