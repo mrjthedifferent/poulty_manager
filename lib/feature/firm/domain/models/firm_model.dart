@@ -4,12 +4,11 @@ part 'firm_model.freezed.dart';
 part 'firm_model.g.dart';
 
 @freezed
-@JsonSerializable(explicitToJson: true, fieldRename: FieldRename.snake)
 class FirmModel with _$FirmModel {
   factory FirmModel({
     required int id,
     String? ownerId,
-    String? name,
+    required String name,
     bool? isApproved,
     bool? isActive,
     String? logo,
@@ -21,11 +20,6 @@ class FirmModel with _$FirmModel {
     String? about,
   }) = _FirmModel;
 
-  factory FirmModel.fromMap(Map<String, dynamic> json) {
-    return _$FirmModelFromJson(json);
-  }
-
-  Map<String, dynamic> toMap() {
-    return _$FirmModelToJson(this);
-  }
+  factory FirmModel.fromJson(Map<String, dynamic> json) =>
+      _$FirmModelFromJson(json);
 }

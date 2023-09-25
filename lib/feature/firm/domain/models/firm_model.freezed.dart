@@ -14,11 +14,15 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+FirmModel _$FirmModelFromJson(Map<String, dynamic> json) {
+  return _FirmModel.fromJson(json);
+}
+
 /// @nodoc
 mixin _$FirmModel {
   int get id => throw _privateConstructorUsedError;
   String? get ownerId => throw _privateConstructorUsedError;
-  String? get name => throw _privateConstructorUsedError;
+  String get name => throw _privateConstructorUsedError;
   bool? get isApproved => throw _privateConstructorUsedError;
   bool? get isActive => throw _privateConstructorUsedError;
   String? get logo => throw _privateConstructorUsedError;
@@ -29,6 +33,7 @@ mixin _$FirmModel {
   String? get address => throw _privateConstructorUsedError;
   String? get about => throw _privateConstructorUsedError;
 
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $FirmModelCopyWith<FirmModel> get copyWith =>
       throw _privateConstructorUsedError;
@@ -42,7 +47,7 @@ abstract class $FirmModelCopyWith<$Res> {
   $Res call(
       {int id,
       String? ownerId,
-      String? name,
+      String name,
       bool? isApproved,
       bool? isActive,
       String? logo,
@@ -69,7 +74,7 @@ class _$FirmModelCopyWithImpl<$Res, $Val extends FirmModel>
   $Res call({
     Object? id = null,
     Object? ownerId = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? isApproved = freezed,
     Object? isActive = freezed,
     Object? logo = freezed,
@@ -89,10 +94,10 @@ class _$FirmModelCopyWithImpl<$Res, $Val extends FirmModel>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isApproved: freezed == isApproved
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
@@ -143,7 +148,7 @@ abstract class _$$_FirmModelCopyWith<$Res> implements $FirmModelCopyWith<$Res> {
   $Res call(
       {int id,
       String? ownerId,
-      String? name,
+      String name,
       bool? isApproved,
       bool? isActive,
       String? logo,
@@ -168,7 +173,7 @@ class __$$_FirmModelCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? ownerId = freezed,
-    Object? name = freezed,
+    Object? name = null,
     Object? isApproved = freezed,
     Object? isActive = freezed,
     Object? logo = freezed,
@@ -188,10 +193,10 @@ class __$$_FirmModelCopyWithImpl<$Res>
           ? _value.ownerId
           : ownerId // ignore: cast_nullable_to_non_nullable
               as String?,
-      name: freezed == name
+      name: null == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       isApproved: freezed == isApproved
           ? _value.isApproved
           : isApproved // ignore: cast_nullable_to_non_nullable
@@ -233,12 +238,12 @@ class __$$_FirmModelCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$_FirmModel implements _FirmModel {
   _$_FirmModel(
       {required this.id,
       this.ownerId,
-      this.name,
+      required this.name,
       this.isApproved,
       this.isActive,
       this.logo,
@@ -250,12 +255,15 @@ class _$_FirmModel implements _FirmModel {
       this.about})
       : _gallery = gallery;
 
+  factory _$_FirmModel.fromJson(Map<String, dynamic> json) =>
+      _$$_FirmModelFromJson(json);
+
   @override
   final int id;
   @override
   final String? ownerId;
   @override
-  final String? name;
+  final String name;
   @override
   final bool? isApproved;
   @override
@@ -309,6 +317,7 @@ class _$_FirmModel implements _FirmModel {
             (identical(other.about, about) || other.about == about));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
       runtimeType,
@@ -332,9 +341,10 @@ class _$_FirmModel implements _FirmModel {
       __$$_FirmModelCopyWithImpl<_$_FirmModel>(this, _$identity);
 
   @override
-  Map<String, dynamic> toMap() {
-    // TODO: implement toMap
-    throw UnimplementedError();
+  Map<String, dynamic> toJson() {
+    return _$$_FirmModelToJson(
+      this,
+    );
   }
 }
 
@@ -342,7 +352,7 @@ abstract class _FirmModel implements FirmModel {
   factory _FirmModel(
       {required final int id,
       final String? ownerId,
-      final String? name,
+      required final String name,
       final bool? isApproved,
       final bool? isActive,
       final String? logo,
@@ -353,12 +363,15 @@ abstract class _FirmModel implements FirmModel {
       final String? address,
       final String? about}) = _$_FirmModel;
 
+  factory _FirmModel.fromJson(Map<String, dynamic> json) =
+      _$_FirmModel.fromJson;
+
   @override
   int get id;
   @override
   String? get ownerId;
   @override
-  String? get name;
+  String get name;
   @override
   bool? get isApproved;
   @override

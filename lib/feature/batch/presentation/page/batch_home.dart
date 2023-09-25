@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/core/Layout/widget/base_app_bar.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/config.dart';
@@ -20,7 +19,11 @@ class BatchHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: defaultAppBar(context),
+      appBar: AppBar(
+        title: Styled.text("ব্যাচ ম্যানেজমেন্ট")
+            .textColor(Colors.white)
+            .fontSize(18),
+      ),
       body: Stack(
         fit: StackFit.expand,
         children: [

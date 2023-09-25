@@ -22,7 +22,7 @@ class FirmRepository {
     final response = await client.get('/v1/poultry-firms');
     final data = response.data as List<dynamic>;
     _firmList.clear();
-    _firmList.addAll(data.map((e) => FirmModel.fromMap(e)).toList());
+    _firmList.addAll(data.map((e) => FirmModel.fromJson(e)).toList());
     return _firmList;
   }
 
@@ -37,7 +37,7 @@ class FirmRepository {
   Future<FirmModel> fetchFirmById(int id) async {
     final response = await client.get('/v1/poultry-firms/$id');
     final data = response.data as Map<String, dynamic>;
-    return FirmModel.fromMap(data);
+    return FirmModel.fromJson(data);
   }
 
   bool get hasFirm {

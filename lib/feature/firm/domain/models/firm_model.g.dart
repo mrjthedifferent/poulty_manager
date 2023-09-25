@@ -6,10 +6,10 @@ part of 'firm_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-FirmModel _$FirmModelFromJson(Map<String, dynamic> json) => FirmModel(
+_$_FirmModel _$$_FirmModelFromJson(Map<String, dynamic> json) => _$_FirmModel(
       id: json['id'] as int,
       ownerId: json['owner_id'] as String?,
-      name: json['name'] as String?,
+      name: json['name'] as String,
       isApproved: json['is_approved'] as bool?,
       isActive: json['is_active'] as bool?,
       logo: json['logo'] as String?,
@@ -22,7 +22,8 @@ FirmModel _$FirmModelFromJson(Map<String, dynamic> json) => FirmModel(
       about: json['about'] as String?,
     );
 
-Map<String, dynamic> _$FirmModelToJson(FirmModel instance) => <String, dynamic>{
+Map<String, dynamic> _$$_FirmModelToJson(_$_FirmModel instance) =>
+    <String, dynamic>{
       'id': instance.id,
       'owner_id': instance.ownerId,
       'name': instance.name,
