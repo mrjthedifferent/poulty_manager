@@ -1,5 +1,6 @@
+import 'dart:convert';
+
 import 'package:hive/hive.dart';
-import 'package:poulty_manager/core/exceptions/map_to_json.dart';
 
 import '/feature/auth/data/local/local_user.dart';
 import '/feature/auth/domain/app_user.dart';
@@ -47,7 +48,7 @@ class UserLocalRepository implements LocalUserRepository {
   @override
   Future<bool> saveFirm(FirmModel firm) async {
     try {
-      await _userBox.put(firmKey, firm.toMap().toJson());
+      await _userBox.put(firmKey, json.encode(firm.toJson()));
 
       return true;
     } catch (e) {
