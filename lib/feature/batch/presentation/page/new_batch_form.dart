@@ -26,6 +26,7 @@ class NewBatchForm extends ConsumerWidget {
         data: (data) => RenderFormAndUpdate(
           formSettings: data,
           requestUrl: ApiEndpoints.poultryBatches,
+          requestTransformer: (val) => {...val, 'poultry_firm_id': firmId},
         ),
       ),
     );

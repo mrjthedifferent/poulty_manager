@@ -401,8 +401,8 @@ class FormHelperRadio extends FormHelperField {
           spacing: 20,
           options: option.keys
               .map((e) => FormBuilderChipOption(
-                    value: e,
-                    child: Text("${option[e]}"),
+                    value: option[e],
+                    child: Text(e),
                   ))
               .toList(),
         ),

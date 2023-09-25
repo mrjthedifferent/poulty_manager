@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+// ignore: depend_on_referenced_packages
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -15,6 +17,46 @@ typedef RequestHandlerFunc<T> = TaskEither<String, Response<T>> Function(
   bool hasFile,
 });
 
+FormData getFormData(Map<String, dynamic> data) {
+  final formData = FormData();
+  data.forEach(
+    (key, value) {
+      if (value is List) {
+        for (var i = 0; i < value.length; i++) {
+          if (value[i] is PlatformFile) {
+            formData.files.add(
+              MapEntry(
+                "$key[$i]",
+                MultipartFile.fromBytes(
+                  value[i].bytes!,
+                  filename: value[i].name,
+                ),
+              ),
+            );
+          } else {
+            formData.fields.add(MapEntry(key, value[i]));
+          }
+        }
+      } else {
+        if (value is PlatformFile) {
+          formData.files.add(
+            MapEntry(
+              key,
+              MultipartFile.fromBytes(
+                value.bytes!,
+                filename: value.name,
+              ),
+            ),
+          );
+        } else {
+          formData.fields.add(MapEntry(key, value));
+        }
+      }
+    },
+  );
+  return formData;
+}
+
 @riverpod
 RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
   final client = ref.watch(requestClientProvider).client;
@@ -30,6 +72,11 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
           client.options.method = method ?? 'GET';
           client.options.headers['Content-Type'] =
               hasFile ? "multipart/form-data" : 'application/json';
+
+          if (hasFile && data is Map<String, dynamic>) {
+            final formData = getFormData(data);
+            return client.request<T>(url, data: formData);
+          }
 
           return client.request<T>(url, data: data);
         },
