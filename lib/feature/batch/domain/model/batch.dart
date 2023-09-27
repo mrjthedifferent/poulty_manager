@@ -27,6 +27,10 @@ class ModelBatch with _$ModelBatch {
     @Default("") String shopAddress,
     @Default("") String transactionType,
     dynamic transactionVoucher,
+    required String totalAliveChicks,
+    required String avgWeight,
+    required String manufactureCostKg,
+    required String totalCost,
   }) = _ModelBatch;
 
   factory ModelBatch.fromJson(Map<String, dynamic> json) =>

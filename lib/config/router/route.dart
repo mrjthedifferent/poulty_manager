@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/config/router/router_refresh_stream.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
-import 'package:poulty_manager/feature/auth/pages/registation/account_complete_form.dart';
-import 'package:poulty_manager/feature/firm/ui/page/add_firm_page.dart';
-import 'package:poulty_manager/feature/firm/ui/page/firm_home.dart';
-import 'package:poulty_manager/feature/home/fragment.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '/config/router/router_refresh_stream.dart';
+import '/feature/InfoUpdate/ui/pages/form.dart';
 import '/feature/Medicine/presentation/page/page.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/pages.dart';
+import '/feature/auth/pages/registation/account_complete_form.dart';
 import '/feature/daily_advice/presentation/pages/daily_advice.dart';
 import '/feature/doctor_visit/presentation/pages/pages.dart';
+import '/feature/firm/ui/page/add_firm_page.dart';
+import '/feature/firm/ui/page/firm_home.dart';
+import '/feature/home/fragment.dart';
+import '/feature/report/ui/page/report.dart';
 import '/feature/vaccine/presentation/pages/pages.dart';
+import '../../feature/batch/presentation/page/Home/home.dart';
 import '../../feature/batch/presentation/page/page.dart';
 
 part 'route.g.dart';
@@ -130,7 +133,7 @@ GoRouter appRouter(AppRouterRef ref) {
                   GoRoute(
                     path: 'batch',
                     builder: (context, state) {
-                      return BatchHome(
+                      return BatchMainHome(
                         firmId: state.pathParameters['id'] ?? "0",
                       );
                     },
@@ -153,15 +156,22 @@ GoRouter appRouter(AppRouterRef ref) {
               ),
             ],
           ),
+          GoRoute(
+            path: 'info-update/:id',
+            builder: (context, state) {
+              final id = state.pathParameters['id'] ?? "0";
+              return BatchInfoUpdateFormPage(batchId: id);
+            },
+          ),
 
           // Vaccine Routes
           GoRoute(
-            path: 'vaccine',
+            path: 'vaccine/:id',
             builder: (context, state) => const VaccineHomePage(),
             routes: const [],
           ),
           GoRoute(
-            path: 'medicine',
+            path: 'medicine/:id',
             builder: (context, state) => const MedicineShow(),
             routes: [
               GoRoute(
@@ -171,12 +181,16 @@ GoRouter appRouter(AppRouterRef ref) {
             ],
           ),
           GoRoute(
-            path: 'doctor-visit',
+            path: 'doctor-visit/:id',
             builder: (context, state) => const DoctorVisitShow(),
           ),
           GoRoute(
-            path: 'daily-advice',
+            path: 'daily-advice/:id',
             builder: (context, state) => const DailyAdvice(),
+          ),
+          GoRoute(
+            path: 'report/:id',
+            builder: (context, state) => const ReportGeneration(),
           ),
         ],
         // builder: (context, state) => const DailyAdvicePage(),

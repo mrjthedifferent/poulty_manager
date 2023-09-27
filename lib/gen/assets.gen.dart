@@ -45,6 +45,10 @@ class $AssetsIconsGen {
   /// File path: assets/icons/google.svg
   SvgGenImage get google => const SvgGenImage('assets/icons/google.svg');
 
+  /// File path: assets/icons/hen_outline.svg
+  SvgGenImage get henOutline =>
+      const SvgGenImage('assets/icons/hen_outline.svg');
+
   /// File path: assets/icons/icon-otp.svg
   SvgGenImage get iconOtp => const SvgGenImage('assets/icons/icon-otp.svg');
 
@@ -89,8 +93,17 @@ class $AssetsIconsGen {
   /// File path: assets/icons/sun.svg
   SvgGenImage get sun => const SvgGenImage('assets/icons/sun.svg');
 
+  /// File path: assets/icons/total_bai.svg
+  SvgGenImage get totalBai => const SvgGenImage('assets/icons/total_bai.svg');
+
+  /// File path: assets/icons/uppadon.svg
+  SvgGenImage get uppadon => const SvgGenImage('assets/icons/uppadon.svg');
+
   /// File path: assets/icons/user.svg
   SvgGenImage get user => const SvgGenImage('assets/icons/user.svg');
+
+  /// File path: assets/icons/weight.svg
+  SvgGenImage get weight => const SvgGenImage('assets/icons/weight.svg');
 
   /// List of all assets
   List<SvgGenImage> get values => [
@@ -104,6 +117,7 @@ class $AssetsIconsGen {
         facebook,
         floatHome,
         google,
+        henOutline,
         iconOtp,
         injection,
         lock,
@@ -118,7 +132,10 @@ class $AssetsIconsGen {
         rightMark,
         setting,
         sun,
-        user
+        totalBai,
+        uppadon,
+        user,
+        weight
       ];
 }
 

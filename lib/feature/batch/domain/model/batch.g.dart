@@ -29,6 +29,10 @@ _$_ModelBatch _$$_ModelBatchFromJson(Map<String, dynamic> json) =>
       shopAddress: json['shop_address'] as String? ?? "",
       transactionType: json['transaction_type'] as String? ?? "",
       transactionVoucher: json['transaction_voucher'],
+      totalAliveChicks: json['total_alive_chicks'] as String,
+      avgWeight: json['avg_weight'] as String,
+      manufactureCostKg: json['manufacture_cost_kg'] as String,
+      totalCost: json['total_cost'] as String,
     );
 
 Map<String, dynamic> _$$_ModelBatchToJson(_$_ModelBatch instance) =>
@@ -54,6 +58,10 @@ Map<String, dynamic> _$$_ModelBatchToJson(_$_ModelBatch instance) =>
       'shop_address': instance.shopAddress,
       'transaction_type': instance.transactionType,
       'transaction_voucher': instance.transactionVoucher,
+      'total_alive_chicks': instance.totalAliveChicks,
+      'avg_weight': instance.avgWeight,
+      'manufacture_cost_kg': instance.manufactureCostKg,
+      'total_cost': instance.totalCost,
     };
 
 _$_ModelShowLabel _$$_ModelShowLabelFromJson(Map<String, dynamic> json) =>

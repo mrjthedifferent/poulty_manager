@@ -41,6 +41,10 @@ mixin _$ModelBatch {
   String get shopAddress => throw _privateConstructorUsedError;
   String get transactionType => throw _privateConstructorUsedError;
   dynamic get transactionVoucher => throw _privateConstructorUsedError;
+  String get totalAliveChicks => throw _privateConstructorUsedError;
+  String get avgWeight => throw _privateConstructorUsedError;
+  String get manufactureCostKg => throw _privateConstructorUsedError;
+  String get totalCost => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -75,7 +79,11 @@ abstract class $ModelBatchCopyWith<$Res> {
       String dealerName,
       String shopAddress,
       String transactionType,
-      dynamic transactionVoucher});
+      dynamic transactionVoucher,
+      String totalAliveChicks,
+      String avgWeight,
+      String manufactureCostKg,
+      String totalCost});
 }
 
 /// @nodoc
@@ -112,6 +120,10 @@ class _$ModelBatchCopyWithImpl<$Res, $Val extends ModelBatch>
     Object? shopAddress = null,
     Object? transactionType = null,
     Object? transactionVoucher = freezed,
+    Object? totalAliveChicks = null,
+    Object? avgWeight = null,
+    Object? manufactureCostKg = null,
+    Object? totalCost = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -198,6 +210,22 @@ class _$ModelBatchCopyWithImpl<$Res, $Val extends ModelBatch>
           ? _value.transactionVoucher
           : transactionVoucher // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      totalAliveChicks: null == totalAliveChicks
+          ? _value.totalAliveChicks
+          : totalAliveChicks // ignore: cast_nullable_to_non_nullable
+              as String,
+      avgWeight: null == avgWeight
+          ? _value.avgWeight
+          : avgWeight // ignore: cast_nullable_to_non_nullable
+              as String,
+      manufactureCostKg: null == manufactureCostKg
+          ? _value.manufactureCostKg
+          : manufactureCostKg // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalCost: null == totalCost
+          ? _value.totalCost
+          : totalCost // ignore: cast_nullable_to_non_nullable
+              as String,
     ) as $Val);
   }
 }
@@ -231,7 +259,11 @@ abstract class _$$_ModelBatchCopyWith<$Res>
       String dealerName,
       String shopAddress,
       String transactionType,
-      dynamic transactionVoucher});
+      dynamic transactionVoucher,
+      String totalAliveChicks,
+      String avgWeight,
+      String manufactureCostKg,
+      String totalCost});
 }
 
 /// @nodoc
@@ -266,6 +298,10 @@ class __$$_ModelBatchCopyWithImpl<$Res>
     Object? shopAddress = null,
     Object? transactionType = null,
     Object? transactionVoucher = freezed,
+    Object? totalAliveChicks = null,
+    Object? avgWeight = null,
+    Object? manufactureCostKg = null,
+    Object? totalCost = null,
   }) {
     return _then(_$_ModelBatch(
       id: null == id
@@ -352,6 +388,22 @@ class __$$_ModelBatchCopyWithImpl<$Res>
           ? _value.transactionVoucher
           : transactionVoucher // ignore: cast_nullable_to_non_nullable
               as dynamic,
+      totalAliveChicks: null == totalAliveChicks
+          ? _value.totalAliveChicks
+          : totalAliveChicks // ignore: cast_nullable_to_non_nullable
+              as String,
+      avgWeight: null == avgWeight
+          ? _value.avgWeight
+          : avgWeight // ignore: cast_nullable_to_non_nullable
+              as String,
+      manufactureCostKg: null == manufactureCostKg
+          ? _value.manufactureCostKg
+          : manufactureCostKg // ignore: cast_nullable_to_non_nullable
+              as String,
+      totalCost: null == totalCost
+          ? _value.totalCost
+          : totalCost // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -380,7 +432,11 @@ class _$_ModelBatch implements _ModelBatch {
       this.dealerName = "",
       this.shopAddress = "",
       this.transactionType = "",
-      this.transactionVoucher});
+      this.transactionVoucher,
+      required this.totalAliveChicks,
+      required this.avgWeight,
+      required this.manufactureCostKg,
+      required this.totalCost});
 
   factory _$_ModelBatch.fromJson(Map<String, dynamic> json) =>
       _$$_ModelBatchFromJson(json);
@@ -436,10 +492,18 @@ class _$_ModelBatch implements _ModelBatch {
   final String transactionType;
   @override
   final dynamic transactionVoucher;
+  @override
+  final String totalAliveChicks;
+  @override
+  final String avgWeight;
+  @override
+  final String manufactureCostKg;
+  @override
+  final String totalCost;
 
   @override
   String toString() {
-    return 'ModelBatch(id: $id, ownerId: $ownerId, poultryFirmId: $poultryFirmId, poultryNameId: $poultryNameId, poultryName: $poultryName, poultryTypeId: $poultryTypeId, poultryType: $poultryType, manufactureTypeId: $manufactureTypeId, manufactureType: $manufactureType, hatchDate: $hatchDate, hatchDateFormatted: $hatchDateFormatted, chickQuantity: $chickQuantity, freeChickQuantity: $freeChickQuantity, chickPrice: $chickPrice, discount: $discount, chickCompany: $chickCompany, dealerPhone: $dealerPhone, dealerName: $dealerName, shopAddress: $shopAddress, transactionType: $transactionType, transactionVoucher: $transactionVoucher)';
+    return 'ModelBatch(id: $id, ownerId: $ownerId, poultryFirmId: $poultryFirmId, poultryNameId: $poultryNameId, poultryName: $poultryName, poultryTypeId: $poultryTypeId, poultryType: $poultryType, manufactureTypeId: $manufactureTypeId, manufactureType: $manufactureType, hatchDate: $hatchDate, hatchDateFormatted: $hatchDateFormatted, chickQuantity: $chickQuantity, freeChickQuantity: $freeChickQuantity, chickPrice: $chickPrice, discount: $discount, chickCompany: $chickCompany, dealerPhone: $dealerPhone, dealerName: $dealerName, shopAddress: $shopAddress, transactionType: $transactionType, transactionVoucher: $transactionVoucher, totalAliveChicks: $totalAliveChicks, avgWeight: $avgWeight, manufactureCostKg: $manufactureCostKg, totalCost: $totalCost)';
   }
 
   @override
@@ -486,7 +550,15 @@ class _$_ModelBatch implements _ModelBatch {
             (identical(other.transactionType, transactionType) ||
                 other.transactionType == transactionType) &&
             const DeepCollectionEquality()
-                .equals(other.transactionVoucher, transactionVoucher));
+                .equals(other.transactionVoucher, transactionVoucher) &&
+            (identical(other.totalAliveChicks, totalAliveChicks) ||
+                other.totalAliveChicks == totalAliveChicks) &&
+            (identical(other.avgWeight, avgWeight) ||
+                other.avgWeight == avgWeight) &&
+            (identical(other.manufactureCostKg, manufactureCostKg) ||
+                other.manufactureCostKg == manufactureCostKg) &&
+            (identical(other.totalCost, totalCost) ||
+                other.totalCost == totalCost));
   }
 
   @JsonKey(ignore: true)
@@ -513,7 +585,11 @@ class _$_ModelBatch implements _ModelBatch {
         dealerName,
         shopAddress,
         transactionType,
-        const DeepCollectionEquality().hash(transactionVoucher)
+        const DeepCollectionEquality().hash(transactionVoucher),
+        totalAliveChicks,
+        avgWeight,
+        manufactureCostKg,
+        totalCost
       ]);
 
   @JsonKey(ignore: true)
@@ -552,7 +628,11 @@ abstract class _ModelBatch implements ModelBatch {
       final String dealerName,
       final String shopAddress,
       final String transactionType,
-      final dynamic transactionVoucher}) = _$_ModelBatch;
+      final dynamic transactionVoucher,
+      required final String totalAliveChicks,
+      required final String avgWeight,
+      required final String manufactureCostKg,
+      required final String totalCost}) = _$_ModelBatch;
 
   factory _ModelBatch.fromJson(Map<String, dynamic> json) =
       _$_ModelBatch.fromJson;
@@ -599,6 +679,14 @@ abstract class _ModelBatch implements ModelBatch {
   String get transactionType;
   @override
   dynamic get transactionVoucher;
+  @override
+  String get totalAliveChicks;
+  @override
+  String get avgWeight;
+  @override
+  String get manufactureCostKg;
+  @override
+  String get totalCost;
   @override
   @JsonKey(ignore: true)
   _$$_ModelBatchCopyWith<_$_ModelBatch> get copyWith =>
