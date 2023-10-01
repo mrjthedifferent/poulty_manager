@@ -103,6 +103,7 @@ class HomeFragments extends ConsumerWidget {
         ElevatedButton(
           onPressed: () {
             ref.read(authRepositoryProvider).signOut();
+            ref.invalidate(authRepositoryProvider);
           },
           child: const Text("Log out"),
         )

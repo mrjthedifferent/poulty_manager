@@ -20,7 +20,8 @@ Future<ProviderContainer> preProcess() async {
   final container = ProviderContainer(overrides: [
     localUserRepositoryProvider.overrideWithValue(localUserRepo),
   ], observers: [
-    AsyncErrorLogger()
+    AsyncErrorLogger(),
+    Logger()
   ]);
   final errorLogger = container.read(errorLoggerProvider);
   registerErrorHandlers(errorLogger);
@@ -48,4 +49,20 @@ void registerErrorHandlers(ErrorLogger errorLogger) {
       body: Center(child: Text(details.toString())),
     );
   };
+}
+
+class Logger extends ProviderObserver {
+  @override
+  void didUpdateProvider(
+    ProviderBase<Object?> provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
+    debugPrint('''
+{
+  "provider": "${provider.name ?? provider.runtimeType}",
+  "newValue": "$newValue"
+}''');
+  }
 }

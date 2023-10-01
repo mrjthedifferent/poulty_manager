@@ -27,6 +27,7 @@ class SignInPage extends HookConsumerWidget {
             },
             onSuccess: (data) {
               ref.read(authRepositoryProvider).saveUser(data);
+              ref.invalidate(authRepositoryProvider);
             },
           );
         },

@@ -30,7 +30,7 @@ class SelectFirmWidget extends ConsumerWidget {
           final firm = allFirm[index];
           return ListTile(
             leading: const Icon(Icons.home),
-            title: Text(firm.name ?? "no name"),
+            title: Text(firm.name),
             subtitle: Text(firm.address ?? "no address"),
             onTap: () {
               ref.read(firmRepositoryProvider).setCurrentSelectedFirm(firm);
