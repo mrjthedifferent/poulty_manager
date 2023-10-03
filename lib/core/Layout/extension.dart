@@ -2,12 +2,13 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '/core/Layout/widget/with_app_bar.dart';
 import 'widget/base_app_bar.dart';
 
 Widget page({required Widget child}) => Styled.builder(
     builder: (context, ch) {
       return Scaffold(
-        appBar: defaultAppBar(context),
+        appBar: const BaseAppBar(),
         body: Styled.widget(child: ch)
             .padding(vertical: 30, horizontal: 10)
             .scrollable()

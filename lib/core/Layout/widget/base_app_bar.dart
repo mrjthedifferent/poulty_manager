@@ -26,6 +26,37 @@ PreferredSizeWidget defaultAppBar(BuildContext context) {
             width: 40,
           )
           .padding(right: 10)
+          .gestures(onTap: () {
+        //show an scrollable alert dialogue, with a list of options for the user to select
+
+        showAdaptiveDialog(
+            context: context,
+            builder: (
+              context,
+            ) {
+              return AlertDialog(
+                title: const Text('Select an option'),
+                content: const SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text('Profile'),
+                      ),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('Approve'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            });
+      })
     ],
   );
 }
