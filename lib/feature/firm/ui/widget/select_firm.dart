@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/config/constant/constant.dart';
-import 'package:poulty_manager/feature/firm/data/repository/repo.dart';
-import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
 import 'package:styled_widget/styled_widget.dart';
+
+import '/config/constant/constant.dart';
+import '/feature/firm/data/repository/repo.dart';
+import '/feature/vaccine/presentation/style/functions.dart';
 
 class SelectFirmWidget extends ConsumerWidget {
   const SelectFirmWidget({super.key});

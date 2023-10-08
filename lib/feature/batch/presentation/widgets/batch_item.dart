@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/config/constant/constant.dart';
-import 'package:poulty_manager/interface/image_text.dart';
 import 'package:styled_widget/styled_widget.dart';
 
+import '/config/constant/constant.dart';
 import '/feature/batch/domain/domain.dart';
 import '/feature/batch/presentation/widgets/two_text_column.dart';
+import '/interface/image_text.dart';
 import '../../../../config/theme/color.dart';
 import '../../../../gen/assets.gen.dart';
 
@@ -22,7 +22,7 @@ class SingleBatchShow extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isExpanded = useState(false);
+    final isExpanded = useState(serial == 1);
     if (isExpanded.value) {
       return BatchExpand(
         batch: batch,

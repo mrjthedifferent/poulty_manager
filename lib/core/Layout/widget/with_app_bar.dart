@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/core/Layout/widget/alert_profile.dart';
 import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -38,26 +39,7 @@ class BaseAppBar extends HookConsumerWidget implements PreferredSizeWidget {
               context,
             ) {
               return AlertDialog(
-                content: SingleChildScrollView(
-                  child: ListBody(
-                    children: <Widget>[
-                      ListTile(
-                        isThreeLine: true,
-
-                        leading: CircleAvatar(
-                          backgroundImage: switch (user.imageUrl) {
-                            null => Assets.images.profileImage.provider(),
-                            _ => NetworkImage(user.imageUrl!),
-                          },
-                        ),
-                        title: Text(user.name),
-                        subtitle: Text(user.phone),
-                        // make a settings icon in trailing
-                        trailing: const Icon(Icons.settings),
-                      ),
-                    ],
-                  ),
-                ),
+                content: AlertProfile(user: user),
                 actions: <Widget>[
                   TextButton(
                     child: const Text('Close'),
