@@ -182,7 +182,16 @@ GoRouter appRouter(AppRouterRef ref) {
           ),
           GoRoute(
             path: 'doctor-visit/:id',
-            builder: (context, state) => const DoctorVisitShow(),
+            builder: (context, state) =>
+                DoctorVisitShow(state.pathParameters['id'] ?? "0"),
+            routes: [
+              GoRoute(
+                path: 'new',
+                builder: (context, state) => DoctorVisitForm(
+                  batchId: state.pathParameters['id'] ?? "0",
+                ),
+              ),
+            ],
           ),
           GoRoute(
             path: 'daily-advice/:id',

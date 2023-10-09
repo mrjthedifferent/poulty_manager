@@ -172,6 +172,7 @@ class RenderFormAndUpdate extends HookConsumerWidget {
   final String requestUrl;
   final Map<String, dynamic> Function(Map<String, dynamic>)? requestTransformer;
   final String method;
+  final void Function(dynamic)? onSuccess;
 
   const RenderFormAndUpdate({
     super.key,
@@ -179,6 +180,7 @@ class RenderFormAndUpdate extends HookConsumerWidget {
     required this.requestUrl,
     this.requestTransformer,
     this.method = 'POST',
+    this.onSuccess,
   });
 
   @override
@@ -212,12 +214,11 @@ class RenderFormAndUpdate extends HookConsumerWidget {
 
             final formSubmitData = isContainFile ? getFormData(data) : data;
 
-            handleSubmission.trigger(
-              requestUrl,
-              method: method,
-              hasFile: isContainFile,
-              data: formSubmitData,
-            );
+            handleSubmission.trigger(requestUrl,
+                method: method,
+                hasFile: isContainFile,
+                data: formSubmitData,
+                onSuccess: onSuccess);
           },
         ).padding(all: 20),
       ),
