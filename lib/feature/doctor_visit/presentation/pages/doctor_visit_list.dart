@@ -1,23 +1,35 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/core/Layout/widget/with_app_bar.dart';
-import 'package:poulty_manager/core/widget/async/async_value_widget.dart';
-import 'package:poulty_manager/feature/doctor_visit/presentation/controller/controller.dart';
+import 'package:poulty_manager/core/hooks/request/use_http_request.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/config.dart';
 import '/feature/batch/presentation/functions/utils.dart';
 import '/gen/assets.gen.dart';
 import '../../../../config/constant/constant.dart';
+import '../../../../core/client/api_url.dart';
 
-class DoctorVisitShow extends ConsumerWidget {
+class DoctorVisitShow extends HookConsumerWidget {
   const DoctorVisitShow(this.batchId, {super.key});
   final String batchId;
 
+  static fetchDoctorVisitProvider(String batchId) =>
+      makeAutoHttpRequestProvider(
+        RequestOptions(
+            path: ApiEndpoints.poultryBatchDoctorVisit,
+            queryParameters: {"poultry_batch_id": batchId},
+            method: "GET"),
+      );
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final doctorVisit = ref.watch(fetchAllDoctorVisitProvider(batchId));
+    var fetchData = ref.watch(fetchDoctorVisitProvider(batchId));
+
+    final doctorVisit = useAutoRequest(fetchData);
+
     // ;
     return Scaffold(
       appBar: const BaseAppBar(),
@@ -33,31 +45,43 @@ class DoctorVisitShow extends ConsumerWidget {
               Navigator.pop(context);
             }),
             KSized.h10,
-            AsyncValueWidget(
-                value: doctorVisit,
-                data: (data) {
-                  if (data.isEmpty) {
-                    return const Center(
-                      child: Text("No data found"),
-                    );
-                  }
+            doctorVisit.when(
+                data: (data) => Text(
+                      data.data.toString(),
+                    ),
+                error: (e, s) => Text(e.toString()),
+                loading: () => const CircularProgressIndicator())
+            // AsyncValueWidget(
+            //   value: doctorVisit,
+            //   data: (data) {
+            //     return SingleChildScrollView(
+            //       child: Text(
+            //         data.data!.length.toString(),
+            //       ),
+            //     );
+            //     // if (data.isEmpty) {
+            //     //   return const Center(
+            //     //     child: Text("No data found"),
+            //     //   );
+            //     // }
 
-                  return ListView.builder(
-                    shrinkWrap: true,
-                    primary: false,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data.length,
-                    itemBuilder: (context, index) {
-                      final doctor = data[index];
-                      return doctorVisitTile(
-                        Assets.images.doctor,
-                        doctor.doctorName ?? "",
-                        doctor.doctorDegree ?? "",
-                        doctor.doctorVisitDateFormatted ?? "",
-                      );
-                    },
-                  );
-                })
+            //     // return ListView.builder(
+            //     //   shrinkWrap: true,
+            //     //   primary: false,
+            //     //   physics: const NeverScrollableScrollPhysics(),
+            //     //   itemCount: data.length,
+            //     //   itemBuilder: (context, index) {
+            //     //     final doctor = data[index];
+            //     //     return doctorVisitTile(
+            //     //       Assets.images.doctor,
+            //     //       doctor.doctorName ?? "",
+            //     //       doctor.doctorDegree ?? "",
+            //     //       doctor.doctorVisitDateFormatted ?? "",
+            //     //     );
+            //     //   },
+            //     // );
+            //   },
+            // )
 
             // doctorVisitTile(Assets.images.doctor, "ডাঃ মোঃ আব্দুল কাদের",
             //     "প্রধান চিকিৎসক", "তারিখঃ ১ জানুয়ারি ২০২২"),
@@ -70,8 +94,8 @@ class DoctorVisitShow extends ConsumerWidget {
             bottom: 10,
             right: 10,
             child: FloatingActionButton(
-              onPressed: () {
-                context.go("/doctor-visit/$batchId/new");
+              onPressed: () async {
+                context.push("/doctor-visit/$batchId/new");
               },
               child: const Icon(Icons.add),
             ),

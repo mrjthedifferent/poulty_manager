@@ -8,7 +8,7 @@ import '/core/client/api_url.dart';
 import '/core/widget/async/async_value_widget.dart';
 import '/feature/shared/components/form_render.dart';
 import '../../../InfoUpdate/ui/controller/controller.dart';
-import '../controller/controller.dart';
+import 'doctor_visit_list.dart';
 
 class DoctorVisitForm extends ConsumerWidget {
   const DoctorVisitForm({super.key, required this.batchId});
@@ -27,8 +27,8 @@ class DoctorVisitForm extends ConsumerWidget {
         formSettings: data,
         requestUrl: ApiEndpoints.poultryBatchDoctorVisit,
         onSuccess: (data) {
-          // ignore: unused_result
-          ref.refresh(fetchAllDoctorVisitProvider(batchId));
+          final _ =
+              ref.refresh(DoctorVisitShow.fetchDoctorVisitProvider(batchId));
           context.pop();
         },
         requestTransformer: (data) {

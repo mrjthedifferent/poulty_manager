@@ -18,7 +18,9 @@ class AsyncValueWidget<T> extends StatelessWidget {
           resetWidget: () => const SizedBox(),
         ),
       ),
-      loading: () => const Center(child: CircularProgressIndicator()),
+      loading: () => const Center(
+        child: CircularProgressIndicator(),
+      ),
     );
   }
 }

@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:form_helper/form_helper.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -204,6 +205,7 @@ class RenderFormAndUpdate extends HookConsumerWidget {
       initial: () => SingleChildScrollView(
         child: MakeForm(
           fields: fromResponseToFormHelper(formSettings.formFields),
+          onCancel: () => context.pop(),
           onSubmit: (formData) {
             final fdata = requestTransformer != null
                 ? requestTransformer!(formData)
