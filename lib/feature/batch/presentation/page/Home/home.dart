@@ -25,6 +25,11 @@ class BatchMainHome extends HookConsumerWidget {
           AsyncValueWidget(
             value: fetchBatchList,
             data: (batches) {
+              if (batches.isEmpty) {
+                return const Center(
+                  child: Text("No Batch Found"),
+                );
+              }
               return ListView.builder(
                 itemCount: batches.length,
                 itemBuilder: (context, index) {

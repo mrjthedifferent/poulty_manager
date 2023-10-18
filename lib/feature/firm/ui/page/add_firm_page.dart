@@ -67,7 +67,7 @@ class AddNewFirmPage extends HookConsumerWidget {
           hasFile: true,
           onSuccess: (data) {
             ref.invalidate(fetchAllFirmProvider);
-            context.go('/');
+            context.pop();
           },
         );
       }).parent(page),

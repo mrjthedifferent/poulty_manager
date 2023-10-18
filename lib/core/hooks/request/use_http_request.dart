@@ -12,7 +12,7 @@ TaskEither<Exception, Response> makeAutoHttpRequest(
     MakeAutoHttpRequestRef ref, RequestOptions options) {
   final client = ref.watch(requestClientProvider).client;
 
-  return TaskEither.tryCatch(
+  final req = AsyncValue.guard(
     () => client.request(options.path,
         data: options.data,
         queryParameters: options.queryParameters,
@@ -31,6 +31,29 @@ TaskEither<Exception, Response> makeAutoHttpRequest(
           maxRedirects: options.maxRedirects,
           requestEncoder: options.requestEncoder,
         )),
+  );
+
+  return TaskEither.tryCatch(
+    () => client.request(
+      options.path,
+      data: options.data,
+      queryParameters: options.queryParameters,
+      options: Options(
+        method: options.method,
+        headers: options.headers,
+        responseType: options.responseType,
+        contentType: options.contentType,
+        validateStatus: options.validateStatus,
+        receiveTimeout: options.receiveTimeout,
+        sendTimeout: options.sendTimeout,
+        extra: options.extra,
+        responseDecoder: options.responseDecoder,
+        listFormat: options.listFormat,
+        followRedirects: options.followRedirects,
+        maxRedirects: options.maxRedirects,
+        requestEncoder: options.requestEncoder,
+      ),
+    ),
     (e, s) => Exception(
       e.toString(),
     ),
@@ -48,6 +71,6 @@ AsyncValue<Response<T>> useAutoRequest<T>(
       );
     });
     return null;
-  }, [req]);
+  }, []);
   return result.value;
 }

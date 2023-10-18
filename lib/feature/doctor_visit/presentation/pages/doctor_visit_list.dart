@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/core/Layout/widget/with_app_bar.dart';
 import 'package:poulty_manager/core/hooks/request/use_http_request.dart';
+import 'package:poulty_manager/feature/doctor_visit/doctor_visit.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/config.dart';
@@ -11,6 +12,7 @@ import '/feature/batch/presentation/functions/utils.dart';
 import '/gen/assets.gen.dart';
 import '../../../../config/constant/constant.dart';
 import '../../../../core/client/api_url.dart';
+import '../../../../core/widget/async/async_value_widget.dart';
 
 class DoctorVisitShow extends HookConsumerWidget {
   const DoctorVisitShow(this.batchId, {super.key});
@@ -26,7 +28,14 @@ class DoctorVisitShow extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var fetchData = ref.watch(fetchDoctorVisitProvider(batchId));
+    var fetchData = ref.watch(
+      makeAutoHttpRequestProvider(
+        RequestOptions(
+            path: ApiEndpoints.poultryBatchDoctorVisit,
+            queryParameters: {"poultry_batch_id": batchId},
+            method: "GET"),
+      ),
+    );
 
     final doctorVisit = useAutoRequest(fetchData);
 
@@ -45,50 +54,26 @@ class DoctorVisitShow extends HookConsumerWidget {
               Navigator.pop(context);
             }),
             KSized.h10,
-            doctorVisit.when(
-                data: (data) => Text(
-                      data.data.toString(),
-                    ),
-                error: (e, s) => Text(e.toString()),
-                loading: () => const CircularProgressIndicator())
-            // AsyncValueWidget(
-            //   value: doctorVisit,
-            //   data: (data) {
-            //     return SingleChildScrollView(
-            //       child: Text(
-            //         data.data!.length.toString(),
-            //       ),
-            //     );
-            //     // if (data.isEmpty) {
-            //     //   return const Center(
-            //     //     child: Text("No data found"),
-            //     //   );
-            //     // }
-
-            //     // return ListView.builder(
-            //     //   shrinkWrap: true,
-            //     //   primary: false,
-            //     //   physics: const NeverScrollableScrollPhysics(),
-            //     //   itemCount: data.length,
-            //     //   itemBuilder: (context, index) {
-            //     //     final doctor = data[index];
-            //     //     return doctorVisitTile(
-            //     //       Assets.images.doctor,
-            //     //       doctor.doctorName ?? "",
-            //     //       doctor.doctorDegree ?? "",
-            //     //       doctor.doctorVisitDateFormatted ?? "",
-            //     //     );
-            //     //   },
-            //     // );
-            //   },
-            // )
-
-            // doctorVisitTile(Assets.images.doctor, "ডাঃ মোঃ আব্দুল কাদের",
-            //     "প্রধান চিকিৎসক", "তারিখঃ ১ জানুয়ারি ২০২২"),
-            // doctorVisitTile(Assets.images.doctor, "ডাঃ জাহাঙ্গীর কবির", "MBBS",
-            //     "তারিখঃ ১ জানুয়ারি ২০২২"),
-            // doctorVisitTile(Assets.images.doctor, "ডাঃ শেখ মুজিব", "প্রধান চিকিৎসক",
-            //     "তারিখঃ ১ জানুয়ারি ২০২২"),
+            AsyncValueWidget(
+              value: doctorVisit,
+              data: (data) {
+                final parseData =
+                    List<Map<String, dynamic>>.from(data.data ?? []);
+                final doctors =
+                    parseData.map((e) => DoctorVisitModel.fromJson(e));
+                return Column(
+                  children: doctors
+                      .map((e) => doctorVisitTile(
+                          Assets.images.doctor,
+                          e.doctorName ?? "",
+                          e.doctorDegree ?? "",
+                          e.doctorVisitDateFormatted ?? ""))
+                      .toList(),
+                ).scrollable().constrained(
+                      height: MediaQuery.of(context).size.height * 0.8,
+                    );
+              },
+            )
           ].toColumn(),
           Positioned(
             bottom: 10,

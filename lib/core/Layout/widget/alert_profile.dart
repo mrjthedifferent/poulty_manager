@@ -100,7 +100,9 @@ class AlertProfile extends StatelessWidget {
                     width: double.infinity,
                     child: ElevatedButton.icon(
                       style: primaryBtnStyle,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.push("/firm");
+                      },
                       icon: const Icon(Icons.add),
                       label:
                           Styled.text("Add New Firm").textColor(Colors.white),

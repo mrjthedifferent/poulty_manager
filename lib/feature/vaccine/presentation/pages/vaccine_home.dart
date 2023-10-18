@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/gen/assets.gen.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -16,7 +17,9 @@ class VaccineHomePage extends StatelessWidget {
       titleWithBackArrowAndAction(
         "ভ্যাক্সিন",
         "মুরগী সুস্থ রাখতে নির্দিষ্ট দিনের মধ্যে ভ্যাক্সিন সম্পন্ন করুন এবং নিশ্চিন্তে খামার পরিচালনা করুন।",
-        onBack: () {},
+        onBack: () {
+          context.pop();
+        },
       ),
       KSized.h10,
       KSized.h10,

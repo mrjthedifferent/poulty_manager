@@ -7,7 +7,7 @@ part of 'use_http_request.dart';
 // **************************************************************************
 
 String _$makeAutoHttpRequestHash() =>
-    r'044946de5f9aab622c71fc3dde9b696ef4f8bb2b';
+    r'71211d52d3c80e03d71746970954deef00699ba8';
 
 /// Copied from Dart SDK
 class _SystemHash {

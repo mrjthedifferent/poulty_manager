@@ -199,7 +199,8 @@ GoRouter appRouter(AppRouterRef ref) {
           ),
           GoRoute(
             path: 'report/:id',
-            builder: (context, state) => const ReportGeneration(),
+            builder: (context, state) =>
+                ReportGeneration(state.pathParameters['id'] ?? "0"),
           ),
         ],
         // builder: (context, state) => const DailyAdvicePage(),

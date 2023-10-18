@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:poulty_manager/config/config.dart';
 import 'package:poulty_manager/config/constant/constant.dart';
 import 'package:poulty_manager/feature/batch/presentation/functions/utils.dart';
@@ -13,8 +14,9 @@ class MedicineShow extends StatelessWidget {
   Widget build(BuildContext context) {
     return <Widget>[
       titleWithBackArrowAndAction(
-          "ঔষধ সময়সূচি", "মুরগিকে সুস্থ রাখতে সময়ময় ঔষধ খাওয়ান",
-          onBack: () {}),
+          "ঔষধ সময়সূচি", "মুরগিকে সুস্থ রাখতে সময়ময় ঔষধ খাওয়ান", onBack: () {
+        context.pop();
+      }),
       KSized.h12,
       medicineTile("রেনেমাইসিন", "১০ মিনিট পর", 0.5),
       medicineTile("Ansamble", "20 মিনিট পর", 0.2),

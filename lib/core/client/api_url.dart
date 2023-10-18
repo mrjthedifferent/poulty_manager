@@ -39,4 +39,8 @@ class ApiEndpoints {
 
   // User Endpoints
   static const String getUser = '/v1/user';
+
+  //Report
+  static const String reportGeneration =
+      '/v1/reports/poultry-batch/0/result-analysis';
 }
