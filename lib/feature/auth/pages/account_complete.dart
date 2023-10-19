@@ -55,6 +55,8 @@ class AccountCompletePage extends HookWidget {
         title: "pass",
         controller: passwordController,
         noTitleApply: true,
+        obscureText: true,
+        maxLine: 1,
         decoration: defaultFormDecoration.copyWith(
           hintText: "পাসওয়ার্ড",
           prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
@@ -65,10 +67,12 @@ class AccountCompletePage extends HookWidget {
       FormHelperTextField(
         "conform_password",
         title: "pass",
+        obscureText: true,
         controller: conformController,
         noTitleApply: true,
+        maxLine: 1,
         decoration: defaultFormDecoration.copyWith(
-          hintText: "conform পাসওয়ার্ড",
+          hintText: "কনফার্ম পাসওয়ার্ড",
           prefixIcon: const Icon(Icons.lock_outline, color: Colors.grey),
         ),
       ).toWidget,
@@ -88,7 +92,7 @@ class AccountCompletePage extends HookWidget {
         "role",
         title: "আপনি একজন?",
         onChanged: (value) => userType.value = value,
-        option: {"1": "খামারি", "0": "ক্রেতা", "2": "টিম মেম্বার"},
+        option: {"খামারি": "1", "ক্রেতা": "0", "টিম মেম্বার": "2"},
       ).toWidget.padding(
             left: 10,
           ),
@@ -149,7 +153,6 @@ class AccountCompletePage extends HookWidget {
                   "password_confirmation": conformController.text,
                   "ref_id": refIdController.text,
                   "role": userType.value,
-                  "email": "test@${nameController.text}.com"
                 },
               );
             }

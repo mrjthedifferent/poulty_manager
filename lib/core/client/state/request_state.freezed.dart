@@ -20,7 +20,7 @@ mixin _$RequestStatus<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String string) error,
+    required TResult Function(DioException error) error,
     required TResult Function(T data) success,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$RequestStatus<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String string)? error,
+    TResult? Function(DioException error)? error,
     TResult? Function(T data)? success,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$RequestStatus<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String string)? error,
+    TResult Function(DioException error)? error,
     TResult Function(T data)? success,
     required TResult orElse(),
   }) =>
@@ -127,7 +127,7 @@ class _$InitialRequestStatus<T> implements InitialRequestStatus<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String string) error,
+    required TResult Function(DioException error) error,
     required TResult Function(T data) success,
   }) {
     return initial();
@@ -138,7 +138,7 @@ class _$InitialRequestStatus<T> implements InitialRequestStatus<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String string)? error,
+    TResult? Function(DioException error)? error,
     TResult? Function(T data)? success,
   }) {
     return initial?.call();
@@ -149,7 +149,7 @@ class _$InitialRequestStatus<T> implements InitialRequestStatus<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String string)? error,
+    TResult Function(DioException error)? error,
     TResult Function(T data)? success,
     required TResult orElse(),
   }) {
@@ -242,7 +242,7 @@ class _$LoadingRequestStatus<T> implements LoadingRequestStatus<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String string) error,
+    required TResult Function(DioException error) error,
     required TResult Function(T data) success,
   }) {
     return loading();
@@ -253,7 +253,7 @@ class _$LoadingRequestStatus<T> implements LoadingRequestStatus<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String string)? error,
+    TResult? Function(DioException error)? error,
     TResult? Function(T data)? success,
   }) {
     return loading?.call();
@@ -264,7 +264,7 @@ class _$LoadingRequestStatus<T> implements LoadingRequestStatus<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String string)? error,
+    TResult Function(DioException error)? error,
     TResult Function(T data)? success,
     required TResult orElse(),
   }) {
@@ -322,7 +322,7 @@ abstract class _$$ErrorRequestStatusCopyWith<T, $Res> {
           $Res Function(_$ErrorRequestStatus<T>) then) =
       __$$ErrorRequestStatusCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({String string});
+  $Res call({DioException error});
 }
 
 /// @nodoc
@@ -336,13 +336,13 @@ class __$$ErrorRequestStatusCopyWithImpl<T, $Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? string = null,
+    Object? error = null,
   }) {
     return _then(_$ErrorRequestStatus<T>(
-      null == string
-          ? _value.string
-          : string // ignore: cast_nullable_to_non_nullable
-              as String,
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as DioException,
     ));
   }
 }
@@ -350,14 +350,14 @@ class __$$ErrorRequestStatusCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
-  const _$ErrorRequestStatus(this.string);
+  const _$ErrorRequestStatus(this.error);
 
   @override
-  final String string;
+  final DioException error;
 
   @override
   String toString() {
-    return 'RequestStatus<$T>.error(string: $string)';
+    return 'RequestStatus<$T>.error(error: $error)';
   }
 
   @override
@@ -365,11 +365,11 @@ class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$ErrorRequestStatus<T> &&
-            (identical(other.string, string) || other.string == string));
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, string);
+  int get hashCode => Object.hash(runtimeType, error);
 
   @JsonKey(ignore: true)
   @override
@@ -383,10 +383,10 @@ class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String string) error,
+    required TResult Function(DioException error) error,
     required TResult Function(T data) success,
   }) {
-    return error(string);
+    return error(this.error);
   }
 
   @override
@@ -394,10 +394,10 @@ class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String string)? error,
+    TResult? Function(DioException error)? error,
     TResult? Function(T data)? success,
   }) {
-    return error?.call(string);
+    return error?.call(this.error);
   }
 
   @override
@@ -405,12 +405,12 @@ class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String string)? error,
+    TResult Function(DioException error)? error,
     TResult Function(T data)? success,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(string);
+      return error(this.error);
     }
     return orElse();
   }
@@ -454,10 +454,10 @@ class _$ErrorRequestStatus<T> implements ErrorRequestStatus<T> {
 }
 
 abstract class ErrorRequestStatus<T> implements RequestStatus<T> {
-  const factory ErrorRequestStatus(final String string) =
+  const factory ErrorRequestStatus(final DioException error) =
       _$ErrorRequestStatus<T>;
 
-  String get string;
+  DioException get error;
   @JsonKey(ignore: true)
   _$$ErrorRequestStatusCopyWith<T, _$ErrorRequestStatus<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -531,7 +531,7 @@ class _$SuccessRequestStatus<T> implements SuccessRequestStatus<T> {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() loading,
-    required TResult Function(String string) error,
+    required TResult Function(DioException error) error,
     required TResult Function(T data) success,
   }) {
     return success(data);
@@ -542,7 +542,7 @@ class _$SuccessRequestStatus<T> implements SuccessRequestStatus<T> {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? loading,
-    TResult? Function(String string)? error,
+    TResult? Function(DioException error)? error,
     TResult? Function(T data)? success,
   }) {
     return success?.call(data);
@@ -553,7 +553,7 @@ class _$SuccessRequestStatus<T> implements SuccessRequestStatus<T> {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
-    TResult Function(String string)? error,
+    TResult Function(DioException error)? error,
     TResult Function(T data)? success,
     required TResult orElse(),
   }) {

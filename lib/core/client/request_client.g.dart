@@ -7,7 +7,7 @@ part of 'request_client.dart';
 // **************************************************************************
 
 String _$bearerTokenInterceptorHash() =>
-    r'2fff183f84de4e8042d5c602bfe3006c80408578';
+    r'3368dd009e9bb1c648b1a9cb3d8de574409f07da';
 
 /// See also [bearerTokenInterceptor].
 @ProviderFor(bearerTokenInterceptor)

@@ -47,7 +47,7 @@ TaskResult<T> useTask<T>(Task<T> task) {
     task.toTaskEither().run().then((either) {
       either.fold(
         (error) {
-          result.value = ErrorRequestStatus(error.toString());
+          result.value = ErrorRequestStatus(error);
         },
         (data) {
           result.value = SuccessRequestStatus(data);

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:poulty_manager/core/widget/error_widget.dart';
 
 import '/core/client/state/request_state.dart';
+import '/core/widget/error_widget.dart';
 
 class RequestHandleWidget<T> extends StatelessWidget {
   const RequestHandleWidget(
@@ -22,9 +22,26 @@ class RequestHandleWidget<T> extends StatelessWidget {
         // when error occurs show an alert dialog with the error message and show the initial widget
         error: (e) {
           // show toast snackbar
+          String err = e.message ?? "Something went wrong";
+          if (e.response?.statusCode == 422) {
+            if (e.response?.data
+                case {
+                  'message': String _,
+                  'errors': Map details,
+                  'success': false
+                }) {
+              for (var key in details.keys) {
+                if (details[key] case List arr) {
+                  err += "\n ${arr.join("\n")}";
+                  continue;
+                }
+                err += details[key].toString();
+              }
+            }
+          }
 
           return ErrorMessageWidget(
-            errorMessage: e,
+            errorMessage: err,
             resetWidget: initial,
           );
         },

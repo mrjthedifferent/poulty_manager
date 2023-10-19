@@ -23,7 +23,9 @@ Future<List<ModelBatch>> fetchAllBatchByFirm(
   final result = await client
       .get<List<dynamic>>(ApiEndpoints.poultryBatches, queryParameters: {
     "firm_id": firmId,
-  }).then((value) => value.data!.map((e) => ModelBatch.fromJson(e)).toList());
+  }).then(
+    (value) => value.data!.map((e) => ModelBatch.fromJson(e)).toList(),
+  );
 
   return result;
 }

@@ -5,7 +5,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/core/Layout/extension.dart';
-import '/feature/auth/data/remote/remote.dart';
 import '/feature/home/widgets/slider.dart';
 import '/gen/assets.gen.dart';
 import '/interface/image_text.dart';
@@ -100,13 +99,6 @@ class HomeFragments extends ConsumerWidget {
           primary: false,
           shrinkWrap: true,
         ),
-        ElevatedButton(
-          onPressed: () {
-            ref.read(authRepositoryProvider).signOut();
-            ref.invalidate(authRepositoryProvider);
-          },
-          child: const Text("Log out"),
-        )
       ],
     ).parent(page);
   }

@@ -1,10 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
 
 import '/core/hooks/request/get_client.dart';
 import '/core/widget/async/request_handle.dart';
-import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/account_complete.dart';
 
 class AccountCompleteForm extends HookConsumerWidget {
@@ -32,7 +32,8 @@ class AccountCompleteForm extends HookConsumerWidget {
             },
             onSuccess: (data) {
               debugPrint('Success:$data');
-              ref.read(authRepositoryProvider).saveUser(data);
+              ref.read(authenticationRepositoryProvider.notifier).signIn(data);
+              // ref.read(authRepositoryProvider).saveUser(data);
             },
           );
         },

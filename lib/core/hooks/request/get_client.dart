@@ -10,7 +10,7 @@ import '../../client/state/request_state.dart';
 
 part 'get_client.g.dart';
 
-typedef RequestHandlerFunc<T> = TaskEither<String, Response<T>> Function(
+typedef RequestHandlerFunc<T> = TaskEither<DioException, Response<T>> Function(
   String url, {
   Object? data,
   String? method,
@@ -61,13 +61,13 @@ FormData getFormData(Map<String, dynamic> data) {
 RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
   final client = ref.watch(requestClientProvider).client;
 
-  TaskEither<String, Response<T>> requestHandler<T>(
+  TaskEither<DioException, Response<T>> requestHandler<T>(
     String url, {
     Object? data,
     String? method,
     bool hasFile = false,
   }) =>
-      TaskEither<String, Response<T>>.tryCatch(
+      TaskEither<DioException, Response<T>>.tryCatch(
         () {
           client.options.method = method ?? 'GET';
           client.options.headers['Content-Type'] =
@@ -80,7 +80,7 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
 
           return client.request<T>(url, data: data);
         },
-        (error, stackTrace) => error.toString(),
+        (error, stackTrace) => error as DioException,
       );
   return requestHandler;
 }
@@ -111,7 +111,7 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
     ).run().then((either) {
       either.fold(
         (error) {
-          result.value = ErrorRequestStatus(error.toString());
+          result.value = ErrorRequestStatus(error);
         },
         (data) {
           result.value = SuccessRequestStatus(data.data as T);

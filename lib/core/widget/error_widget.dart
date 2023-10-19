@@ -15,6 +15,7 @@ class ErrorMessageWidget extends HookWidget {
     final showError = useState(true);
     return showError.value
         ? Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const Spacer(),
               Text(errorMessage),

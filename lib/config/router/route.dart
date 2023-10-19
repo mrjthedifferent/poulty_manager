@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '/config/router/router_refresh_stream.dart';
 import '/feature/InfoUpdate/ui/pages/form.dart';
 import '/feature/Medicine/presentation/page/page.dart';
-import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/pages.dart';
 import '/feature/auth/pages/registation/account_complete_form.dart';
 import '/feature/daily_advice/presentation/pages/daily_advice.dart';
@@ -40,12 +40,13 @@ enum AppRouteName {
 
 @Riverpod(keepAlive: true)
 GoRouter appRouter(AppRouterRef ref) {
-  final authRepository = ref.watch(authRepositoryProvider);
   return GoRouter(
     initialLocation: '/',
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isLoggedIn = authRepository.currentUser != null;
+      final isLoggedIn =
+          ref.read(authenticationRepositoryProvider.notifier).currentUser !=
+              null;
       final path = state.uri.path;
       if (isLoggedIn) {
         if (path.contains("auth")) {
@@ -61,7 +62,7 @@ GoRouter appRouter(AppRouterRef ref) {
       }
     },
     refreshListenable: GoRouterRefreshStream(
-      authRepository.authStateChanges(),
+      ref.read(authenticationRepositoryProvider.notifier).authStateChanges(),
     ),
     routes: [
       GoRoute(

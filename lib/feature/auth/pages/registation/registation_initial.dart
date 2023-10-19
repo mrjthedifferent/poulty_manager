@@ -63,7 +63,7 @@ class RegistrationInitial extends HookWidget {
             borderRadius: BorderRadius.circular(16),
           ),
         ),
-      ).toWidget,
+      ).toWidget.padding(horizontal: 10),
 
       KSized.h10,
       KSized.h10,

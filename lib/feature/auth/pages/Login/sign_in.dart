@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
 
 import '/core/hooks/request/get_client.dart';
 import '/core/widget/async/request_handle.dart';
-import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/Login/initial.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -26,8 +26,8 @@ class SignInPage extends HookConsumerWidget {
               'password': data['password'],
             },
             onSuccess: (data) {
-              ref.read(authRepositoryProvider).saveUser(data);
-              ref.invalidate(authRepositoryProvider);
+              ref.read(authenticationRepositoryProvider.notifier).signIn(data);
+              // ref.invalidate(authRepositoryProvider);
             },
           );
         },
