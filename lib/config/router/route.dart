@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
+import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '/config/router/router_refresh_stream.dart';
@@ -44,9 +44,7 @@ GoRouter appRouter(AppRouterRef ref) {
     initialLocation: '/',
     debugLogDiagnostics: true,
     redirect: (context, state) {
-      final isLoggedIn =
-          ref.read(authenticationRepositoryProvider.notifier).currentUser !=
-              null;
+      final isLoggedIn = ref.watch(authRepositoryProvider).currentUser != null;
       final path = state.uri.path;
       if (isLoggedIn) {
         if (path.contains("auth")) {
@@ -62,7 +60,7 @@ GoRouter appRouter(AppRouterRef ref) {
       }
     },
     refreshListenable: GoRouterRefreshStream(
-      ref.read(authenticationRepositoryProvider.notifier).authStateChanges(),
+      ref.read(authRepositoryProvider).authStateChanges(),
     ),
     routes: [
       GoRoute(

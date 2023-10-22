@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
+import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
@@ -116,9 +116,8 @@ class AlertProfile extends StatelessWidget {
                     child: ElevatedButton(
                       style: primaryBtnStyle.copyWith(),
                       onPressed: () {
-                        ref
-                            .read(authenticationRepositoryProvider.notifier)
-                            .signOut();
+                        ref.read(authRepositoryProvider).signOut();
+                        ref.invalidate(authRepositoryProvider);
                       },
                       child: Styled.text("Log out").textColor(Colors.white),
                     ),

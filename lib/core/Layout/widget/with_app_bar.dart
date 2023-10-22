@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:poulty_manager/core/Layout/widget/alert_profile.dart';
-import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
+import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '../../../gen/assets.gen.dart';
@@ -11,8 +11,7 @@ class BaseAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   const BaseAppBar({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user =
-        ref.watch(authenticationRepositoryProvider.notifier).currentUser;
+    final user = ref.watch(authRepositoryProvider).currentUser;
     return AppBar(
       leading: Assets.images.logo.image().padding(left: 10),
       leadingWidth: 100,

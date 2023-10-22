@@ -1,6 +1,6 @@
 // ignore: constant_identifier_names
 import 'package:dio/dio.dart';
-import 'package:poulty_manager/feature/auth/data/remote/interface.dart';
+import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'request_client.g.dart';
@@ -78,8 +78,14 @@ class AddBearerTokenInterceptor extends Interceptor {
 @Riverpod(keepAlive: true)
 AddBearerTokenInterceptor bearerTokenInterceptor(
     final BearerTokenInterceptorRef ref) {
-  final usr = ref.watch(authenticationRepositoryProvider.notifier).currentUser;
-  return AddBearerTokenInterceptor(token: usr?.token);
+  final usr = ref.watch(authRepositoryProvider);
+  var token = usr.currentUser?.token;
+  final subscription =
+      usr.authStateChanges().listen((event) => token = event?.token);
+
+  ref.onDispose(() => subscription.cancel());
+
+  return AddBearerTokenInterceptor(token: token);
 }
 
 @Riverpod(keepAlive: true)

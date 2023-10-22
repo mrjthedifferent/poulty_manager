@@ -7,7 +7,7 @@ part 'local_user.g.dart';
 
 abstract interface class LocalUserRepository {
   Future<void> saveUser(AppUser user);
-  AppUser? getUser();
+  AppUser? get getUser;
   Future<void> deleteUser();
 
   Future<void> saveFirm(FirmModel firm);

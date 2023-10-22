@@ -1,12 +1,14 @@
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import '/feature/auth/data/local/local_user.dart';
 import '../../../../core/utils/memory_store.dart';
 import '../../domain/app_user.dart';
 
-// part 'remote.g.dart';
+part 'remote.g.dart';
 
 class AuthRepository {
   AuthRepository(this.localUserRepository, {this.initialUser}) {
-    _authState.value = initialUser ?? localUserRepository.getUser();
+    _authState.value = initialUser ?? localUserRepository.getUser;
   }
   final AppUser? initialUser;
 
@@ -37,16 +39,16 @@ class AuthRepository {
   void dispose() => _authState.close();
 }
 
-// @Riverpod(keepAlive: true)
-// AuthRepository authRepository(AuthRepositoryRef ref) {
-//   final auth = AuthRepository(ref.watch(localUserRepositoryProvider));
-//   ref.onDispose(() => auth.dispose());
-//   return auth;
-// }
+@Riverpod(keepAlive: true)
+AuthRepository authRepository(AuthRepositoryRef ref) {
+  final auth = AuthRepository(ref.watch(localUserRepositoryProvider));
+  ref.onDispose(() => auth.dispose());
 
-// @Riverpod(keepAlive: true)
-// Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
-//   final authRepository = ref.watch(authRepositoryProvider);
-//   return authRepository.authStateChanges();
-// }
+  return auth;
+}
 
+@Riverpod(keepAlive: true)
+Stream<AppUser?> authStateChanges(AuthStateChangesRef ref) {
+  final authRepository = ref.watch(authRepositoryProvider);
+  return authRepository.authStateChanges();
+}
