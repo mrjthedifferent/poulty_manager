@@ -1,6 +1,6 @@
-import 'package:poulty_manager/core/client/api_url.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '/core/client/api_url.dart';
 import '/core/client/request_client.dart';
 import '/feature/shared/model/Form/form.dart';
 

@@ -131,6 +131,7 @@ GoRouter appRouter(AppRouterRef ref) {
                 routes: [
                   GoRoute(
                     path: 'batch',
+                    name: AppRouteName.batchList.name,
                     builder: (context, state) {
                       return BatchMainHome(
                         firmId: state.pathParameters['id'] ?? "0",

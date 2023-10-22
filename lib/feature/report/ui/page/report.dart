@@ -1,5 +1,4 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,22 +8,13 @@ import 'package:styled_widget/styled_widget.dart';
 
 import '/core/Layout/extension.dart';
 import '../../../../config/constant/constant.dart';
-import '../../../../core/hooks/request/use_http_request.dart';
 
 class ReportGeneration extends HookConsumerWidget {
   final String batchId;
   const ReportGeneration(this.batchId, {super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var fetchData = ref.watch(
-      makeAutoHttpRequestProvider(
-        RequestOptions(
-            path: "/v1/reports/poultry-batch/$batchId/result-analysis",
-            method: "GET"),
-      ),
-    );
-
-    final report = useAutoRequest(fetchData);
+    // final report = useAutoRequest(fetchData);
 
     return <Widget>[
       titleWithBackArrowAndAction("ফলাফল মূল্যায়ন",
@@ -39,6 +29,7 @@ class ReportGeneration extends HookConsumerWidget {
         "সম্ভাব্য বিক্রয়ঃ": "২৭ শে অক্টোবর (রবিবার)",
         "মুরগি সংখ্যা": "১০২০"
       }),
+      KSized.h12,
       <Widget>[
         const ReportIndicator(
           color: Colors.red,
@@ -52,9 +43,8 @@ class ReportGeneration extends HookConsumerWidget {
           color: Colors.green,
           name: "সুরক্ষিত",
         ),
-      ]
-          .toRow(mainAxisAlignment: MainAxisAlignment.spaceAround)
-          .padding(all: 10),
+      ].toRow(mainAxisAlignment: MainAxisAlignment.spaceAround),
+      KSized.h12,
       const ReportItem(
         title: "মোট মৃত মুরগি",
         recommendText: "৯০ গ্রাম",
@@ -108,21 +98,24 @@ class ReportItem extends StatelessWidget {
             children: [
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                   color: indicationColor.withOpacity(0.2),
                   border: Border.all(color: indicationColor),
                 ),
-                child: Styled.text(availableText),
+                child:
+                    Styled.text(availableText, overflow: TextOverflow.ellipsis),
               ),
               Container(
                 padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
                 decoration: BoxDecoration(
                   color: normalColor.withOpacity(0.2),
                   border: Border.all(color: normalColor),
                 ),
-                child: Styled.text(recommendText).fittedBox(),
+                child:
+                    Styled.text(recommendText, overflow: TextOverflow.ellipsis)
+                        .fittedBox(),
               ),
             ],
           ),

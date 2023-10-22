@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,12 +13,34 @@ class AsyncValueWidget<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return value.when(
       data: data,
-      error: (e, st) => Center(
-        child: ErrorMessageWidget(
-          errorMessage: e.toString(),
-          resetWidget: () => const SizedBox(),
-        ),
-      ),
+      error: (e, st) {
+        String err = "Something went wrong";
+        if (e is DioException) {
+          if (e.response?.statusCode == 422) {
+            if (e.response?.data
+                case {
+                  'message': String _,
+                  'errors': Map details,
+                  'success': false
+                }) {
+              for (var key in details.keys) {
+                if (details[key] case List arr) {
+                  err += "\n ${arr.join("\n")}";
+                  continue;
+                }
+                err += details[key].toString();
+              }
+            }
+          }
+        }
+
+        return Center(
+          child: ErrorMessageWidget(
+            errorMessage: err,
+            resetWidget: () => const SizedBox(),
+          ),
+        );
+      },
       loading: () => const Center(
         child: CircularProgressIndicator(),
       ),

@@ -1,92 +1,109 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/core/Layout/widget/with_app_bar.dart';
-import 'package:poulty_manager/core/hooks/request/use_http_request.dart';
-import 'package:poulty_manager/feature/doctor_visit/doctor_visit.dart';
+import 'package:poulty_manager/feature/doctor_visit/presentation/controller/controller.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/config.dart';
+import '/core/Layout/widget/with_app_bar.dart';
 import '/feature/batch/presentation/functions/utils.dart';
 import '/gen/assets.gen.dart';
 import '../../../../config/constant/constant.dart';
-import '../../../../core/client/api_url.dart';
 import '../../../../core/widget/async/async_value_widget.dart';
 
 class DoctorVisitShow extends HookConsumerWidget {
   const DoctorVisitShow(this.batchId, {super.key});
   final String batchId;
 
-  static fetchDoctorVisitProvider(String batchId) =>
-      makeAutoHttpRequestProvider(
-        RequestOptions(
-            path: ApiEndpoints.poultryBatchDoctorVisit,
-            queryParameters: {"poultry_batch_id": batchId},
-            method: "GET"),
-      );
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    var fetchData = ref.watch(
-      makeAutoHttpRequestProvider(
-        RequestOptions(
-            path: ApiEndpoints.poultryBatchDoctorVisit,
-            queryParameters: {"poultry_batch_id": batchId},
-            method: "GET"),
-      ),
-    );
+    final fetchDoctorVisit = ref.watch(fetchAllDoctorVisitProvider(batchId));
 
-    final doctorVisit = useAutoRequest(fetchData);
-
-    // ;
     return Scaffold(
       appBar: const BaseAppBar(),
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          <Widget>[
-            KSized.h12,
-            KSized.h12,
-            titleWithBackArrowAndAction("ডাক্তার ভিজিট",
-                "মুরগী সুস্থ রাখতে নির্দিষ্ট দিনের মধ্যে ভ্যাক্সিন সম্পন্ন করুন এবং নিশ্চিন্তে খামার পরিচালনা করুন।",
-                onBack: () {
-              Navigator.pop(context);
-            }),
-            KSized.h10,
-            AsyncValueWidget(
-              value: doctorVisit,
-              data: (data) {
-                final parseData =
-                    List<Map<String, dynamic>>.from(data.data ?? []);
-                final doctors =
-                    parseData.map((e) => DoctorVisitModel.fromJson(e));
-                return Column(
-                  children: doctors
-                      .map((e) => doctorVisitTile(
+      body: AsyncValueWidget(
+          value: fetchDoctorVisit,
+          data: (doctorVisits) {
+            if (doctorVisits.isEmpty) {
+              return Stack(
+                fit: StackFit.expand,
+                children: [
+                  const Center(
+                    child: Text("No doctor visit found"),
+                  ),
+                  Positioned(
+                    bottom: 10,
+                    right: 10,
+                    child: FloatingActionButton(
+                      onPressed: () async {
+                        context.push("/doctor-visit/$batchId/new");
+                      },
+                      child: const Icon(Icons.add),
+                    ),
+                  )
+                ],
+              );
+            }
+            return Stack(
+              fit: StackFit.expand,
+              children: [
+                <Widget>[
+                  KSized.h12,
+                  KSized.h12,
+                  titleWithBackArrowAndAction("ডাক্তার ভিজিট",
+                      "মুরগী সুস্থ রাখতে নির্দিষ্ট দিনের মধ্যে ভ্যাক্সিন সম্পন্ন করুন এবং নিশ্চিন্তে খামার পরিচালনা করুন।",
+                      onBack: () {
+                    Navigator.pop(context);
+                  }),
+                  KSized.h10,
+                  ListView.builder(
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: doctorVisits.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      final e = doctorVisits[index];
+                      return doctorVisitTile(
                           Assets.images.doctor,
                           e.doctorName ?? "",
                           e.doctorDegree ?? "",
-                          e.doctorVisitDateFormatted ?? ""))
-                      .toList(),
-                ).scrollable().constrained(
-                      height: MediaQuery.of(context).size.height * 0.8,
-                    );
-              },
-            )
-          ].toColumn(),
-          Positioned(
-            bottom: 10,
-            right: 10,
-            child: FloatingActionButton(
-              onPressed: () async {
-                context.push("/doctor-visit/$batchId/new");
-              },
-              child: const Icon(Icons.add),
-            ),
-          )
-        ],
-      ),
+                          e.doctorVisitDateFormatted ?? "");
+                    },
+                  ),
+
+                  // AsyncValueWidget(
+                  //   value: doctorVisit,
+                  //   data: (data) {
+                  //     final parseData =
+                  //         List<Map<String, dynamic>>.from(data.data ?? []);
+                  //     final doctors =
+                  //         parseData.map((e) => DoctorVisitModel.fromJson(e));
+                  //     return Column(
+                  //       children: doctors
+                  // .map((e) => doctorVisitTile(
+                  //     Assets.images.doctor,
+                  //     e.doctorName ?? "",
+                  //     e.doctorDegree ?? "",
+                  //     e.doctorVisitDateFormatted ?? ""))
+                  //           .toList(),
+                  //     ).scrollable().constrained(
+                  //           height: MediaQuery.of(context).size.height * 0.8,
+                  //         );
+                  //   },
+                  // )
+                ].toColumn(),
+                Positioned(
+                  bottom: 10,
+                  right: 10,
+                  child: FloatingActionButton(
+                    onPressed: () async {
+                      context.push("/doctor-visit/$batchId/new");
+                    },
+                    child: const Icon(Icons.add),
+                  ),
+                )
+              ],
+            );
+          }),
     );
   }
 

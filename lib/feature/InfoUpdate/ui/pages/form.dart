@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/core/client/api_url.dart';
-import 'package:poulty_manager/feature/InfoUpdate/ui/controller/controller.dart';
 
+import '/core/client/api_url.dart';
+import '/feature/InfoUpdate/ui/controller/controller.dart';
 import '../../../../core/widget/async/async_value_widget.dart';
 import '../../../shared/components/form_render.dart';
 
@@ -24,6 +25,10 @@ class BatchInfoUpdateFormPage extends HookConsumerWidget {
         data: (data) => RenderFormAndUpdate(
           formSettings: data,
           requestUrl: ApiEndpoints.poultryBatchInfo,
+          onSuccess: (data) {
+            ref.invalidate(batchInfoUpdateProvider(batchId));
+            context.pop();
+          },
           requestTransformer: (data) {
             return {
               ...data,
