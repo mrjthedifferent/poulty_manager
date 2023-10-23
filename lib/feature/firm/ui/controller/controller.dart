@@ -12,7 +12,6 @@ part 'controller.g.dart';
 Future<List<FirmModel>> fetchAllFirm(FetchAllFirmRef ref) async {
   final repository = ref.watch(firmRepositoryProvider);
   final firms = await repository.fetchAllFirm();
-
   return firms;
 }
 

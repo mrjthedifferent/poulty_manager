@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:hive/hive.dart';
-import 'package:rxdart/rxdart.dart';
 
 import '/feature/auth/data/local/local_user.dart';
 import '/feature/auth/domain/app_user.dart';
 import '../../../firm/domain/models/firm_model.dart';
-import '../remote/interface.dart';
 
-class UserLocalRepository implements LocalUserRepository, AuthBaseRepository {
+class UserLocalRepository implements LocalUserRepository {
   final Box<String> _userBox;
 
   static const String userKey = 'user-store-key';
@@ -60,34 +58,10 @@ class UserLocalRepository implements LocalUserRepository, AuthBaseRepository {
   }
 
   @override
-  Stream<AppUser?> authStateChanges() {
-    return _userBox
-        .watch(key: userKey)
-        .mapNotNull((e) => AppUser.fromJson(e.value));
-  }
+  FirmModel? get currentFirm {
+    final String? firmJson = _userBox.get(firmKey);
+    if (firmJson case null) return null;
 
-  @override
-  AppUser? get currentUser => getUser;
-
-  @override
-  void dispose() {
-    _userBox.close();
-  }
-
-  @override
-  void signIn(data) {
-    if (data is AppUser) {
-      saveUser(data);
-      return;
-    }
-
-    if (data is Map<String, dynamic>) {
-      saveUser(AppUser.fromMap(data));
-    }
-  }
-
-  @override
-  Future<void> signOut() {
-    return deleteUser();
+    return FirmModel.fromJson(json.decode(firmJson));
   }
 }

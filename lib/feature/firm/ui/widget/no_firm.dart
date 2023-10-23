@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/config/constant/constant.dart';
-import 'package:poulty_manager/feature/vaccine/presentation/style/functions.dart';
-import 'package:poulty_manager/gen/assets.gen.dart';
 import 'package:styled_widget/styled_widget.dart';
+
+import '/config/constant/constant.dart';
+import '/feature/vaccine/presentation/style/functions.dart';
+import '/gen/assets.gen.dart';
 
 class NoFirmFound extends StatelessWidget {
   const NoFirmFound({super.key});
@@ -29,14 +30,24 @@ class NoFirmFound extends StatelessWidget {
 
       // CREATE FIRM BUTTON
       KSized.h10,
-      ElevatedButton(
-        style: primaryBtnStyle,
-        onPressed: () {
-          debugPrint('Create Firm');
-          context.push('/firm');
-        },
-        child: Styled.text('ফার্ম তৈরি করুন').textColor(Colors.white),
-      ),
+      [
+        ElevatedButton(
+          style: primaryBtnStyle,
+          onPressed: () {
+            debugPrint('Create Firm');
+            context.push('/firm');
+          },
+          child: Styled.text('ফার্ম তৈরি করুন').textColor(Colors.white),
+        ),
+        ElevatedButton(
+          style: primaryBtnStyle,
+          onPressed: () {
+            debugPrint('Skipping Firm');
+            context.push('/firm/0');
+          },
+          child: Styled.text('Skip').textColor(Colors.white),
+        )
+      ].toRow(),
       const Spacer(
         flex: 1,
       ),

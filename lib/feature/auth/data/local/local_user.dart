@@ -11,6 +11,7 @@ abstract interface class LocalUserRepository {
   Future<void> deleteUser();
 
   Future<void> saveFirm(FirmModel firm);
+  FirmModel? get currentFirm;
 }
 
 @Riverpod(keepAlive: true)

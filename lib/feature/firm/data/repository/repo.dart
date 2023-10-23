@@ -1,8 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '/config/config.dart';
 import '/core/client/request_client.dart';
+import '/feature/auth/data/local/local_user.dart';
 import '/feature/firm/domain/models/firm_model.dart';
+import '/feature/firm/ui/controller/controller.dart';
 
 part 'repo.g.dart';
 
@@ -42,6 +45,35 @@ class FirmRepository {
 
   bool get hasFirm {
     return _firmList.isNotEmpty;
+  }
+}
+
+@riverpod
+class CurrentSelectFirm extends _$CurrentSelectFirm {
+  @override
+  FirmModel? build() {
+    redirectIfChange();
+    return ref.watch(localUserRepositoryProvider).currentFirm;
+  }
+
+  Future<bool> setCurrentSelectFirm(FirmModel firmModel) async {
+    try {
+      await ref.read(localUserRepositoryProvider).saveFirm(firmModel).then((_) {
+        state = firmModel;
+      });
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  void redirectIfChange() {
+    ref.listenSelf((previous, next) {
+      if (next?.id == previous?.id) return;
+      ref.invalidate(fetchAllBatchByFirmProvider);
+
+      ref.read(appRouterProvider).go('/firm/${next!.id}');
+    });
   }
 }
 

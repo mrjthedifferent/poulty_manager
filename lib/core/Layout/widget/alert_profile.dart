@@ -70,61 +70,67 @@ class AlertProfile extends StatelessWidget {
             const Divider(),
 
             //show list of all firm
-            Consumer(builder: (ctx, ref, ch) {
-              final allFirm = ref.watch(firmRepositoryProvider).firmList;
+            Consumer(
+              builder: (ctx, ref, ch) {
+                final allFirm = ref.watch(firmRepositoryProvider).firmList;
 
-              if (allFirm.isEmpty) {
-                return const Center(
-                  child: Text('No Firm Found'),
+                if (allFirm.isEmpty) {
+                  return const Center(
+                    child: Text('No Firm Found'),
+                  );
+                }
+                return Column(
+                  children: [
+                    ...allFirm
+                        .map(
+                          (e) => ListTile(
+                            leading: const Icon(Icons.home),
+                            title: Text(e.name),
+                            subtitle: Text(e.address ?? "no address"),
+                            trailing: Styled.icon(Icons.more_vert),
+                            onTap: () {
+                              ref
+                                  .read(firmRepositoryProvider)
+                                  .setCurrentSelectedFirm(e);
+                              Navigator.of(context).pop();
+                              context.go('/firm/${e.id}');
+                            },
+                          ),
+                        )
+                        .toList(),
+                    const Divider(),
+                  ],
                 );
-              }
-              return Column(
-                children: [
-                  ...allFirm
-                      .map(
-                        (e) => ListTile(
-                          leading: const Icon(Icons.home),
-                          title: Text(e.name),
-                          subtitle: Text(e.address ?? "no address"),
-                          trailing: Styled.icon(Icons.more_vert),
-                          onTap: () {
-                            ref
-                                .read(firmRepositoryProvider)
-                                .setCurrentSelectedFirm(e);
-                            Navigator.of(context).pop();
-                            context.go('/firm/${e.id}');
-                          },
-                        ),
-                      )
-                      .toList(),
-                  const Divider(),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton.icon(
-                      style: primaryBtnStyle,
-                      onPressed: () {
-                        context.push("/firm");
-                      },
-                      icon: const Icon(Icons.add),
-                      label:
-                          Styled.text("Add New Firm").textColor(Colors.white),
-                    ),
+              },
+            ),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton.icon(
+                style: primaryBtnStyle,
+                onPressed: () {
+                  context.push("/firm");
+                },
+                icon: const Icon(Icons.add),
+                label: Styled.text("Add New Firm").textColor(Colors.white),
+              ),
+            ),
+            KSized.h10,
+            Consumer(
+              builder: (ctx, ref, ch) {
+                return SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: primaryBtnStyle,
+                    onPressed: () {
+                      ref.read(authRepositoryProvider).signOut();
+                      ref.invalidate(authRepositoryProvider);
+                    },
+                    child: ch,
                   ),
-                  KSized.h10,
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: primaryBtnStyle.copyWith(),
-                      onPressed: () {
-                        ref.read(authRepositoryProvider).signOut();
-                        ref.invalidate(authRepositoryProvider);
-                      },
-                      child: Styled.text("Log out").textColor(Colors.white),
-                    ),
-                  )
-                ],
-              );
-            }),
+                );
+              },
+              child: Styled.text("Log out").textColor(Colors.white),
+            )
           ],
         ),
       ),

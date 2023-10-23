@@ -1,14 +1,17 @@
 import 'package:dio/dio.dart';
+// ignore: depend_on_referenced_packages
 import 'package:file_picker/file_picker.dart' show PlatformFile;
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/firm/ui/controller/controller.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/core/Layout/extension.dart';
 import '/core/hooks/request/get_client.dart';
 import '/core/widget/async/request_handle.dart';
+import '/feature/firm/data/repository/repo.dart';
+import '/feature/firm/domain/models/firm_model.dart';
 import '/feature/firm/ui/widget/add_firm.dart';
 
 class AddNewFirmPage extends HookConsumerWidget {
@@ -22,7 +25,6 @@ class AddNewFirmPage extends HookConsumerWidget {
 
     return RequestHandleWidget(
       initial: () => AddFirmField(onSubmit: (data) {
-        // make data to form data , check if file is null or not, if not then add it to the form data
         final formData = FormData();
 
         data.forEach((key, value) {
@@ -66,15 +68,24 @@ class AddNewFirmPage extends HookConsumerWidget {
           method: 'POST',
           hasFile: true,
           onSuccess: (data) {
-            ref.invalidate(fetchAllFirmProvider);
-            context.pop();
+            ref.read(currentSelectFirmProvider.notifier).setCurrentSelectFirm(
+                  FirmModel.fromJson(data),
+                );
           },
         );
       }).parent(page),
       value: addNewFirmAction.status,
       success: (data) {
-        return Center(
-          child: Text('Success:$data'),
+        return HookBuilder(
+          builder: (ch) {
+            useEffect(() {
+              ch.go('/');
+              return () {};
+            }, []);
+            return Center(
+              child: Text('Success:$data'),
+            );
+          },
         );
       },
     );

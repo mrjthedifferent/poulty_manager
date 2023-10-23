@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/core/client/request_client.dart';
+import 'package:poulty_manager/feature/firm/ui/controller/controller.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
@@ -33,6 +35,21 @@ class SelectFirmWidget extends ConsumerWidget {
             leading: const Icon(Icons.home),
             title: Text(firm.name),
             subtitle: Text(firm.address ?? "no address"),
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
+              onPressed: () {
+                ref
+                    .read(requestClientProvider)
+                    .client
+                    .delete('/v1/poultry-firms/${firm.id}')
+                    .then((value) {
+                  ref.invalidate(fetchAllFirmProvider);
+                });
+              },
+            ),
             onTap: () {
               ref.read(firmRepositoryProvider).setCurrentSelectedFirm(firm);
               context.push('/firm/${firm.id}');

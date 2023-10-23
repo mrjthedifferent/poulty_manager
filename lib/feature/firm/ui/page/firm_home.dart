@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '/feature/firm/ui/widget/no_firm.dart';
-import '/feature/firm/ui/widget/select_firm.dart';
 import '../../../../core/widget/async/async_value_widget.dart';
 import '../controller/controller.dart';
 
@@ -19,7 +20,13 @@ class FirmHomePage extends ConsumerWidget {
           if (data.isEmpty) {
             return const NoFirmFound();
           }
-          return const SelectFirmWidget();
+          return HookBuilder(builder: (ch) {
+            useEffect(() {
+              ch.go("/firm/${data[0].id}");
+              return null;
+            }, []);
+            return const Text("data");
+          });
         },
       ),
     );
