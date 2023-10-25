@@ -28,10 +28,15 @@ Widget blankPage({required Widget child}) => Styled.builder(
     },
     child: child);
 
-//  Widget page = ({Widget child}) => Styled.widget(child: child)
-//         .padding(vertical: 30, horizontal: 20)
-//         .constrained(minHeight: MediaQuery.of(context).size.height - (2 * 30))
-//         .scrollable();
+const notImplSnackBar =
+    SnackBar(content: Text("This Feature is currently Not implemented"));
+
+extension ShowOverlay on BuildContext {
+  void showNotImplSnackBar() {
+    ScaffoldMessenger.of(this).showSnackBar(notImplSnackBar);
+  }
+}
+
 extension Layout on Widget {
   Scaffold warpScaffold({
     Key? key,

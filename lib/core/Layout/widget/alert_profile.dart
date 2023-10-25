@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
+import 'package:poulty_manager/feature/firm/ui/controller/controller.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/config/constant/constant.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/domain/user.dart';
 import '/feature/vaccine/presentation/style/functions.dart';
 import '/gen/assets.gen.dart';
@@ -72,35 +73,41 @@ class AlertProfile extends StatelessWidget {
             //show list of all firm
             Consumer(
               builder: (ctx, ref, ch) {
-                final allFirm = ref.watch(firmRepositoryProvider).firmList;
+                final allFirm = ref.watch(fetchAllFirmProvider);
 
-                if (allFirm.isEmpty) {
-                  return const Center(
-                    child: Text('No Firm Found'),
-                  );
-                }
-                return Column(
-                  children: [
-                    ...allFirm
-                        .map(
-                          (e) => ListTile(
-                            leading: const Icon(Icons.home),
-                            title: Text(e.name),
-                            subtitle: Text(e.address ?? "no address"),
-                            trailing: Styled.icon(Icons.more_vert),
-                            onTap: () {
-                              ref
-                                  .read(firmRepositoryProvider)
-                                  .setCurrentSelectedFirm(e);
-                              Navigator.of(context).pop();
-                              context.go('/firm/${e.id}');
-                            },
-                          ),
-                        )
-                        .toList(),
-                    const Divider(),
-                  ],
-                );
+                return allFirm.when(
+                    data: (firms) {
+                      if (firms.isEmpty) {
+                        return const Center(
+                          child: Text('No Firm Found'),
+                        );
+                      }
+                      return Column(
+                        children: [
+                          ...firms
+                              .map(
+                                (e) => ListTile(
+                                  leading: const Icon(Icons.home),
+                                  title: Text(e.name),
+                                  subtitle: Text(e.address ?? "no address"),
+                                  trailing: Styled.icon(Icons.more_vert),
+                                  onTap: () {
+                                    ref
+                                        .read(
+                                            currentSelectFirmProvider.notifier)
+                                        .setCurrentSelectFirm(e);
+                                    Navigator.of(context).pop();
+                                    context.go('/firm/${e.id}');
+                                  },
+                                ),
+                              )
+                              .toList(),
+                          const Divider(),
+                        ],
+                      );
+                    },
+                    error: (error, st) => const Text("Something went wrong"),
+                    loading: () => const CircularProgressIndicator());
               },
             ),
             SizedBox(

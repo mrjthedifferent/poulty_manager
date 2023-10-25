@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/feature/firm/data/repository/repo.dart';
 import 'package:styled_widget/styled_widget.dart';
 
 import '/core/Layout/extension.dart';
@@ -25,14 +26,13 @@ final secondGrid = <CreateGridItem>[
 ];
 
 class HomeFragments extends ConsumerWidget {
-  final String id;
   const HomeFragments({
     super.key,
-    required this.id,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final currentSelectFirm = ref.watch(currentSelectFirmProvider);
     return ListView(
       primary: false,
       shrinkWrap: true,
@@ -50,7 +50,15 @@ class HomeFragments extends ConsumerWidget {
             ),
             text: Styled.text('ব্যাচ লিস্ট'),
             onPressed: () {
-              context.push('/firm/$id/batch');
+              if (currentSelectFirm case null) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text("Please Create or Select a Firm."),
+                  ),
+                );
+              } else {
+                context.push('/firm/${currentSelectFirm.id}/batch');
+              }
             },
           ),
           CreateGridItem(
@@ -59,7 +67,9 @@ class HomeFragments extends ConsumerWidget {
               width: 50,
             ),
             text: Styled.text('আমার টাকা'),
-            onPressed: () {},
+            onPressed: () {
+              context.showNotImplSnackBar();
+            },
           ),
           CreateGridItem(
             image: Assets.images.khabarerMojud.image(
@@ -67,7 +77,9 @@ class HomeFragments extends ConsumerWidget {
               width: 50,
             ),
             text: Styled.text('খামারি ঘর'),
-            onPressed: () {},
+            onPressed: () {
+              context.showNotImplSnackBar();
+            },
           ),
           CreateGridItem(
             image: Assets.images.inbox.image(
@@ -75,7 +87,9 @@ class HomeFragments extends ConsumerWidget {
               width: 50,
             ),
             text: Styled.text('ইনবক্স'),
-            onPressed: () {},
+            onPressed: () {
+              context.showNotImplSnackBar();
+            },
           ),
         ].grid(
           primary: false,

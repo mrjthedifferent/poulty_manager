@@ -2,11 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/config/router/route.dart';
-import 'package:poulty_manager/feature/firm/ui/controller/controller.dart';
 
+import '/config/router/route.dart';
 import '/core/client/api_url.dart';
 import '/core/widget/async/async_value_widget.dart';
+import '/feature/firm/ui/controller/controller.dart';
 import '/feature/shared/components/form_render.dart';
 import '../controller/controller.dart';
 
@@ -29,7 +29,7 @@ class NewBatchForm extends ConsumerWidget {
         data: (data) => RenderFormAndUpdate(
           formSettings: data,
           onSuccess: (data) {
-            ref.invalidate(fetchAllBatchByFirmProvider(firmId));
+            ref.invalidate(fetchAllBatchByFirmProvider);
 
             context.goNamed(AppRouteName.batchList.name,
                 pathParameters: {"id": firmId});

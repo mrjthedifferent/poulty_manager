@@ -6,7 +6,7 @@ part of 'controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$fetchAllFirmHash() => r'ca038286e3c0812bae64c13523174a2b2a04ddf7';
+String _$fetchAllFirmHash() => r'6c02e0201d779ec107c6f6a865373afcef06beb5';
 
 /// See also [fetchAllFirm].
 @ProviderFor(fetchAllFirm)
@@ -22,7 +22,23 @@ final fetchAllFirmProvider =
 
 typedef FetchAllFirmRef = AutoDisposeFutureProviderRef<List<FirmModel>>;
 String _$fetchAllBatchByFirmHash() =>
-    r'd1d76c04166ec117fd7bf43f72be769ebdf05d98';
+    r'077e534e080d7460e9a483b179394465b5fa7dc3';
+
+/// See also [fetchAllBatchByFirm].
+@ProviderFor(fetchAllBatchByFirm)
+final fetchAllBatchByFirmProvider =
+    AutoDisposeFutureProvider<List<ModelBatch>>.internal(
+  fetchAllBatchByFirm,
+  name: r'fetchAllBatchByFirmProvider',
+  debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
+      ? null
+      : _$fetchAllBatchByFirmHash,
+  dependencies: null,
+  allTransitiveDependencies: null,
+);
+
+typedef FetchAllBatchByFirmRef = AutoDisposeFutureProviderRef<List<ModelBatch>>;
+String _$fetchBatchByIdHash() => r'e5d19b46e6847b09ad973e43dfc1f11a1fb238ef';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -44,136 +60,6 @@ class _SystemHash {
     return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
   }
 }
-
-/// See also [fetchAllBatchByFirm].
-@ProviderFor(fetchAllBatchByFirm)
-const fetchAllBatchByFirmProvider = FetchAllBatchByFirmFamily();
-
-/// See also [fetchAllBatchByFirm].
-class FetchAllBatchByFirmFamily extends Family<AsyncValue<List<ModelBatch>>> {
-  /// See also [fetchAllBatchByFirm].
-  const FetchAllBatchByFirmFamily();
-
-  /// See also [fetchAllBatchByFirm].
-  FetchAllBatchByFirmProvider call(
-    String firmId,
-  ) {
-    return FetchAllBatchByFirmProvider(
-      firmId,
-    );
-  }
-
-  @override
-  FetchAllBatchByFirmProvider getProviderOverride(
-    covariant FetchAllBatchByFirmProvider provider,
-  ) {
-    return call(
-      provider.firmId,
-    );
-  }
-
-  static const Iterable<ProviderOrFamily>? _dependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get dependencies => _dependencies;
-
-  static const Iterable<ProviderOrFamily>? _allTransitiveDependencies = null;
-
-  @override
-  Iterable<ProviderOrFamily>? get allTransitiveDependencies =>
-      _allTransitiveDependencies;
-
-  @override
-  String? get name => r'fetchAllBatchByFirmProvider';
-}
-
-/// See also [fetchAllBatchByFirm].
-class FetchAllBatchByFirmProvider
-    extends AutoDisposeFutureProvider<List<ModelBatch>> {
-  /// See also [fetchAllBatchByFirm].
-  FetchAllBatchByFirmProvider(
-    String firmId,
-  ) : this._internal(
-          (ref) => fetchAllBatchByFirm(
-            ref as FetchAllBatchByFirmRef,
-            firmId,
-          ),
-          from: fetchAllBatchByFirmProvider,
-          name: r'fetchAllBatchByFirmProvider',
-          debugGetCreateSourceHash:
-              const bool.fromEnvironment('dart.vm.product')
-                  ? null
-                  : _$fetchAllBatchByFirmHash,
-          dependencies: FetchAllBatchByFirmFamily._dependencies,
-          allTransitiveDependencies:
-              FetchAllBatchByFirmFamily._allTransitiveDependencies,
-          firmId: firmId,
-        );
-
-  FetchAllBatchByFirmProvider._internal(
-    super._createNotifier, {
-    required super.name,
-    required super.dependencies,
-    required super.allTransitiveDependencies,
-    required super.debugGetCreateSourceHash,
-    required super.from,
-    required this.firmId,
-  }) : super.internal();
-
-  final String firmId;
-
-  @override
-  Override overrideWith(
-    FutureOr<List<ModelBatch>> Function(FetchAllBatchByFirmRef provider) create,
-  ) {
-    return ProviderOverride(
-      origin: this,
-      override: FetchAllBatchByFirmProvider._internal(
-        (ref) => create(ref as FetchAllBatchByFirmRef),
-        from: from,
-        name: null,
-        dependencies: null,
-        allTransitiveDependencies: null,
-        debugGetCreateSourceHash: null,
-        firmId: firmId,
-      ),
-    );
-  }
-
-  @override
-  AutoDisposeFutureProviderElement<List<ModelBatch>> createElement() {
-    return _FetchAllBatchByFirmProviderElement(this);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return other is FetchAllBatchByFirmProvider && other.firmId == firmId;
-  }
-
-  @override
-  int get hashCode {
-    var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, firmId.hashCode);
-
-    return _SystemHash.finish(hash);
-  }
-}
-
-mixin FetchAllBatchByFirmRef on AutoDisposeFutureProviderRef<List<ModelBatch>> {
-  /// The parameter `firmId` of this provider.
-  String get firmId;
-}
-
-class _FetchAllBatchByFirmProviderElement
-    extends AutoDisposeFutureProviderElement<List<ModelBatch>>
-    with FetchAllBatchByFirmRef {
-  _FetchAllBatchByFirmProviderElement(super.provider);
-
-  @override
-  String get firmId => (origin as FetchAllBatchByFirmProvider).firmId;
-}
-
-String _$fetchBatchByIdHash() => r'e5d19b46e6847b09ad973e43dfc1f11a1fb238ef';
 
 /// See also [fetchBatchById].
 @ProviderFor(fetchBatchById)

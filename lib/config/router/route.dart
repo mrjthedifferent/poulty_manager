@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '/config/router/router_refresh_stream.dart';
 import '/feature/InfoUpdate/ui/pages/form.dart';
 import '/feature/Medicine/presentation/page/page.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/pages.dart';
 import '/feature/auth/pages/registation/account_complete_form.dart';
 import '/feature/daily_advice/presentation/pages/daily_advice.dart';
 import '/feature/doctor_visit/presentation/pages/pages.dart';
 import '/feature/firm/ui/page/add_firm_page.dart';
-import '/feature/firm/ui/page/firm_home.dart';
 import '/feature/home/fragment.dart';
 import '/feature/report/ui/page/report.dart';
 import '/feature/vaccine/presentation/pages/pages.dart';
@@ -66,7 +65,7 @@ GoRouter appRouter(AppRouterRef ref) {
       GoRoute(
         path: '/',
 
-        builder: (context, state) => const FirmHomePage(),
+        builder: (context, state) => const HomeFragments(),
         routes: [
           // Authentication Routes
 
@@ -124,9 +123,7 @@ GoRouter appRouter(AppRouterRef ref) {
                 builder: (context, state) {
                   final id = state.pathParameters['id'] ?? "0";
                   debugPrint("Firm ID: $id");
-                  return HomeFragments(
-                    id: id,
-                  );
+                  return const HomeFragments();
                 },
                 routes: [
                   GoRoute(

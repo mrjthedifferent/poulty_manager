@@ -12,48 +12,45 @@ class BatchMainHome extends HookConsumerWidget {
   final String firmId;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = fetchAllBatchByFirmProvider(firmId);
-    final fetchBatchList = ref.watch(provider);
+    final provider = ref.watch(fetchAllBatchByFirmProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: Styled.text("ব্যাচ ম্যানেজমেন্ট")
             .textColor(Colors.white)
             .fontSize(18),
       ),
-      body: RefreshIndicator(
-        onRefresh: () => ref.refresh(provider.future),
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            AsyncValueWidget(
-              value: fetchBatchList,
-              data: (batches) {
-                if (batches.isEmpty) {
-                  return const Center(
-                    child: Text("No Batch Found"),
-                  );
-                }
-                return ListView.builder(
-                  itemCount: batches.length,
-                  itemBuilder: (context, index) {
-                    final batch = batches[index];
-                    return SingleBatchShow(batch: batch, serial: index + 1);
-                  },
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          AsyncValueWidget(
+            value: provider,
+            data: (batches) {
+              if (batches.isEmpty) {
+                return const Center(
+                  child: Text("No Batch Found"),
                 );
-              },
-            ).padding(horizontal: 10, vertical: 16),
-            Positioned(
-              bottom: 10,
-              right: 10,
-              child: FloatingActionButton(
-                onPressed: () {
-                  context.push("/firm/$firmId/batch/new");
+              }
+              return ListView.builder(
+                itemCount: batches.length,
+                itemBuilder: (context, index) {
+                  final batch = batches[index];
+                  return SingleBatchShow(batch: batch, serial: index + 1);
                 },
-                child: const Icon(Icons.add),
-              ),
-            )
-          ],
-        ),
+              );
+            },
+          ).padding(horizontal: 10, vertical: 16),
+          Positioned(
+            bottom: 10,
+            right: 10,
+            child: FloatingActionButton(
+              onPressed: () {
+                context.push("/firm/$firmId/batch/new");
+              },
+              child: const Icon(Icons.add),
+            ),
+          )
+        ],
       ),
     );
   }

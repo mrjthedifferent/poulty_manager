@@ -10,18 +10,26 @@ part 'controller.g.dart';
 
 @riverpod
 Future<List<FirmModel>> fetchAllFirm(FetchAllFirmRef ref) async {
-  final repository = ref.watch(firmRepositoryProvider);
-  final firms = await repository.fetchAllFirm();
-  return firms;
+  final client = ref.watch(requestClientProvider).client;
+  final List<FirmModel> firmList = [];
+  final response = await client.get('/v1/poultry-firms');
+  final data = response.data as List<dynamic>;
+  firmList.clear();
+  firmList.addAll(data.map((e) => FirmModel.fromJson(e)).toList());
+  return firmList;
 }
 
 @riverpod
-Future<List<ModelBatch>> fetchAllBatchByFirm(
-    FetchAllBatchByFirmRef ref, String firmId) async {
+Future<List<ModelBatch>> fetchAllBatchByFirm(FetchAllBatchByFirmRef ref) async {
+  final firm = ref.watch(currentSelectFirmProvider);
+  if (firm case null) {
+    return [];
+  }
+
   final client = ref.watch(requestClientProvider).client;
   final result = await client
       .get<List<dynamic>>(ApiEndpoints.poultryBatches, queryParameters: {
-    "firm_id": firmId,
+    "firm_id": firm.id,
   }).then(
     (value) => value.data!.map((e) => ModelBatch.fromJson(e)).toList(),
   );

@@ -56,18 +56,20 @@ class DoctorVisitShow extends HookConsumerWidget {
                     Navigator.pop(context);
                   }),
                   KSized.h10,
-                  ListView.builder(
-                    primary: false,
-                    shrinkWrap: true,
-                    itemCount: doctorVisits.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final e = doctorVisits[index];
-                      return doctorVisitTile(
-                          Assets.images.doctor,
-                          e.doctorName ?? "",
-                          e.doctorDegree ?? "",
-                          e.doctorVisitDateFormatted ?? "");
-                    },
+                  ConstrainedBox(
+                    constraints: BoxConstraints(
+                        maxHeight: MediaQuery.of(context).size.height * 0.7),
+                    child: ListView.builder(
+                      itemCount: doctorVisits.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final e = doctorVisits[index];
+                        return doctorVisitTile(
+                            Assets.images.doctor,
+                            e.doctorName ?? "",
+                            e.doctorDegree ?? "",
+                            e.doctorVisitDateFormatted ?? "");
+                      },
+                    ),
                   ),
 
                   // AsyncValueWidget(

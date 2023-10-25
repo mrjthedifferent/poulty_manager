@@ -69,7 +69,9 @@ extension GridHelper on List<ImageWithText> {
             shrinkWrap: shrinkWrap,
             primary: primary,
             physics: const NeverScrollableScrollPhysics(),
-            children: map((e) => gridItem(e)).toList(),
+            children: map(
+              (e) => gridItem(e),
+            ).toList(),
           )
         ],
       ),
