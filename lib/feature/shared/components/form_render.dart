@@ -20,6 +20,7 @@ List<FormHelperField> fromResponseToFormHelper(List<FieldValue> fields) {
           e.slug,
           title: e.label,
           hint: e.placeholder,
+          isRequired: e.isRequired,
           options: e.options!.fold(
             <String, String>{},
             (previousValue, element) {
@@ -28,10 +29,12 @@ List<FormHelperField> fromResponseToFormHelper(List<FieldValue> fields) {
             },
           ),
         ),
-      'date' => FormHelperDatePicker(e.slug, title: e.label),
+      'date' =>
+        FormHelperDatePicker(e.slug, title: e.label, isRequired: e.isRequired),
       'radio' || 'checkbox' => FormHelperRadio(
           e.slug,
           title: e.label,
+          isRequired: e.isRequired,
           option: e.options!.fold(
             <String, String>{},
             (previousValue, element) {
@@ -44,10 +47,8 @@ List<FormHelperField> fromResponseToFormHelper(List<FieldValue> fields) {
           e.slug,
           title: e.label,
         ),
-      'time_range' => FormHelperTimeOfDayRangePicker(
-          e.slug,
-          title: e.label,
-        ),
+      'time_range' => FormHelperTimeOfDayRangePicker(e.slug,
+          title: e.label, isRequired: e.isRequired),
       'number' => e.suffix != null
           ? FormHelperTextFieldWithSuffixDropdown(
               e.slug,

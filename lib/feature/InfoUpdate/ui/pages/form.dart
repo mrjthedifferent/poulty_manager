@@ -30,13 +30,15 @@ class BatchInfoUpdateFormPage extends HookConsumerWidget {
             context.pop();
           },
           requestTransformer: (data) {
+            debugPrint(data.toString());
+
             return {
               ...data,
               'poultry_batch_id': batchId,
-              "lighting_start":
-                  data['lighting_start'].toString().split(" ")[1].split(".")[0],
-              "lighting_end":
-                  data['lighting_end'].toString().split(" ")[1].split(".")[0],
+              // "lighting_start":
+              //     data['lighting_start'].toString().split(" ")[1].split(".")[0],
+              // "lighting_end":
+              //     data['lighting_end'].toString().split(" ")[1].split(".")[0],
             };
           },
         ),

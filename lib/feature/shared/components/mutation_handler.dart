@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:poulty_manager/core/utils/request_state.dart';
 
-import '/core/client/state/request_state.dart';
 import '/core/widget/error_widget.dart';
 
 class MutationHandler<T> extends StatelessWidget {
@@ -9,37 +9,21 @@ class MutationHandler<T> extends StatelessWidget {
       required this.value,
       required this.success,
       required this.initial});
-  final RequestStatus<T> value;
+  final RequestNetworkState<T> value;
   final Widget Function(T) success;
   final Widget Function() initial;
 
   @override
   Widget build(BuildContext context) {
-    return value.when(
-      initial: initial,
-      success: (data) => success(data),
-      error: (e) {
-        String err = e.message ?? "Something went wrong";
-        if (e.response?.statusCode == 422) {
-          if (e.response?.data
-              case {'message': String msg, 'error': Map details}) {
-            err += msg;
-            for (var element in details.keys) {
-              if (element case List arr) {
-                err += "\n ${arr.join("\n")}";
-              }
-              err += element.toString();
-            }
-          }
-        }
-        return ErrorMessageWidget(
-          errorMessage: err,
-          resetWidget: initial,
-        );
-      },
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
-      ),
-    );
+    return Scaffold(
+        body: switch (value) {
+      RequestNetworkInitial() => initial(),
+      RequestNetworkLoading() => const Center(
+          child: CircularProgressIndicator(),
+        ),
+      RequestNetworkData(:final value) => success(value as T),
+      RequestNetworkError() => ErrorMessageWidget(
+          errorMessage: "Something went wrong", resetWidget: initial),
+    });
   }
 }

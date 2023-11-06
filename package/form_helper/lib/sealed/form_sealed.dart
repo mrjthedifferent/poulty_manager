@@ -387,7 +387,10 @@ class FormHelperRadio extends FormHelperField {
   final Map<String, String> option;
 
   FormHelperRadio(super.name,
-      {required super.title, required this.option, super.onChanged});
+      {required super.title,
+      required this.option,
+      super.onChanged,
+      super.isRequired});
 
   @override
   Widget get toWidget => FormFieldTemplate(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:poulty_manager/feature/auth/data/remote/remote.dart';
 
 import '/core/hooks/request/get_client.dart';
 import '/core/widget/async/request_handle.dart';
+import '/feature/auth/data/remote/remote.dart';
 import '/feature/auth/pages/Login/initial.dart';
 
 class SignInPage extends HookConsumerWidget {
@@ -11,11 +11,29 @@ class SignInPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final handleLogin = useRequestHandler(ref.watch(requestHandlerProvider));
+    final handleLogin = useRequestHandler(
+      ref.watch(requestHandlerProvider),
+      onError: (err) {
+        showAdaptiveDialog(
+          context: context,
+          builder: (ctx) => AlertDialog(
+            content: Text("$err"),
+            actions: [
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("OK"),
+              )
+            ],
+          ),
+        );
+      },
+    );
 
     return RequestHandleWidget(
       value: handleLogin.status,
-      initial: () => SignInInitial(
+      initial: SignInInitial(
         onSignIn: (data) {
           debugPrint(data.toString());
           handleLogin.trigger(

@@ -14,7 +14,7 @@ class RegistrationPhonePage extends HookConsumerWidget {
     final sendOtp = useRequestHandler(ref.watch(requestHandlerProvider));
 
     return RequestHandleWidget(
-      initial: () => RegistrationInitial(
+      initial: RegistrationInitial(
         onRegistration: (phone) {
           sendOtp.trigger(
             '/v1/auth/register/otp',

@@ -23,7 +23,7 @@ class AddNewFirmPage extends HookConsumerWidget {
     );
 
     return RequestHandleWidget(
-      initial: () => AddFirmField(
+      initial: AddFirmField(
         onSubmit: (data) {
           final formData = FormData();
 

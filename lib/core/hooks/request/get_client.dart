@@ -6,7 +6,7 @@ import 'package:fpdart/fpdart.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../client/request_client.dart';
-import '../../client/state/request_state.dart';
+import '../../utils/request_state.dart';
 
 part 'get_client.g.dart';
 
@@ -86,22 +86,22 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
 }
 
 ({
-  RequestStatus<T> status,
+  RequestNetworkState<T> status,
   void Function(String,
       {Object? data,
       bool hasFile,
       String? method,
       void Function(T data)? onSuccess}) trigger
-}) useRequestHandler<T>(RequestHandlerFunc<T> takMaker) {
-  final result = useState<RequestStatus<T>>(const InitialRequestStatus());
+}) useRequestHandler<T>(RequestHandlerFunc<T> takMaker,
+    {void Function(DioException err)? onError}) {
+  final result = useState<RequestNetworkState<T>>(RequestNetworkInitial());
 
   final runTask = useCallback((String url,
       {Object? data,
       String? method,
       bool hasFile = false,
       void Function(T data)? onSuccess}) {
-    result.value = const LoadingRequestStatus();
-    // if it has file, then iterate over the data and check if it has file or not and then add it to the form data
+    result.value = RequestNetworkLoading();
 
     takMaker(
       url,
@@ -111,11 +111,12 @@ RequestHandlerFunc requestHandler(RequestHandlerRef ref) {
     ).run().then((either) {
       either.fold(
         (error) {
-          result.value = ErrorRequestStatus(error);
+          onError?.call(error);
+          result.value = RequestNetworkError(error);
         },
         (data) {
-          result.value = SuccessRequestStatus(data.data as T);
           onSuccess?.call(data.data as T);
+          result.value = RequestNetworkData(data.data as T);
         },
       );
     });
