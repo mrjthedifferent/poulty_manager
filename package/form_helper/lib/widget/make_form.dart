@@ -25,7 +25,7 @@ class MakeForm extends StatelessWidget {
             children: [
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).primaryColor,
+                  backgroundColor: Colors.orange.shade800,
                   shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                   ),
@@ -33,10 +33,13 @@ class MakeForm extends StatelessWidget {
                 onPressed: () {
                   final isValid = handleSubmit(onSubmit);
                   if (!isValid) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text("Please fill all required fields")));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please fill all required fields"),
+                      ),
+                    );
                   } else {
-                    handleReset();
+                    // handleReset();
                   }
                 },
                 child: const Text(

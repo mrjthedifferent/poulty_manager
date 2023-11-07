@@ -72,7 +72,22 @@ class FormHelperTextField extends FormHelperField
       );
     }
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: FormBuilderTextField(
         name: name,
         initialValue: initialValue,
@@ -82,7 +97,11 @@ class FormHelperTextField extends FormHelperField
         // validator is required
 
         decoration: decoration ??
-            FormDecoration.outline.copyWith(hintText: hint, suffix: suffix),
+            FormDecoration.outline.copyWith(
+              hintText: hint,
+              suffix: suffix,
+              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+            ),
         validator: validate,
         onChanged: onChanged,
       ),
@@ -113,7 +132,7 @@ class FormHelperDropDown extends FormHelperField
       super.initialValue,
       super.decoration,
       super.hint,
-      super.isRequired,
+      super.isRequired = false,
       super.validator,
       super.onChanged});
 
@@ -131,12 +150,30 @@ class FormHelperDropDown extends FormHelperField
         .toList();
 
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: FormBuilderDropdown(
         name: name,
         initialValue: initialValue,
-        decoration:
-            decoration ?? FormDecoration.outline.copyWith(hintText: hint),
+        decoration: decoration ??
+            FormDecoration.outline.copyWith(
+              hintText: hint,
+              hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 14),
+            ),
         validator: validator,
         onChanged: onChanged,
         items: items,
@@ -146,7 +183,7 @@ class FormHelperDropDown extends FormHelperField
 
   @override
   String? validate(String? value) {
-    if (isRequired == true) {
+    if (isRequired!) {
       return validateRequired(value);
     }
 
@@ -189,7 +226,22 @@ class FormHelperDatePicker extends FormHelperField
   @override
   Widget get toWidget {
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: FormBuilderDateTimePicker(
         name: name,
         inputType: inputType,
@@ -229,7 +281,22 @@ class FormHelperSingleFilePicker extends FormHelperField {
   @override
   Widget get toWidget {
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: SingleFilePicker(
         name: name,
         decoration:
@@ -248,7 +315,22 @@ class FormHelperMultiFilePicker extends FormHelperField {
   @override
   Widget get toWidget {
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: FormBuilderFilePicker(
         name: name,
         decoration:
@@ -281,7 +363,22 @@ class FormHelperTextFieldWithSuffixDropdown extends FormHelperField {
   @override
   Widget get toWidget {
     return FormFieldTemplate(
-      title: title,
+      title: RichText(
+        text: TextSpan(
+          text: title,
+          style: const TextStyle(
+              color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+          children: [
+            if (isRequired == true)
+              const TextSpan(
+                text: " *",
+                style: TextStyle(color: Colors.red, fontSize: 20),
+              )
+            else
+              const TextSpan()
+          ],
+        ),
+      ),
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.grey),
@@ -354,7 +451,22 @@ class FormHelperTimeOfDayRangePicker extends FormHelperField {
 
   @override
   Widget get toWidget => FormFieldTemplate(
-        title: title,
+        title: RichText(
+          text: TextSpan(
+            text: title,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+            children: [
+              if (isRequired == true)
+                const TextSpan(
+                  text: " *",
+                  style: TextStyle(color: Colors.red, fontSize: 20),
+                )
+              else
+                const TextSpan()
+            ],
+          ),
+        ),
         child: Row(
           children: [
             Expanded(
@@ -394,7 +506,22 @@ class FormHelperRadio extends FormHelperField {
 
   @override
   Widget get toWidget => FormFieldTemplate(
-        title: title,
+        title: RichText(
+          text: TextSpan(
+            text: title,
+            style: const TextStyle(
+                color: Colors.black, fontSize: 17, fontWeight: FontWeight.w300),
+            children: [
+              if (isRequired == true)
+                const TextSpan(
+                  text: " *",
+                  style: TextStyle(color: Colors.red, fontSize: 20),
+                )
+              else
+                const TextSpan()
+            ],
+          ),
+        ),
         child: FormBuilderChoiceChip(
           decoration: const InputDecoration(
             border: InputBorder.none,

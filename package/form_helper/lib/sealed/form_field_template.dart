@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 
 class FormFieldTemplate extends StatelessWidget {
-  const FormFieldTemplate(
-      {super.key,
-      required this.child,
-      required this.title,
-      this.isRequired = false});
+  const FormFieldTemplate({
+    super.key,
+    required this.child,
+    required this.title,
+  });
 
   final Widget child;
-  final String title;
-  final bool? isRequired;
+  final Widget title;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +18,7 @@ class FormFieldTemplate extends StatelessWidget {
         const SizedBox(
           height: 5,
         ),
-        Text(title),
+        title,
         // Text(title),
         const SizedBox(
           height: 5,
