@@ -89,6 +89,7 @@ class FormHelperTextField extends FormHelperField
         ),
       ),
       child: FormBuilderTextField(
+        key: Key(name),
         name: name,
         initialValue: initialValue,
         maxLines: maxLine,
