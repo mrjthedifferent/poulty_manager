@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:poulty_manager/feature/batch_home/presentation/home/home.dart';
 import 'package:poulty_manager/feature/firm/data/repository/repo.dart';
 import 'package:styled_widget/styled_widget.dart';
 
@@ -78,7 +79,12 @@ class HomeFragments extends ConsumerWidget {
             ),
             text: Styled.text('খামারি ঘর'),
             onPressed: () {
-              context.showNotImplSnackBar();
+              // context.showNotImplSnackBar();
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const BatchHomeMainPage()));
             },
           ),
           CreateGridItem(
