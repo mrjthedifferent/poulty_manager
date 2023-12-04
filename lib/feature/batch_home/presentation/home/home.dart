@@ -28,6 +28,7 @@ class BatchHomeMainPage extends HookConsumerWidget {
               height: 10,
             ),
             commentContainer(),
+            commentContainer(),
           ],
         ),
       ),
