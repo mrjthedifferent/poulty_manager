@@ -8,7 +8,7 @@ Widget commentContainer() {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: Colors.grey, width: 0.5),
+        border: Border.all(color: Colors.grey, width: 0.2),
       ),
       child: Column(
         children: [
@@ -31,9 +31,21 @@ Widget commentContainer() {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Styled.text('মোঃ বারেক ওভামা').fontSize(16),
-                    Styled.text('হাজী এগ্রো ফার্ম')
-                        .fontSize(14)
-                        .textColor(Colors.grey),
+                    Row(
+                      children: [
+                        Styled.text('হাজী এগ্রো ফার্ম')
+                            .fontSize(14)
+                            .textColor(Colors.grey),
+                        const SizedBox(
+                          width: 5,
+                        ),
+                        const Icon(
+                          Icons.verified,
+                          color: Colors.orange,
+                          size: 15,
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -41,14 +53,14 @@ Widget commentContainer() {
           ),
           const Divider(
             color: Colors.grey,
-            thickness: 0.5,
+            thickness: 0.2,
           ),
           // Comments Row
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Styled.text('Lorem ipsum dolor sit amet consectetur.')
+                Styled.text('Lorem ipsum dolor sit amet consectetur...')
                     .fontSize(12)
                     .textColor(Colors.grey),
               ],
@@ -56,7 +68,7 @@ Widget commentContainer() {
           ),
           const Divider(
             color: Colors.grey,
-            thickness: 0.5,
+            thickness: 0.2,
           ),
 
           // Total Like comment and view count with icon
@@ -67,7 +79,10 @@ Widget commentContainer() {
               children: [
                 Row(
                   children: [
-                    const Icon(Icons.favorite_border_outlined),
+                    const Icon(
+                      Icons.favorite_border_outlined,
+                      color: Colors.grey,
+                    ),
                     const SizedBox(
                       width: 5,
                     ),
@@ -76,7 +91,13 @@ Widget commentContainer() {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.comment_outlined),
+                    GestureDetector(
+                      child: const Icon(
+                        Icons.comment_outlined,
+                        color: Colors.grey,
+                      ),
+                      onTap: () {},
+                    ),
                     const SizedBox(
                       width: 5,
                     ),
@@ -85,7 +106,10 @@ Widget commentContainer() {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.remove_red_eye_outlined),
+                    const Icon(
+                      Icons.remove_red_eye_outlined,
+                      color: Colors.grey,
+                    ),
                     const SizedBox(
                       width: 5,
                     ),
