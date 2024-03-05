@@ -1,4 +1,4 @@
-package com.faisalkabir.poulty_manager.poulty_manager
+package com.poultrymanagerbd.app
 
 import io.flutter.embedding.android.FlutterActivity
 
