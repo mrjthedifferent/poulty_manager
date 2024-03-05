@@ -116,7 +116,7 @@ class SignInInitial extends HookConsumerWidget {
             return;
           } else {
             onSignIn({
-              "phone": phoneController.text,
+              "id": phoneController.text,
               "password": passwordController.text,
             });
           }
