@@ -61,6 +61,25 @@ dev_dependencies:
   json_serializable: ^6.7.1
   riverpod_generator: ^2.3.2
   riverpod_lint: ^2.1.0
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: false
+  image_path: "assets/logo.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: false
+    image_path: "assets/logo.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: false
+    image_path: "assets/logo.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: false
+    image_path: "assets/logo.png"
 
 flutter_gen:
   output: lib/gen/ # Optional (default: lib/gen/)
@@ -82,6 +101,7 @@ flutter:
   assets:
     - assets/icons/
     - assets/images/
+    - assets/logo.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
   # For details regarding adding assets from package dependencies, see
